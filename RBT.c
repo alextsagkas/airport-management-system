@@ -10,7 +10,7 @@ enum color { red, black };
 
 struct RB_Tree {
   int key;
-  char *color;
+  enum color color;
   struct RB_Tree *p;
   struct RB_Tree *right;
   struct RB_Tree *left;
@@ -20,11 +20,11 @@ typedef struct RB_Tree *Node;
 
 Node T_nil;
 
-Node createNode(int key, char *color) {
+Node createNode(int key, enum color color) {
   Node nd = (Node)malloc(sizeof(struct RB_Tree));
   nd->key = key;
-  nd->color = (char *)malloc(sizeof(char) * (strlen(color) + 1));
-  strcpy(nd->color, color);
+  nd->color = (enum color)malloc(sizeof(enum color));
+  nd->color = color;
   nd->p = NULL;
   nd->right = NULL;
   nd->left = NULL;
@@ -43,7 +43,7 @@ void inorderTreeWalk(Node root, int space) {
 
     if(root->key == -1)
       printf("%sL", KRESET);
-    else if(!strcmp(root->color, "b"))
+    else if(root->color == black)
       printf("%s%d", KRESET, root->key);
     else
       printf("%s%d", KRED, root->key);
@@ -166,44 +166,44 @@ void Right_Rotate(Node *root, Node x) {
 void RB_Insert_Fixup(Node *root, Node z) {
   Node y = createNode(0, " ");
 
-  while(!strcmp(z->p->color, "r")) {
+  while(z->p->color == red) {
     if(z->p == z->p->p->left) {
       y = z->p->p->right;
 
-      if(!strcmp(y->color, "r")) {
-        z->p->color = "b";
-        y->color = "b";
-        z->p->p->color = "r";
+      if(y->color == red) {
+        z->p->color = black;
+        y->color = black;
+        z->p->p->color = red;
         z = z->p->p;
       } else {
         if(z->p->right == z) {
           z = z->p;
           Left_Rotate(root, z);
         }
-        z->p->color = "b";
-        z->p->p->color = "r";
+        z->p->color = black;
+        z->p->p->color = red;
         Right_Rotate(root, z->p->p);
       }
     } else {
       y = z->p->p->left;
 
-      if(!strcmp(y->color, "r")) {
-        z->p->color = "b";
-        y->color = "b";
-        z->p->p->color = "r";
+      if(y->color == red) {
+        z->p->color = black;
+        y->color = black;
+        z->p->p->color = red;
         z = z->p->p;
       } else {
         if(z->p->left == z) {
           z = z->p;
           Right_Rotate(root, z);
         }
-        z->p->color = "b";
-        z->p->p->color = "r";
+        z->p->color = black;
+        z->p->p->color = red;
         Left_Rotate(root, z->p->p);
       }
     }
   }
-  (*root)->color = "b";
+  (*root)->color = black;
 }
 
 void RB_Insert(Node *root, Node z) {
@@ -229,7 +229,7 @@ void RB_Insert(Node *root, Node z) {
 
   z->left = T_nil;
   z->right = T_nil;
-  z->color = "r";
+  z->color = red;
 
   RB_Insert_Fixup(root, z);
 }
@@ -256,69 +256,69 @@ void RB_Transplant(Node *root, Node u, Node v) {
 void RB_Delete_Fixup(Node *root, Node x) {
   Node w;
 
-  while(x != *root && !strcmp(x->color, "b")) {
+  while(x != *root && x->color == black) {
     if(x == x->p->left) {
       w = x->p->right;
 
-      if(!strcmp(w->color, "r")) {
-        x->p->color = strdup("r");
-        w->color = strdup("b");
+      if(w->color == red) {
+        x->p->color = red;
+        w->color = black;
         Left_Rotate(root, x->p);
         w = x->p->right;
       }
 
-      if(!strcmp(w->left->color, "b") && !strcmp(w->right->color, "b")) {
-        w->color = strdup("r");
+      if(w->left->color == black && w->right->color == black) {
+        w->color = red;
         x = x->p;
       } else {
-        if(!strcmp(w->right->color, "b")) {
-          w->left->color = strdup("b");
-          w->color = strdup("r");
+        if(w->right->color == black) {
+          w->left->color = black;
+          w->color = red;
           Right_Rotate(root, w);
           w = x->p->right;
         }
 
-        w->color = strdup(x->p->color);
-        x->p->color = strdup("b");
-        w->right->color = strdup("b");
+        w->color = x->p->color;
+        x->p->color = black;
+        w->right->color = black;
         Left_Rotate(root, x->p);
         x = *root;
       }
     } else {
       w = x->p->left;
 
-      if(!strcmp(w->color, "r")) {
-        x->p->color = strdup("r");
-        w->color = strdup("b");
+      if(w->color == red) {
+        x->p->color = red;
+        w->color = black;
         Right_Rotate(root, x->p);
         w = x->p->left;
       }
 
-      if(!strcmp(w->right->color, "b") && !strcmp(w->left->color, "b")) {
-        w->color = strdup("r");
+      if((->right->color == black) && w->left->color == black) {
+        w->color = red;
         x = x->p;
       } else {
-        if(!strcmp(w->left->color, "b")) {
-          w->right->color = strdup("b");
-          w->color = strdup("r");
+        if(w->left->color == black) {
+          w->right->color = black;
+          w->color = red;
           Left_Rotate(root, w);
           w = x->p->left;
         }
 
-        w->color = strdup(x->p->color);
-        x->p->color = strdup("b");
-        w->left->color = strdup("b");
+        w->color = x->p->color;
+        x->p->color = black;
+        w->left->color = black;
         Right_Rotate(root, x->p);
         x = *root;
       }
     }
   }
-  x->color = strdup("b");
+  x->color = black;
 }
 
 void RB_Delete(Node *root, Node z) {
   Node y = z;
-  char *y_original_color = strdup(y->color);
+  enum color y_original_color = y->color;
 
   Node x;
 
@@ -330,7 +330,7 @@ void RB_Delete(Node *root, Node z) {
     RB_Transplant(root, z, z->left);
   } else {
     y = minimum(z->right);
-    strcpy(y_original_color, y->color);
+    y_original_color = y->color;
     x = y->right;
 
     if(y->p == z)
@@ -344,39 +344,39 @@ void RB_Delete(Node *root, Node z) {
     RB_Transplant(root, z, y);
     y->left = z->left;
     y->left->p = y;
-    y->color = strdup(z->color);
+    y->color = z->color;
   }
 
-  if(!strcmp(y_original_color, "b")) RB_Delete_Fixup(root, x);
+  if(y_original_color == black) RB_Delete_Fixup(root, x);
 }
 
 // int main() {
 //   Node root, nd1, nd2, nd3, nd4, nd5, nd6, nd7, nd8, nd9, nd10, nd11, nd12, nd13, nd14, nd15, nd16, nd17, nd18, nd19,
 //   nd20;
 
-//   T_nil = createNode(-1, "b");
+//   T_nil = createNode(-1, black);
 //   root = T_nil;
 
-//   nd1 = createNode(26, "b");
-//   nd2 = createNode(17, "r");
-//   nd3 = createNode(41, "b");
-//   nd4 = createNode(14, "b");
-//   nd5 = createNode(21, "b");
-//   nd6 = createNode(30, "r");
-//   nd7 = createNode(47, "b");
-//   nd8 = createNode(10, "r");
-//   nd9 = createNode(16, "b");
-//   nd10 = createNode(19, "b");
-//   nd11 = createNode(23, "b");
-//   nd12 = createNode(28, "b");
-//   nd13 = createNode(38, "b");
-//   nd14 = createNode(7, "b");
-//   nd15 = createNode(12, "b");
-//   nd16 = createNode(15, "r");
-//   nd17 = createNode(20, "r");
-//   nd18 = createNode(35, "r");
-//   nd19 = createNode(39, "r");
-//   nd20 = createNode(3, "r");
+//   nd1 = createNode(26, black);
+//   nd2 = createNode(17, red);
+//   nd3 = createNode(41, black);
+//   nd4 = createNode(14, black);
+//   nd5 = createNode(21, black);
+//   nd6 = createNode(30, red);
+//   nd7 = createNode(47, black);
+//   nd8 = createNode(10, red);
+//   nd9 = createNode(16, black);
+//   nd10 = createNode(19, black);
+//   nd11 = createNode(23, black);
+//   nd12 = createNode(28, black);
+//   nd13 = createNode(38, black);
+//   nd14 = createNode(7, black);
+//   nd15 = createNode(12, black);
+//   nd16 = createNode(15, red);
+//   nd17 = createNode(20, red);
+//   nd18 = createNode(35, red);
+//   nd19 = createNode(39, red);
+//   nd20 = createNode(3, red);
 
 //   RB_Insert(&root, nd1);
 //   RB_Insert(&root, nd2);
