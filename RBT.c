@@ -22,8 +22,8 @@ Node T_nil;
 
 Node createNode(int key, enum color color) {
   Node nd = (Node)malloc(sizeof(struct RB_Tree));
+
   nd->key = key;
-  nd->color = (enum color)malloc(sizeof(enum color));
   nd->color = color;
   nd->p = NULL;
   nd->right = NULL;
@@ -294,7 +294,7 @@ void RB_Delete_Fixup(Node *root, Node x) {
         w = x->p->left;
       }
 
-      if((->right->color == black) && w->left->color == black) {
+      if((w->right->color == black) && w->left->color == black) {
         w->color = red;
         x = x->p;
       } else {
@@ -351,7 +351,14 @@ void RB_Delete(Node *root, Node z) {
 }
 
 int main(void) {
+  Node T_nil = createNode(-1, black);
+  Node root = T_nil;
+
   char answer = '_';
+  char choice = '_';
+
+  int key;
+  enum color color;
 
   while(answer != 'q') {
     printf("\n--------------------------------------------------------------\n");
@@ -374,6 +381,24 @@ int main(void) {
       case 'i':
         printf("\nInsert an element in the RBT");
 
+        printf("\nGive the key of the element: ");
+        scanf("%d", &key);
+
+        printf("Previous choice was: %c\n", choice);
+        printf("Choose the color of the node from the following options:\n");
+        printf(" r: Red\n");
+        printf(" b: Black\n");
+        printf("Give a new choice: ");
+
+        choice = getchar();
+        getchar();
+
+        color = (choice == 'r') ? red : black;
+        printf("The enum that corresponds to the color is: %d\n", color);
+
+        printf("%d", color);
+
+        RB_Insert(&root, createNode(key, color));
         break;
       case 'd':
         printf("\nDelete an element from the RBT");
