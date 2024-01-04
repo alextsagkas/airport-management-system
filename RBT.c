@@ -164,7 +164,7 @@ void Right_Rotate(Node *root, Node x) {
 }
 
 void RB_Insert_Fixup(Node *root, Node z) {
-  Node y = createNode(0, " ");
+  Node y = createNode(0, red);  // assign arbitrary color
 
   while(z->p->color == red) {
     if(z->p == z->p->p->left) {
@@ -350,6 +350,53 @@ void RB_Delete(Node *root, Node z) {
   if(y_original_color == black) RB_Delete_Fixup(root, x);
 }
 
+int main(void) {
+  char answer = '_';
+
+  while(answer != 'q') {
+    printf("\n--------------------------------------------------------------\n");
+    printf("Previous answer was: %c\n", answer);
+    printf("Choose from the following options:\n");
+    printf(" i: Insert an element in the RBT\n");
+    printf(" d: Delete an element from the RBT\n");
+    printf(" p: Print the RBT\n");
+    printf(" q: Quit the program\n");
+    printf("\nGive a new choice: ");
+
+    fflush(stdin);
+    answer = getchar();
+    getchar();
+
+    printf("The new answer is: %c", answer);
+    printf("\n--------------------------------------------------------------\n");
+
+    switch(answer) {
+      case 'i':
+        printf("\nInsert an element in the RBT");
+
+        break;
+      case 'd':
+        printf("\nDelete an element from the RBT");
+
+        break;
+      case 'p':
+        printf("\nPrint the RBT");
+
+        break;
+      case 'q':
+        printf("\nQuit the program\n");
+
+        break;
+      default:
+        printf("\nInvalid input, please try again\n");
+    }
+  }
+
+  printf("\nThe program has halted");
+
+  return 0;
+}
+
 // int main() {
 //   Node root, nd1, nd2, nd3, nd4, nd5, nd6, nd7, nd8, nd9, nd10, nd11, nd12, nd13, nd14, nd15, nd16, nd17, nd18, nd19,
 //   nd20;
@@ -407,50 +454,3 @@ void RB_Delete(Node *root, Node z) {
 
 //   return 0;
 // }
-
-int main(void) {
-  char answer = '_';
-
-  while(answer != 'q') {
-    printf("\n--------------------------------------------------------------\n");
-    printf("Previous answer was: %c\n", answer);
-    printf("Choose from the following options:\n");
-    printf(" i: Insert an element in the RBT\n");
-    printf(" d: Delete an element from the RBT\n");
-    printf(" p: Print the RBT\n");
-    printf(" q: Quit the program\n");
-    printf("\nGive a new choice: ");
-
-    fflush(stdin);
-    answer = getchar();
-    getchar();
-
-    printf("The new answer is: %c", answer);
-    printf("\n--------------------------------------------------------------\n");
-
-    switch(answer) {
-      case 'i':
-        printf("\nInsert an element in the RBT");
-
-        break;
-      case 'd':
-        printf("\nDelete an element from the RBT");
-
-        break;
-      case 'p':
-        printf("\nPrint the RBT");
-
-        break;
-      case 'q':
-        printf("\nQuit the program\n");
-
-        break;
-      default:
-        printf("\nInvalid input, please try again\n");
-    }
-  }
-
-  printf("\nThe program has halted");
-
-  return 0;
-}
