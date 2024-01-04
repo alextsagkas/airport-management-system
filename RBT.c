@@ -174,10 +174,11 @@ void RB_Insert_Fixup(Node *root, Node z) {
         y->color = BLACK;
         z->p->p->color = RED;
         z = z->p->p;
-      } else if(z->p->right == z) {
-        z = z->p;
-        Left_Rotate(root, z);
       } else {
+        if(z->p->right == z) {
+          z = z->p;
+          Left_Rotate(root, z);
+        }
         z->p->color = BLACK;
         z->p->p->color = RED;
         Right_Rotate(root, z->p->p);
@@ -190,10 +191,11 @@ void RB_Insert_Fixup(Node *root, Node z) {
         y->color = BLACK;
         z->p->p->color = RED;
         z = z->p->p;
-      } else if(z->p->left == z) {
-        z = z->p;
-        Right_Rotate(root, z);
       } else {
+        if(z->p->left == z) {
+          z = z->p;
+          Right_Rotate(root, z);
+        }
         z->p->color = BLACK;
         z->p->p->color = RED;
         Left_Rotate(root, z->p->p);
@@ -262,15 +264,18 @@ void RB_Delete_Fixup(Node *root, Node x) {
         w->color = BLACK;
         Left_Rotate(root, x->p);
         w = x->p->right;
-      } else if(w->left->color == BLACK && w->right->color == BLACK) {
+      }
+
+      if(w->left->color == BLACK && w->right->color == BLACK) {
         w->color = RED;
         x = x->p;
-      } else if(w->right->color == BLACK) {
-        w->left->color = BLACK;
-        w->color = RED;
-        Right_Rotate(root, w);
-        w = x->p->right;
       } else {
+        if(w->right->color == BLACK) {
+          w->left->color = BLACK;
+          w->color = RED;
+          Right_Rotate(root, w);
+          w = x->p->right;
+        }
         w->color = x->p->color;
         x->p->color = BLACK;
         w->right->color = BLACK;
@@ -285,15 +290,18 @@ void RB_Delete_Fixup(Node *root, Node x) {
         w->color = BLACK;
         Right_Rotate(root, x->p);
         w = x->p->left;
-      } else if(w->right->color == BLACK && w->left->color == BLACK) {
+      }
+
+      if(w->right->color == BLACK && w->left->color == BLACK) {
         w->color = RED;
         x = x->p;
-      } else if(w->left->color == BLACK) {
-        w->right->color = BLACK;
-        w->color = RED;
-        Left_Rotate(root, w);
-        w = x->p->left;
       } else {
+        if(w->left->color == BLACK) {
+          w->right->color = BLACK;
+          w->color = RED;
+          Left_Rotate(root, w);
+          w = x->p->left;
+        }
         w->color = x->p->color;
         x->p->color = BLACK;
         w->left->color = BLACK;
@@ -340,6 +348,63 @@ void RB_Delete(Node *root, Node z) {
 }
 
 int main() {
+  T_nil = createNode(-1, BLACK);
+  Node root = T_nil;
+
+  char answer = '_';
+  int key;
+
+  while(answer != 'q') {
+    printf("\n--------------------------------------------------------------\n");
+    printf("Previous answer was: %c\n", answer);
+    printf("Choose from the following options:\n");
+    printf(" i: Insert an element in the RBT\n");
+    printf(" d: Delete an element from the RBT\n");
+    printf(" p: Print the RBT\n");
+    printf(" q: Quit the program\n");
+    printf("Give a new choice: ");
+
+    fflush(stdin);
+    answer = getchar();
+    getchar();
+
+    printf("The new answer is: %c", answer);
+    printf("\n--------------------------------------------------------------\n");
+
+    switch(answer) {
+      case 'i':
+        printf("\nInsert an element in the RBT");
+        printf("\nGive the key of the element: ");
+        scanf("%d", &key);
+        getchar();
+
+        RB_Insert(&root, createNode(key, RED));
+
+        break;
+      case 'd':
+        printf("\nDelete an element from the RBT");
+
+        break;
+      case 'p':
+        printf("\nPrint the RBT");
+        printTree(root);
+        printf("\n");
+
+        break;
+      case 'q':
+
+        break;
+      default:
+        printf("\nInvalid input, please try again.\n");
+    }
+  }
+
+  printf("\nThe program has halted.");
+
+  return 0;
+}
+
+int old_main() {
   Node root, nd1, nd2, nd3, nd4, nd5, nd6, nd7, nd8, nd9, nd10, nd11, nd12, nd13, nd14, nd15, nd16, nd17, nd18, nd19, nd20;
 
   T_nil = createNode(-1, BLACK);
