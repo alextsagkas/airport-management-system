@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -69,7 +70,7 @@ void printTree(Node root) { inorderTreeWalk(root, 0); }
 // }
 
 Node searchRecursive(Node root, int key) {
-  while(root->key != key || root != T_nil) {
+  while(root != T_nil && root->key != key) {
     if(root->key > key)
       root = root->left;
     else
@@ -313,6 +314,7 @@ void RB_Delete_Fixup(Node *root, Node x) {
   x->color = BLACK;
 }
 
+// BUG: Error when RBT is empty
 void RB_Delete(Node *root, Node z) {
   Node y = z;
   enum color y_original_color = y->color;
@@ -383,6 +385,11 @@ int main() {
         break;
       case 'd':
         printf("\nDelete an element from the RBT");
+        printf("\nGive the key of the element: ");
+        scanf("%d", &key);
+        getchar();
+
+        RB_Delete(&root, searchRecursive(root, key));
 
         break;
       case 'p':
@@ -400,63 +407,6 @@ int main() {
   }
 
   printf("\nThe program has halted.");
-
-  return 0;
-}
-
-int old_main() {
-  Node root, nd1, nd2, nd3, nd4, nd5, nd6, nd7, nd8, nd9, nd10, nd11, nd12, nd13, nd14, nd15, nd16, nd17, nd18, nd19, nd20;
-
-  T_nil = createNode(-1, BLACK);
-  root = T_nil;
-
-  nd1 = createNode(26, BLACK);
-  nd2 = createNode(17, RED);
-  nd3 = createNode(41, BLACK);
-  nd4 = createNode(14, BLACK);
-  nd5 = createNode(21, BLACK);
-  nd6 = createNode(30, RED);
-  nd7 = createNode(47, BLACK);
-  nd8 = createNode(10, RED);
-  nd9 = createNode(16, BLACK);
-  nd10 = createNode(19, BLACK);
-  nd11 = createNode(23, BLACK);
-  nd12 = createNode(28, BLACK);
-  nd13 = createNode(38, BLACK);
-  nd14 = createNode(7, BLACK);
-  nd15 = createNode(12, BLACK);
-  nd16 = createNode(15, RED);
-  nd17 = createNode(20, RED);
-  nd18 = createNode(35, RED);
-  nd19 = createNode(39, RED);
-  nd20 = createNode(3, RED);
-
-  RB_Insert(&root, nd1);
-  RB_Insert(&root, nd2);
-  RB_Insert(&root, nd3);
-  RB_Insert(&root, nd4);
-  RB_Insert(&root, nd5);
-  RB_Insert(&root, nd6);
-  RB_Insert(&root, nd7);
-  RB_Insert(&root, nd8);
-  RB_Insert(&root, nd9);
-  RB_Insert(&root, nd10);
-  RB_Insert(&root, nd11);
-  RB_Insert(&root, nd12);
-  RB_Insert(&root, nd13);
-  RB_Insert(&root, nd14);
-  RB_Insert(&root, nd15);
-  RB_Insert(&root, nd16);
-  RB_Insert(&root, nd17);
-  RB_Insert(&root, nd18);
-  RB_Insert(&root, nd19);
-  RB_Insert(&root, nd20);
-
-  printTree(root);
-  printf("\n\n");
-
-  RB_Delete(&root, nd6);
-  printTree(root);
 
   return 0;
 }
