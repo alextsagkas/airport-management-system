@@ -1,4 +1,8 @@
+#ifndef RBT
+#define RBT
+
 typedef struct RBT_node *Nodep;
+enum color { RED, BLACK };
 
 struct RBT_node {
   int key;
@@ -7,8 +11,6 @@ struct RBT_node {
   struct RBT_node *right;
   struct RBT_node *left;
 };
-
-enum color { RED, BLACK };
 
 Nodep T_nil;
 
@@ -24,3 +26,5 @@ void RBT_insert(Nodep *root, Nodep z);
 void RBT_transplant(Nodep *root, Nodep u, Nodep v);
 void RBT_delete_fixup(Nodep *root, Nodep x);
 int RBT_delete(Nodep *root, Nodep z);
+
+#endif
