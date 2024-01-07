@@ -314,8 +314,22 @@ void RB_Delete_Fixup(Node *root, Node x) {
   x->color = BLACK;
 }
 
-// BUG: Error when RBT is empty
-void RB_Delete(Node *root, Node z) {
+/*
+Description: Deletes a node from the RBT
+
+Parameters:
+  - root: The root of the RBT
+  - z: The node to be deleted
+
+Return values:
+  - 0: Success
+  - -1: z in T_nil
+*/
+int RB_Delete(Node *root, Node z) {
+  if(z == T_nil) {
+    return -1;
+  }
+
   Node y = z;
   enum color y_original_color = y->color;
 
@@ -347,6 +361,8 @@ void RB_Delete(Node *root, Node z) {
   }
 
   if(y_original_color == BLACK) RB_Delete_Fixup(root, x);
+
+  return 0;
 }
 
 int main() {
@@ -389,7 +405,20 @@ int main() {
         scanf("%d", &key);
         getchar();
 
-        RB_Delete(&root, searchRecursive(root, key));
+        Node nd = searchRecursive(root, key);
+        int value = RB_Delete(&root, nd);
+
+        switch(value) {
+          case 0:
+            printf("\nElement deleted successfully\n");
+            break;
+          case -1:
+            printf("\nRBT is empty\n");
+            break;
+
+          default:
+            break;
+        }
 
         break;
       case 'p':
