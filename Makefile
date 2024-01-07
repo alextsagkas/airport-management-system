@@ -1,12 +1,12 @@
-exec: RBT scaffold
-	gcc scaffold.o RBT.o -o exec
+exec: rbt scaffold
+	gcc scaffold.o rbt.o -o exec
 	./exec
 
 scaffold: scaffold.c
 	gcc -c scaffold.c 
 
-RBT: RBT.c RBT.h
-	gcc -c RBT.c
+rbt: rbt.c rbt.h
+	gcc -c rbt.c
 
 clean: 
 	rm *.o

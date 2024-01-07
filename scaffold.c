@@ -14,7 +14,7 @@ References:
 
 #include <stdio.h>
 
-#include "RBT.h"
+#include "rbt.h"
 
 int main() {
   // BRT where tests are done
@@ -27,6 +27,9 @@ int main() {
   // User input
   char answer = '_';
   int key;
+
+  printf("\n--------------------------------------------------------------\n");
+  printf("\nCreate the RBT\n");
 
   while(answer != 'q') {
     printf("\n--------------------------------------------------------------\n");

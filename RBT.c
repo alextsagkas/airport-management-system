@@ -12,7 +12,7 @@ References:
  by Brian W. Kernighan and Rob Pike.
 */
 
-#include "RBT.h"
+#include "rbt.h"
 
 #include <assert.h>
 #include <stdio.h>
