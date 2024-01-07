@@ -7,9 +7,8 @@
 #include "RBT.h"
 
 int main() {
-  T_nil = RBT_create_node(-1, BLACK);
-
-  Nodep root = T_nil;
+  Treep T = RBT_create_tree();
+  Nodep nd;
 
   char answer = '_';
   int key;
@@ -38,7 +37,8 @@ int main() {
         scanf("%d", &key);
         getchar();
 
-        RBT_insert(&root, RBT_create_node(key, RED));
+        nd = RBT_create_node(key, RED);
+        RBT_insert(T, nd);
 
         break;
       case 'd':
@@ -47,8 +47,8 @@ int main() {
         scanf("%d", &key);
         getchar();
 
-        Nodep nd = RBT_search(root, key);
-        int value = RBT_delete(&root, nd);
+        nd = RBT_search(T, key);
+        int value = RBT_delete(T, nd);
 
         switch(value) {
           case 0:
@@ -65,7 +65,7 @@ int main() {
         break;
       case 'p':
         printf("\nPrint the RBT");
-        RBT_print_tree(root);
+        RBT_print_tree(T);
         printf("\n");
 
         break;

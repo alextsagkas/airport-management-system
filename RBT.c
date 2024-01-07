@@ -9,6 +9,17 @@
 #define KRED "\x1B[31m"
 #define KRESET "\x1b[0m"
 
+Treep RBT_create_tree(void) {
+  Treep T = (Treep)malloc(sizeof(struct RBT_tree));
+  T->nil = (Nodep)malloc(sizeof(struct RBT_node));
+  T->nil->color = BLACK;
+
+  T->root = T->nil;
+  T->root->p = T->nil;
+
+  return T;
+}
+
 Nodep RBT_create_node(int key, enum color color) {
   Nodep nd = (Nodep)malloc(sizeof(struct RBT_node));
   nd->key = key;
@@ -20,59 +31,68 @@ Nodep RBT_create_node(int key, enum color color) {
   return nd;
 }
 
-void RBT_inorder_tree_walk(Nodep root, int space) {
-  if(root != NULL) {
+// TODO: return -1 when T->root == T->nil and 0 otherwise
+void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
+  // This values might have changed in RB_delete
+  T->nil->right = NULL;
+  T->nil->left = NULL;
+
+  Nodep tmp = root;
+
+  if(tmp != NULL && T->root != T->nil) {
     space += 8;
 
-    RBT_inorder_tree_walk(root->right, space);
+    RBT_inorder_tree_walk(T, tmp->right, space);
 
     printf("\n");
     for(int i = 8; i < space; i++) printf(" ");
 
-    if(root->key == -1)
+    if(tmp == T->nil)
       printf("%sL", KRESET);
-    else if(root->color == BLACK)
-      printf("%s%d", KRESET, root->key);
+    else if(tmp->color == BLACK)
+      printf("%s%d", KRESET, tmp->key);
     else
-      printf("%s%d", KRED, root->key);
+      printf("%s%d", KRED, tmp->key);
 
-    RBT_inorder_tree_walk(root->left, space);
+    RBT_inorder_tree_walk(T, tmp->left, space);
   }
 }
 
 // BUG: Print nothing when the tree is empty
-void RBT_print_tree(Nodep root) { RBT_inorder_tree_walk(root, 0); }
+void RBT_print_tree(Treep T) { RBT_inorder_tree_walk(T, T->root, 0); }
 
-Nodep RBT_search(Nodep root, int key) {
-  while(root != T_nil && root->key != key) {
-    if(root->key > key)
-      root = root->left;
+Nodep RBT_search(Treep T, int key) {
+  Nodep tmp = T->root;
+
+  while(tmp != T->nil && tmp->key != key) {
+    if(tmp->key > key)
+      tmp = tmp->left;
     else
-      root = root->right;
+      tmp = tmp->right;
   }
-  return root;
+  return tmp;
 }
 
-Nodep RBT_minimum(Nodep root) {
-  if(root == T_nil) {
+Nodep RBT_minimum(Treep T, Nodep root) {
+  if(root == T->nil) {
     return root;
   } else {
-    while(root->left != T_nil) {
+    while(root->left != T->nil) {
       root = root->left;
     }
     return root;
   }
 }
 
-void RBT_left_rotate(Nodep *root, Nodep x) {
+void RBT_left_rotate(Treep T, Nodep x) {
   Nodep y = x->right;
 
   x->right = y->left;
-  if(y->left != T_nil) y->left->p = x;
+  if(y->left != T->nil) y->left->p = x;
 
   y->p = x->p;
-  if(x->p == T_nil)
-    *root = y;
+  if(x->p == T->nil)
+    T->root = y;
   else if(x->p->left == x)
     x->p->left = y;
   else
@@ -82,15 +102,15 @@ void RBT_left_rotate(Nodep *root, Nodep x) {
   x->p = y;
 }
 
-void RBT_right_rotate(Nodep *root, Nodep x) {
+void RBT_right_rotate(Treep T, Nodep x) {
   Nodep y = x->left;
 
   x->left = y->right;
-  if(y->right != T_nil) y->right->p = x;
+  if(y->right != T->nil) y->right->p = x;
 
   y->p = x->p;
-  if(x->p == T_nil)
-    *root = y;
+  if(x->p == T->nil)
+    T->root = y;
   else if(x->p->left == x)
     x->p->left = y;
   else
@@ -100,8 +120,9 @@ void RBT_right_rotate(Nodep *root, Nodep x) {
   x->p = y;
 }
 
-void RBT_insert_fixup(Nodep *root, Nodep z) {
-  Nodep y = RBT_create_node(0, RED);  // arbitrary values
+void RBT_insert_fixup(Treep T, Nodep z) {
+  Nodep y;
+  // Nodep y = RBT_create_node(0, RED);  // arbitrary values
 
   while(z->p->color == RED) {
     if(z->p == z->p->p->left) {
@@ -115,11 +136,11 @@ void RBT_insert_fixup(Nodep *root, Nodep z) {
       } else {
         if(z->p->right == z) {
           z = z->p;
-          RBT_left_rotate(root, z);
+          RBT_left_rotate(T, z);
         }
         z->p->color = BLACK;
         z->p->p->color = RED;
-        RBT_right_rotate(root, z->p->p);
+        RBT_right_rotate(T, z->p->p);
       }
     } else {
       y = z->p->p->left;
@@ -132,23 +153,23 @@ void RBT_insert_fixup(Nodep *root, Nodep z) {
       } else {
         if(z->p->left == z) {
           z = z->p;
-          RBT_right_rotate(root, z);
+          RBT_right_rotate(T, z);
         }
         z->p->color = BLACK;
         z->p->p->color = RED;
-        RBT_left_rotate(root, z->p->p);
+        RBT_left_rotate(T, z->p->p);
       }
     }
   }
-  (*root)->color = BLACK;
+  (T->root)->color = BLACK;
 }
 
 // BUG: Fix the bug that causes the node with the same key to be added more than once
-void RBT_insert(Nodep *root, Nodep z) {
-  Nodep y = T_nil;
-  Nodep x = *root;
+void RBT_insert(Treep T, Nodep z) {
+  Nodep y = T->nil;
+  Nodep x = T->root;
 
-  while(x != T_nil) {
+  while(x != T->nil) {
     y = x;
     if(z->key < x->key)
       x = x->left;
@@ -158,23 +179,23 @@ void RBT_insert(Nodep *root, Nodep z) {
 
   z->p = y;
 
-  if(y == T_nil)
-    *root = z;
+  if(y == T->nil)
+    T->root = z;
   else if(z->key < y->key)
     y->left = z;
   else
     y->right = z;
 
-  z->left = T_nil;
-  z->right = T_nil;
+  z->left = T->nil;
+  z->right = T->nil;
   z->color = RED;
 
-  RBT_insert_fixup(root, z);
+  RBT_insert_fixup(T, z);
 }
 
-void RBT_transplant(Nodep *root, Nodep u, Nodep v) {
-  if(u->p == T_nil)
-    *root = v;
+void RBT_transplant(Treep T, Nodep u, Nodep v) {
+  if(u->p == T->nil)
+    T->root = v;
   else if(u->p->right == u)
     u->p->right = v;
   else
@@ -183,17 +204,17 @@ void RBT_transplant(Nodep *root, Nodep u, Nodep v) {
   v->p = u->p;
 }
 
-void RBT_delete_fixup(Nodep *root, Nodep x) {
+void RBT_delete_fixup(Treep T, Nodep x) {
   Nodep w;
 
-  while(x != *root && x->color == BLACK) {
+  while(x != T->root && x->color == BLACK) {
     if(x == x->p->left) {
       w = x->p->right;
 
       if(w->color == RED) {
         x->p->color = RED;
         w->color = BLACK;
-        RBT_left_rotate(root, x->p);
+        RBT_left_rotate(T, x->p);
         w = x->p->right;
       }
 
@@ -204,14 +225,14 @@ void RBT_delete_fixup(Nodep *root, Nodep x) {
         if(w->right->color == BLACK) {
           w->left->color = BLACK;
           w->color = RED;
-          RBT_right_rotate(root, w);
+          RBT_right_rotate(T, w);
           w = x->p->right;
         }
         w->color = x->p->color;
         x->p->color = BLACK;
         w->right->color = BLACK;
-        RBT_left_rotate(root, x->p);
-        x = *root;
+        RBT_left_rotate(T, x->p);
+        x = T->root;
       }
     } else {
       w = x->p->left;
@@ -219,7 +240,7 @@ void RBT_delete_fixup(Nodep *root, Nodep x) {
       if(w->color == RED) {
         x->p->color = RED;
         w->color = BLACK;
-        RBT_right_rotate(root, x->p);
+        RBT_right_rotate(T, x->p);
         w = x->p->left;
       }
 
@@ -230,14 +251,14 @@ void RBT_delete_fixup(Nodep *root, Nodep x) {
         if(w->left->color == BLACK) {
           w->right->color = BLACK;
           w->color = RED;
-          RBT_left_rotate(root, w);
+          RBT_left_rotate(T, w);
           w = x->p->left;
         }
         w->color = x->p->color;
         x->p->color = BLACK;
         w->left->color = BLACK;
-        RBT_right_rotate(root, x->p);
-        x = *root;
+        RBT_right_rotate(T, x->p);
+        x = T->root;
       }
     }
   }
@@ -245,7 +266,7 @@ void RBT_delete_fixup(Nodep *root, Nodep x) {
 }
 
 /*
-Description: Deletes a node from the RBT
+Description: Deletes the node z from the RBT T
 
 Parameters:
   - root: The root of the RBT
@@ -253,10 +274,10 @@ Parameters:
 
 Return values:
   - 0: Success
-  - -1: z in T_nil
+  - -1: z in T->nil
 */
-int RBT_delete(Nodep *root, Nodep z) {
-  if(z == T_nil) {
+int RBT_delete(Treep T, Nodep z) {
+  if(z == T->nil) {
     return -1;
   }
 
@@ -265,32 +286,32 @@ int RBT_delete(Nodep *root, Nodep z) {
 
   Nodep x;
 
-  if(z->left == T_nil) {
+  if(z->left == T->nil) {
     x = z->right;
-    RBT_transplant(root, z, z->right);
-  } else if(z->right == T_nil) {
+    RBT_transplant(T, z, z->right);
+  } else if(z->right == T->nil) {
     x = z->left;
-    RBT_transplant(root, z, z->left);
+    RBT_transplant(T, z, z->left);
   } else {
-    y = RBT_minimum(z->right);
+    y = RBT_minimum(T, z->right);
     y_original_color = y->color;
     x = y->right;
 
     if(y->p == z)
       x->p = y;
     else {
-      RBT_transplant(root, y, y->right);
+      RBT_transplant(T, y, y->right);
       y->right = z->right;
       y->right->p = y;
     }
 
-    RBT_transplant(root, z, y);
+    RBT_transplant(T, z, y);
     y->left = z->left;
     y->left->p = y;
     y->color = z->color;
   }
 
-  if(y_original_color == BLACK) RBT_delete_fixup(root, x);
+  if(y_original_color == BLACK) RBT_delete_fixup(T, x);
 
   return 0;
 }

@@ -1,5 +1,12 @@
 {
-  "cSpell.words": ["inorder", "KRED", "KRESET", "nodep", "predeseccor"],
+  "cSpell.words": [
+    "inorder",
+    "KRED",
+    "KRESET",
+    "nodep",
+    "predeseccor",
+    "Treep"
+  ],
   "files.associations": {
     "stdio.h": "c",
     "__debug": "cpp",
