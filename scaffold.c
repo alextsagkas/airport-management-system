@@ -51,7 +51,7 @@ int main() {
         nd = RBT_search(T, key);
 
         if(nd == T->nil) {
-          printf("Element not found\n");
+          printf("Node not found\n");
           break;
         }
 
@@ -59,13 +59,21 @@ int main() {
 
         switch(return_value) {
           case 0:
-            printf("Element deleted successfully\n");
+            printf("Node removed successfully from the BRT\n");
             break;
           case -1:
             printf("RBT is empty\n");
             break;
+        }
 
-          default:
+        return_value = RBT_delete_node(nd);
+
+        switch(return_value) {
+          case 0:
+            printf("Node deleted successfully\n");
+            break;
+          case -1:
+            printf("Node is NULL\n");
             break;
         }
 

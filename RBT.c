@@ -11,6 +11,7 @@
 
 Treep RBT_create_tree(void) {
   Treep T = (Treep)malloc(sizeof(struct RBT_tree));
+
   T->nil = (Nodep)malloc(sizeof(struct RBT_node));
   T->nil->color = BLACK;
 
@@ -20,6 +21,16 @@ Treep RBT_create_tree(void) {
   return T;
 }
 
+/*
+Description: Creates a node with key key and color color.
+
+Parameters:
+  - key (int): The key of the node.
+  - color (enum color): The color of the node.
+
+Return values:
+  - Nodep: The node created.
+*/
 Nodep RBT_create_node(int key, enum color color) {
   Nodep nd = (Nodep)malloc(sizeof(struct RBT_node));
   nd->key = key;
@@ -29,6 +40,26 @@ Nodep RBT_create_node(int key, enum color color) {
   nd->left = NULL;
 
   return nd;
+}
+
+/*
+Description: Deletes the node z.
+
+Parameters:
+  - z (Nodep): The node to be deleted.
+
+Return values:
+  - 0: Success
+  - -1: z is NULL
+*/
+int RBT_delete_node(Nodep z) {
+  if(z == NULL) {
+    return -1;
+  }
+
+  free(z);
+
+  return 0;
 }
 
 void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
@@ -191,7 +222,6 @@ void RBT_insert_fixup(Treep T, Nodep z) {
   (T->root)->color = BLACK;
 }
 
-// BUG: Fix the bug that causes the node with the same key to be added more than once
 void RBT_insert(Treep T, Nodep z) {
   Nodep y = T->nil;
   Nodep x = T->root;
