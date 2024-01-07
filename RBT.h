@@ -63,9 +63,9 @@ Asserts:
 int RBT_delete_tree(Treep T);
 
 /*
-Description: Creates a node struct with its key and color denoted by function's parameters
-and returns a pointer to it. The parent, left and right child of the node are initialized to
-NULL.
+Description: Creates a node struct with its key and color denoted by function's
+parameters and returns a pointer to it. The parent, left and right child of the
+node are initialized to NULL.
 
 Parameters:
   - key (int): The key of the node.
@@ -102,9 +102,9 @@ Parameters:
   - key (int): The key of the node to be searched.
 
 Returns:
-  - Nodep: The node with key key or sentinel if the node is not found. If there are
-  multiple nodes with the same key, the one located in the lowest level of the RBT T
-  is returned.
+  - Nodep: The node with key key or sentinel if the node is not found. If there
+are multiple nodes with the same key, the one located in the lowest level of the
+RBT T is returned.
 */
 Nodep RBT_search(Treep T, int key);
 

@@ -72,9 +72,9 @@ int RBT_delete_tree(Treep T) {
 }
 
 /*
-Description: Creates a node struct with its key and color denoted by function's parameters
-and returns a pointer to it. The parent, left and right child of the node are initialized to
-NULL.
+Description: Creates a node struct with its key and color denoted by function's
+parameters and returns a pointer to it. The parent, left and right child of the
+node are initialized to NULL.
 
 Parameters:
   - key (int): The key of the node.
@@ -138,17 +138,18 @@ void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
 
   Nodep tmp = root;
 
-  if(tmp != NULL) {
+  if (tmp != NULL) {
     space += 8;
 
     RBT_inorder_tree_walk(T, tmp->right, space);
 
     printf("\n");
-    for(int i = 8; i < space; i++) printf(" ");
+    for (int i = 8; i < space; i++)
+      printf(" ");
 
-    if(tmp == T->nil)
+    if (tmp == T->nil)
       printf("%sL", KRESET);
-    else if(tmp->color == BLACK)
+    else if (tmp->color == BLACK)
       printf("%s%d", KRESET, tmp->key);
     else
       printf("%s%d", KRED, tmp->key);
@@ -168,7 +169,7 @@ Return values:
   - -1: T is empty.
 */
 int RBT_print_tree(Treep T) {
-  if(T->root == T->nil) {
+  if (T->root == T->nil) {
     return -1;
   }
 
@@ -186,15 +187,15 @@ Parameters:
   - key (int): The key of the node to be searched.
 
 Returns:
-  - Nodep: The node with key key or sentinel if the node is not found. If there are
-  multiple nodes with the same key, the one located in the lowest level of the RBT T
-  is returned.
+  - Nodep: The node with key key or sentinel if the node is not found. If there
+are multiple nodes with the same key, the one located in the lowest level of the
+RBT T is returned.
 */
 Nodep RBT_search(Treep T, int key) {
   Nodep tmp = T->root;
 
-  while(tmp != T->nil && tmp->key != key) {
-    if(tmp->key > key)
+  while (tmp != T->nil && tmp->key != key) {
+    if (tmp->key > key)
       tmp = tmp->left;
     else
       tmp = tmp->right;
@@ -215,10 +216,10 @@ Return values:
   - Nodep: The node with the minimum key in the subtree.
 */
 Nodep RBT_minimum(Treep T, Nodep root) {
-  if(root == T->nil) {
+  if (root == T->nil) {
     return root;
   } else {
-    while(root->left != T->nil) {
+    while (root->left != T->nil) {
       root = root->left;
     }
     return root;
@@ -226,9 +227,9 @@ Nodep RBT_minimum(Treep T, Nodep root) {
 }
 
 /*
-Description: It produces the transformation seen below. The nodes x, y are rotated
-left-wise and their subtrees a and b,c change position respectively. This transformation
-preserves the RBT property.
+Description: It produces the transformation seen below. The nodes x, y are
+rotated left-wise and their subtrees a and b,c change position respectively.
+This transformation preserves the RBT property.
 
     x                   y
   /  \                /  \
@@ -244,12 +245,13 @@ void RBT_left_rotate(Treep T, Nodep x) {
   Nodep y = x->right;
 
   x->right = y->left;
-  if(y->left != T->nil) y->left->p = x;
+  if (y->left != T->nil)
+    y->left->p = x;
 
   y->p = x->p;
-  if(x->p == T->nil)
+  if (x->p == T->nil)
     T->root = y;
-  else if(x->p->left == x)
+  else if (x->p->left == x)
     x->p->left = y;
   else
     x->p->right = y;
@@ -259,9 +261,9 @@ void RBT_left_rotate(Treep T, Nodep x) {
 }
 
 /*
-Description: It produces the transformation seen below. The nodes x, y are rotated
-right-wise and their subtrees c and a,b change position respectively. This transformation
-preserves the RBT property.
+Description: It produces the transformation seen below. The nodes x, y are
+rotated right-wise and their subtrees c and a,b change position respectively.
+This transformation preserves the RBT property.
 
       x             y
     /  \          /  \
@@ -277,12 +279,13 @@ void RBT_right_rotate(Treep T, Nodep x) {
   Nodep y = x->left;
 
   x->left = y->right;
-  if(y->right != T->nil) y->right->p = x;
+  if (y->right != T->nil)
+    y->right->p = x;
 
   y->p = x->p;
-  if(x->p == T->nil)
+  if (x->p == T->nil)
     T->root = y;
-  else if(x->p->left == x)
+  else if (x->p->left == x)
     x->p->left = y;
   else
     x->p->right = y;
@@ -293,7 +296,8 @@ void RBT_right_rotate(Treep T, Nodep x) {
 
 /*
 Description: Asserts that the RBT properties are preserved after the insertion
-of the node z in the RBT T. Node z must have a red color when this function is called.
+of the node z in the RBT T. Node z must have a red color when this function is
+called.
 
 Parameters:
   - T (Treep): The RBT.
@@ -302,17 +306,17 @@ Parameters:
 void RBT_insert_fixup(Treep T, Nodep z) {
   Nodep y;
 
-  while(z->p->color == RED) {
-    if(z->p == z->p->p->left) {
+  while (z->p->color == RED) {
+    if (z->p == z->p->p->left) {
       y = z->p->p->right;
 
-      if(y->color == RED) {
+      if (y->color == RED) {
         z->p->color = BLACK;
         y->color = BLACK;
         z->p->p->color = RED;
         z = z->p->p;
       } else {
-        if(z->p->right == z) {
+        if (z->p->right == z) {
           z = z->p;
           RBT_left_rotate(T, z);
         }
@@ -323,13 +327,13 @@ void RBT_insert_fixup(Treep T, Nodep z) {
     } else {
       y = z->p->p->left;
 
-      if(y->color == RED) {
+      if (y->color == RED) {
         z->p->color = BLACK;
         y->color = BLACK;
         z->p->p->color = RED;
         z = z->p->p;
       } else {
-        if(z->p->left == z) {
+        if (z->p->left == z) {
           z = z->p;
           RBT_right_rotate(T, z);
         }
@@ -358,9 +362,9 @@ int RBT_insert(Treep T, Nodep z) {
   Nodep y = T->nil;
   Nodep x = T->root;
 
-  while(x != T->nil) {
+  while (x != T->nil) {
     y = x;
-    if(z->key < x->key)
+    if (z->key < x->key)
       x = x->left;
     else
       x = x->right;
@@ -368,9 +372,9 @@ int RBT_insert(Treep T, Nodep z) {
 
   z->p = y;
 
-  if(y == T->nil)
+  if (y == T->nil)
     T->root = z;
-  else if(z->key < y->key)
+  else if (z->key < y->key)
     y->left = z;
   else
     y->right = z;
@@ -394,9 +398,9 @@ Parameters:
   - v (Nodep): The node that will replace u.
 */
 void RBT_transplant(Treep T, Nodep u, Nodep v) {
-  if(u->p == T->nil)
+  if (u->p == T->nil)
     T->root = v;
-  else if(u->p->right == u)
+  else if (u->p->right == u)
     u->p->right = v;
   else
     u->p->left = v;
@@ -415,22 +419,22 @@ Parameters:
 void RBT_delete_fixup(Treep T, Nodep x) {
   Nodep w;
 
-  while(x != T->root && x->color == BLACK) {
-    if(x == x->p->left) {
+  while (x != T->root && x->color == BLACK) {
+    if (x == x->p->left) {
       w = x->p->right;
 
-      if(w->color == RED) {
+      if (w->color == RED) {
         x->p->color = RED;
         w->color = BLACK;
         RBT_left_rotate(T, x->p);
         w = x->p->right;
       }
 
-      if(w->left->color == BLACK && w->right->color == BLACK) {
+      if (w->left->color == BLACK && w->right->color == BLACK) {
         w->color = RED;
         x = x->p;
       } else {
-        if(w->right->color == BLACK) {
+        if (w->right->color == BLACK) {
           w->left->color = BLACK;
           w->color = RED;
           RBT_right_rotate(T, w);
@@ -445,18 +449,18 @@ void RBT_delete_fixup(Treep T, Nodep x) {
     } else {
       w = x->p->left;
 
-      if(w->color == RED) {
+      if (w->color == RED) {
         x->p->color = RED;
         w->color = BLACK;
         RBT_right_rotate(T, x->p);
         w = x->p->left;
       }
 
-      if(w->right->color == BLACK && w->left->color == BLACK) {
+      if (w->right->color == BLACK && w->left->color == BLACK) {
         w->color = RED;
         x = x->p;
       } else {
-        if(w->left->color == BLACK) {
+        if (w->left->color == BLACK) {
           w->right->color = BLACK;
           w->color = RED;
           RBT_left_rotate(T, w);
@@ -488,7 +492,7 @@ Return values:
   - -1: z in T->nil.
 */
 int RBT_delete(Treep T, Nodep z) {
-  if(z == T->nil) {
+  if (z == T->nil) {
     return -1;
   }
 
@@ -497,10 +501,10 @@ int RBT_delete(Treep T, Nodep z) {
 
   Nodep x;
 
-  if(z->left == T->nil) {
+  if (z->left == T->nil) {
     x = z->right;
     RBT_transplant(T, z, z->right);
-  } else if(z->right == T->nil) {
+  } else if (z->right == T->nil) {
     x = z->left;
     RBT_transplant(T, z, z->left);
   } else {
@@ -508,7 +512,7 @@ int RBT_delete(Treep T, Nodep z) {
     y_original_color = y->color;
     x = y->right;
 
-    if(y->p == z)
+    if (y->p == z)
       x->p = y;
     else {
       RBT_transplant(T, y, y->right);
@@ -522,7 +526,8 @@ int RBT_delete(Treep T, Nodep z) {
     y->color = z->color;
   }
 
-  if(y_original_color == BLACK) RBT_delete_fixup(T, x);
+  if (y_original_color == BLACK)
+    RBT_delete_fixup(T, x);
 
   return 0;
 }
