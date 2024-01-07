@@ -31,7 +31,6 @@ Nodep RBT_create_node(int key, enum color color) {
   return nd;
 }
 
-// TODO: return -1 when T->root == T->nil and 0 otherwise
 void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
   // This values might have changed in RB_delete
   T->nil->right = NULL;
@@ -39,7 +38,7 @@ void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
 
   Nodep tmp = root;
 
-  if(tmp != NULL && T->root != T->nil) {
+  if(tmp != NULL) {
     space += 8;
 
     RBT_inorder_tree_walk(T, tmp->right, space);
@@ -58,9 +57,37 @@ void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
   }
 }
 
-// BUG: Print nothing when the tree is empty
-void RBT_print_tree(Treep T) { RBT_inorder_tree_walk(T, T->root, 0); }
+/*
+Description: Prints the RBT T
 
+Parameters:
+  - T: The RBT to be printed
+
+Return values:
+  - 0: Success
+  - -1: T is empty
+*/
+int RBT_print_tree(Treep T) {
+  if(T->root == T->nil) {
+    return -1;
+  }
+
+  RBT_inorder_tree_walk(T, T->root, 0);
+
+  return 0;
+}
+
+/*
+Description: Searches for the node with key key in the RBT.
+if the node is found it is returned, else it returns T->nil.
+
+Parameters:
+  - T: The RBT to be searched
+  - key: The key of the node to be searched
+
+Returns:
+  - Nodep: The node with key key or T->nil if the node is not found
+*/
 Nodep RBT_search(Treep T, int key) {
   Nodep tmp = T->root;
 
@@ -70,6 +97,7 @@ Nodep RBT_search(Treep T, int key) {
     else
       tmp = tmp->right;
   }
+
   return tmp;
 }
 
@@ -122,7 +150,6 @@ void RBT_right_rotate(Treep T, Nodep x) {
 
 void RBT_insert_fixup(Treep T, Nodep z) {
   Nodep y;
-  // Nodep y = RBT_create_node(0, RED);  // arbitrary values
 
   while(z->p->color == RED) {
     if(z->p == z->p->p->left) {

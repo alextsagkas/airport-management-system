@@ -9,6 +9,7 @@
 int main() {
   Treep T = RBT_create_tree();
   Nodep nd;
+  int return_value;
 
   char answer = '_';
   int key;
@@ -48,14 +49,20 @@ int main() {
         getchar();
 
         nd = RBT_search(T, key);
-        int value = RBT_delete(T, nd);
 
-        switch(value) {
+        if(nd == T->nil) {
+          printf("Element not found\n");
+          break;
+        }
+
+        return_value = RBT_delete(T, nd);
+
+        switch(return_value) {
           case 0:
-            printf("\nElement deleted successfully\n");
+            printf("Element deleted successfully\n");
             break;
           case -1:
-            printf("\nRBT is empty\n");
+            printf("RBT is empty\n");
             break;
 
           default:
@@ -65,8 +72,17 @@ int main() {
         break;
       case 'p':
         printf("\nPrint the RBT");
-        RBT_print_tree(T);
-        printf("\n");
+
+        return_value = RBT_print_tree(T);
+
+        switch(return_value) {
+          case 0:
+            printf("\nRBT printed successfully\n");
+            break;
+          case -1:
+            printf("\nRBT is empty\n");
+            break;
+        }
 
         break;
       case 'q':
