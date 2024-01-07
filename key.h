@@ -12,8 +12,8 @@ References:
  by Brian W. Kernighan and Rob Pike.
 */
 
-#ifndef key
-#define key
+#ifndef KEY
+#define KEY
 
 //! generic
 

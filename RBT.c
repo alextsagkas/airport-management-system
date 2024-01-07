@@ -13,6 +13,7 @@ References:
 */
 
 #include "rbt.h"
+#include "key.h"
 
 #include <assert.h>
 #include <stdio.h>
