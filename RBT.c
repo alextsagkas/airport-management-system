@@ -1,3 +1,17 @@
+/*
+author: Alexadros Tsagkaropoulos
+
+References:
+
+ - Introduction to Algorithms, Third Edition
+ by Thomas H. Cormen, Charles E. Leiserson,
+ Ronald L. Rivest and Clifford Stein.
+ - Programming Language Principles and Programming Techniques notes
+ from M.Sc. in Control and Computing taught by Ioannis Kotronis.
+ - The Practice of Computer Programming, Second Edition
+ by Brian W. Kernighan and Rob Pike.
+*/
+
 #include "RBT.h"
 
 #include <assert.h>
@@ -8,6 +22,12 @@
 #define KRED "\x1B[31m"
 #define KRESET "\x1b[0m"
 
+/*
+Description: Creates an empty RBT struct and return a pointer to it.
+
+Return values:
+  - Treep: The RBT created.
+*/
 Treep RBT_create_tree(void) {
   Treep T = (Treep)malloc(sizeof(struct RBT_tree));
   assert(T != NULL);
@@ -23,16 +43,17 @@ Treep RBT_create_tree(void) {
 }
 
 /*
-Description: Deletes the RBT T
+Description: Deletes the RBT T.
 
 Parameters:
-  - T (Treep): The RBT to be deleted
+  - T (Treep): The RBT to be deleted.
 
 Return values:
-  - 0: Success
+  - 0: Success.
 
 Asserts:
-  - T != NULL
+  - T != NULL.
+  - T->nil != NULL.
 */
 int RBT_delete_tree(Treep T) {
   assert(T != NULL);
@@ -45,7 +66,8 @@ int RBT_delete_tree(Treep T) {
 }
 
 /*
-Description: Creates a node with key key and color color.
+Description: Creates a node struct with key key and color color and returns
+a pointer to it.
 
 Parameters:
   - key (int): The key of the node.
@@ -53,6 +75,9 @@ Parameters:
 
 Return values:
   - Nodep: The node created.
+
+Asserts:
+  - malloc returns successfully.
 */
 Nodep RBT_create_node(int key, enum color color) {
   Nodep nd = (Nodep)malloc(sizeof(struct RBT_node));
@@ -86,6 +111,18 @@ int RBT_delete_node(Nodep z) {
   return 0;
 }
 
+/*
+Description: Prints the RBT T horizontally using inorder traversal.
+
+Parameters:
+  - T: The RBT to be printed.
+  - root: The root of the subtree to be printed.
+  - space: The space to be printed before the root node.
+
+Side effects:
+  - T->nil->right is set to NULL.
+  - T->nil->left is set to NULL.
+*/
 void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
   // This values might have changed in RB_delete
   T->nil->right = NULL;
@@ -113,10 +150,10 @@ void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
 }
 
 /*
-Description: Prints the RBT T
+Description: Prints the RBT T.
 
 Parameters:
-  - T: The RBT to be printed
+  - T: The RBT to be printed.
 
 Return values:
   - 0: Success
@@ -137,11 +174,11 @@ Description: Searches for the node with key key in the RBT T.
 if the node is found it is returned, else it returns T->nil.
 
 Parameters:
-  - T: The RBT to be searched
-  - key: The key of the node to be searched
+  - T: The RBT to be searched.
+  - key: The key of the node to be searched.
 
 Returns:
-  - Nodep: The node with key key or T->nil if the node is not found
+  - Nodep: The node with key key or T->nil if the node is not found.
 */
 Nodep RBT_search(Treep T, int key) {
   Nodep tmp = T->root;
@@ -156,6 +193,17 @@ Nodep RBT_search(Treep T, int key) {
   return tmp;
 }
 
+/*
+Description: Returns the node with the minimum key in the subtree of RBT
+T rooted in node root.
+
+Parameters:
+  - T: The RBT.
+  - root: The root of the subtree.
+
+Return values:
+  - Nodep: The node with the minimum key in the subtree.
+*/
 Nodep RBT_minimum(Treep T, Nodep root) {
   if(root == T->nil) {
     return root;
@@ -167,6 +215,21 @@ Nodep RBT_minimum(Treep T, Nodep root) {
   }
 }
 
+/*
+Description: It produces the transformation seen below. The nodes x, y are rotated
+let-wise and their subtrees a and b,c change position respectively. This transformation
+preserves the RBT property.
+
+    x                  y
+  /  \               /  \
+ a    y     ->     x     c
+    /  \         /  \
+   b    c       a   b
+
+Parameters:
+  - T: The RBT.
+  - x: The root of the subtree.
+*/
 void RBT_left_rotate(Treep T, Nodep x) {
   Nodep y = x->right;
 
@@ -185,6 +248,21 @@ void RBT_left_rotate(Treep T, Nodep x) {
   x->p = y;
 }
 
+/*
+Description: It produces the transformation seen below. The nodes x, y are rotated
+right-wise and their subtrees a and b,c change position respectively. This transformation
+preserves the RBT property.
+
+      x             y
+    /  \          /  \
+   y    c   ->   a    x
+ /  \               /  \
+a    b             b    c
+
+Parameters:
+  - T: The RBT.
+  - x: The root of the subtree.
+*/
 void RBT_right_rotate(Treep T, Nodep x) {
   Nodep y = x->left;
 
@@ -203,6 +281,14 @@ void RBT_right_rotate(Treep T, Nodep x) {
   x->p = y;
 }
 
+/*
+Description: Fixes the RBT T after the insertion of the node z. This
+function asserts that the RBT properties are preserved.
+
+Parameters:
+  - T: The RBT.
+  - z: The node inserted.
+*/
 void RBT_insert_fixup(Treep T, Nodep z) {
   Nodep y;
 
@@ -247,7 +333,8 @@ void RBT_insert_fixup(Treep T, Nodep z) {
 }
 
 /*
-Description: Inserts the node z in the RBT T.
+Description: Inserts the node z in the RBT T. The color of the node
+z can be arbitrary since it will be fixed afterwards.
 
 Parameters:
   - T (Treep): The RBT.
@@ -286,6 +373,15 @@ int RBT_insert(Treep T, Nodep z) {
   return 0;
 }
 
+/*
+Description: Replaces the subtree rooted at node u, of RBT T,
+with the subtree rooted at node v, of RBT T.
+
+Parameters:
+  - T: The RBT.
+  - u: The node to be replaced.
+  - v: The node that will replace u.
+*/
 void RBT_transplant(Treep T, Nodep u, Nodep v) {
   if(u->p == T->nil)
     T->root = v;
@@ -297,6 +393,14 @@ void RBT_transplant(Treep T, Nodep u, Nodep v) {
   v->p = u->p;
 }
 
+/*
+Description: Fixes the RBT T after the removal of the node x from the RBT T. This
+function asserts that the RBT properties are preserved.
+
+Parameters:
+  - T: The RBT.
+  - x: The node removed.
+*/
 void RBT_delete_fixup(Treep T, Nodep x) {
   Nodep w;
 
@@ -359,11 +463,12 @@ void RBT_delete_fixup(Treep T, Nodep x) {
 }
 
 /*
-Description: Removes the node z from the RBT T
+Description: Removes the node z from the RBT T. It is
+advised that the node z is searched with the RBT_search function.
 
 Parameters:
-  - root: The root of the RBT
-  - z: The node to be deleted
+  - root: The root of the RBT.
+  - z: The node to be deleted.
 
 Return values:
   - 0: Success
