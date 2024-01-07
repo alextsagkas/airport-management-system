@@ -10,8 +10,10 @@
 
 Treep RBT_create_tree(void) {
   Treep T = (Treep)malloc(sizeof(struct RBT_tree));
+  assert(T != NULL);
 
   T->nil = (Nodep)malloc(sizeof(struct RBT_node));
+  assert(T->nil != NULL);
   T->nil->color = BLACK;
 
   T->root = T->nil;
@@ -34,6 +36,7 @@ Asserts:
 */
 int RBT_delete_tree(Treep T) {
   assert(T != NULL);
+  assert(T->nil != NULL);
 
   free(T->nil);
   free(T);
@@ -53,6 +56,7 @@ Return values:
 */
 Nodep RBT_create_node(int key, enum color color) {
   Nodep nd = (Nodep)malloc(sizeof(struct RBT_node));
+  assert(nd != NULL);
   nd->key = key;
   nd->color = color;
   nd->p = NULL;
