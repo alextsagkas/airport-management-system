@@ -17,10 +17,14 @@ References:
 #include "RBT.h"
 
 int main() {
+  // BRT where tests are done
   Treep T = RBT_create_tree();
+
+  // Helper variables
   Nodep nd;
   int return_value;
 
+  // User input
   char answer = '_';
   int key;
 
