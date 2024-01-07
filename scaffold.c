@@ -47,7 +47,7 @@ int main() {
         scanf("%d", &key);
         getchar();
 
-        Nodep nd = RBT_search_recursive(root, key);
+        Nodep nd = RBT_search(root, key);
         int value = RBT_delete(&root, nd);
 
         switch(value) {

@@ -43,7 +43,7 @@ void RBT_inorder_tree_walk(Nodep root, int space) {
 // BUG: Print nothing when the tree is empty
 void RBT_print_tree(Nodep root) { RBT_inorder_tree_walk(root, 0); }
 
-Nodep RBT_search_recursive(Nodep root, int key) {
+Nodep RBT_search(Nodep root, int key) {
   while(root != T_nil && root->key != key) {
     if(root->key > key)
       root = root->left;
