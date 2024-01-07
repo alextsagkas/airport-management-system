@@ -19,14 +19,17 @@ struct RBT_node {
   Nodep left;
 };
 
-Nodep T_nil;
-
 Treep RBT_create_tree();
+int RBT_delete_tree(Treep T);
+
 Nodep RBT_create_node(int key, enum color color);
 int RBT_delete_node(Nodep z);
-int RBT_print_tree(Treep T);
+
 Nodep RBT_search(Treep T, int key);
-void RBT_insert(Treep T, Nodep z);
+
+int RBT_insert(Treep T, Nodep z);
 int RBT_delete(Treep T, Nodep z);
+
+int RBT_print_tree(Treep T);
 
 #endif

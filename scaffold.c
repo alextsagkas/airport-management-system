@@ -1,8 +1,4 @@
-#include <assert.h>
-#include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "RBT.h"
 
@@ -66,16 +62,7 @@ int main() {
             break;
         }
 
-        return_value = RBT_delete_node(nd);
-
-        switch(return_value) {
-          case 0:
-            printf("Node deleted successfully\n");
-            break;
-          case -1:
-            printf("Node is NULL\n");
-            break;
-        }
+        RBT_delete_node(nd);
 
         break;
       case 'p':
@@ -94,6 +81,9 @@ int main() {
 
         break;
       case 'q':
+        printf("\nDelete the RBT\n");
+
+        RBT_delete_tree(T);
 
         break;
       default:
@@ -101,6 +91,7 @@ int main() {
     }
   }
 
+  printf("\n--------------------------------------------------------------\n");
   printf("\nThe program has halted.");
 
   return 0;

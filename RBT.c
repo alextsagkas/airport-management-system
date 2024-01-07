@@ -1,11 +1,10 @@
 #include "RBT.h"
 
 #include <assert.h>
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
+// Terminal Colors
 #define KRED "\x1B[31m"
 #define KRESET "\x1b[0m"
 
@@ -19,6 +18,27 @@ Treep RBT_create_tree(void) {
   T->root->p = T->nil;
 
   return T;
+}
+
+/*
+Description: Deletes the RBT T
+
+Parameters:
+  - T (Treep): The RBT to be deleted
+
+Return values:
+  - 0: Success
+
+Asserts:
+  - T != NULL
+*/
+int RBT_delete_tree(Treep T) {
+  assert(T != NULL);
+
+  free(T->nil);
+  free(T);
+
+  return 0;
 }
 
 /*
@@ -50,12 +70,12 @@ Parameters:
 
 Return values:
   - 0: Success
-  - -1: z is NULL
+
+Asserts:
+  - z != NULL
 */
 int RBT_delete_node(Nodep z) {
-  if(z == NULL) {
-    return -1;
-  }
+  assert(z != NULL);
 
   free(z);
 
@@ -109,7 +129,7 @@ int RBT_print_tree(Treep T) {
 }
 
 /*
-Description: Searches for the node with key key in the RBT.
+Description: Searches for the node with key key in the RBT T.
 if the node is found it is returned, else it returns T->nil.
 
 Parameters:
@@ -222,7 +242,17 @@ void RBT_insert_fixup(Treep T, Nodep z) {
   (T->root)->color = BLACK;
 }
 
-void RBT_insert(Treep T, Nodep z) {
+/*
+Description: Inserts the node z in the RBT T.
+
+Parameters:
+  - T (Treep): The RBT.
+  - z (Nodep): The node to be inserted.
+
+Return values:
+  - 0: Success
+*/
+int RBT_insert(Treep T, Nodep z) {
   Nodep y = T->nil;
   Nodep x = T->root;
 
@@ -248,6 +278,8 @@ void RBT_insert(Treep T, Nodep z) {
   z->color = RED;
 
   RBT_insert_fixup(T, z);
+
+  return 0;
 }
 
 void RBT_transplant(Treep T, Nodep u, Nodep v) {
@@ -323,7 +355,7 @@ void RBT_delete_fixup(Treep T, Nodep x) {
 }
 
 /*
-Description: Deletes the node z from the RBT T
+Description: Removes the node z from the RBT T
 
 Parameters:
   - root: The root of the RBT
