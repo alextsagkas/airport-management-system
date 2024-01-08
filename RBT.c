@@ -12,8 +12,6 @@ References:
  by Brian W. Kernighan and Rob Pike.
 */
 
-// TODO: Check printf return values.
-
 #include "rbt.h"
 
 #include <assert.h>
