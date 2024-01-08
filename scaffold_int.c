@@ -1,3 +1,4 @@
+#include "int.h"
 #include "key.h"
 #include <stdio.h>
 
