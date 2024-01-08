@@ -195,7 +195,7 @@ Nodep RBT_search(Treep T, key_tp key) {
   Nodep tmp = T->root;
 
   while (tmp != T->nil && !are_equal(tmp->key, key, int_equalizer)) {
-    if (is_greater(tmp->key, key, int_comparator))
+    if (is_greater(tmp->key, key, int_comparator_greater))
       tmp = tmp->left;
     else
       tmp = tmp->right;
@@ -364,7 +364,7 @@ int RBT_insert(Treep T, Nodep z) {
 
   while (x != T->nil) {
     y = x;
-    if (is_smaller(z->key, x->key, int_comparator))
+    if (is_smaller(z->key, x->key, int_comparator_smaller))
       x = x->left;
     else
       x = x->right;
@@ -374,7 +374,7 @@ int RBT_insert(Treep T, Nodep z) {
 
   if (y == T->nil)
     T->root = z;
-  else if (is_smaller(z->key, y->key, int_comparator))
+  else if (is_smaller(z->key, y->key, int_comparator_smaller))
     y->left = z;
   else
     y->right = z;

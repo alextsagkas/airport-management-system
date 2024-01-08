@@ -87,7 +87,7 @@ Description: Asserts that data in struct1 is greater than data in struct2.
 Parameters:
   - struct1 (key_tp): The first struct.
   - struct2 (key_tp): The second struct.
-  - comparator (int (*)(const void *, const void *)): The pointer to the
+  - comparator_greater (int (*)(const void *, const void *)): The pointer to the
     function that compares the data of the two structs.
 
 Return values:
@@ -98,8 +98,8 @@ Return values:
 */
 int is_greater(key_tp struct1,
                key_tp struct2,
-               int (*comparator)(const void *, const void *)) {
-  return (*comparator)((void *)struct1->data, (void *)struct2->data);
+               int (*comparator_greater)(const void *, const void *)) {
+  return (*comparator_greater)((void *)struct1->data, (void *)struct2->data);
 }
 
 /*
@@ -108,7 +108,7 @@ Description: Asserts that data in struct1 is smaller than data in struct2.
 Parameters:
   - struct1 (key_tp): The first struct.
   - struct2 (key_tp): The second struct.
-  - comparator (int (*)(const void *, const void *)): The pointer to the
+  - comparator_smaller (int (*)(const void *, const void *)): The pointer to the
     function that compares the data of the two structs.
 
 Return values:
@@ -119,8 +119,8 @@ Return values:
 */
 int is_smaller(key_tp struct1,
                key_tp struct2,
-               int (*comparator)(const void *, const void *)) {
-  return !(*comparator)((void *)struct1->data, (void *)struct2->data);
+               int (*comparator_smaller)(const void *, const void *)) {
+  return (*comparator_smaller)((void *)struct1->data, (void *)struct2->data);
 }
 
 /*
@@ -227,11 +227,39 @@ Asserts:
     - struct1 != NULL.
     - struct2 != NULL.
 */
-int int_comparator(const void *struct1, const void *struct2) {
+int int_comparator_greater(const void *struct1, const void *struct2) {
   assert(struct1 != NULL);
   assert(struct2 != NULL);
 
   if (((key_intp)struct1)->data > ((key_intp)struct2)->data) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+/*
+Description: Asserts that data in struct1 is smaller than data in struct2.
+
+Parameters:
+  - struct1 (const void *): The first struct.
+  - struct2 (const void *): The second struct.
+
+Return values:
+    - 1: The data in the first struct is smaller than the data in the second
+         struct.
+    - 0: The data in the first struct is not smaller than the data in the
+         second struct.
+
+Asserts:
+    - struct1 != NULL.
+    - struct2 != NULL.
+*/
+int int_comparator_smaller(const void *struct1, const void *struct2) {
+  assert(struct1 != NULL);
+  assert(struct2 != NULL);
+
+  if (((key_intp)struct1)->data < ((key_intp)struct2)->data) {
     return 1;
   } else {
     return 0;
