@@ -48,15 +48,19 @@ key_tp create_key(void *data) {
 }
 
 /*
-Description: Prints the data of the struct.
+Description: Prints the data of the struct with the terminal color that
+the first parameter of the function indicates.
 
 Parameters:
+  - term_color (const char *): The terminal color.
   - struct1 (key_tp): The struct to be printed.
   - printer (void (*)(const void *)): The pointer to the function that prints
     the data of the struct.
 */
-void print_data(key_tp struct1, void (*printer)(const void *)) {
-  (*printer)((void *)struct1->data);
+void print_data(char *term_color,
+                key_tp struct1,
+                void (*printer)(const char *, const void *)) {
+  (*printer)(term_color, (void *)struct1->data);
 }
 /*
 Description: Asserts that data in struct1 and struct2 structs are equal.
@@ -169,13 +173,15 @@ key_intp create_int_node(int data) {
 }
 
 /*
-Description: Prints the data of the struct.
+Description: Prints the data of the struct with the terminal color that
+the first parameter of the function indicates.
 
 Parameters:
+  - term_color (const char *): The terminal color.
   - struct1 (const void *): The struct to be printed.
 */
-void int_printer(const void *struct1) {
-  printf("%d", ((key_intp)struct1)->data);
+void int_printer(const char *term_color, const void *struct1) {
+  printf("%s%d", term_color, ((key_intp)struct1)->data);
 }
 
 /*

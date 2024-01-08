@@ -150,13 +150,9 @@ void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
     if (tmp == T->nil)
       printf("%sL", KRESET);
     else if (tmp->color == BLACK)
-      // FIXME
-      // printf("%s%d", KRESET, tmp->key);
-      print_data(tmp->key, int_printer);
+      print_data(KRESET, tmp->key, int_printer);
     else
-      // FIXME
-      // printf("%s%d", KRED, tmp->key);
-      print_data(tmp->key, int_printer);
+      print_data(KRED, tmp->key, int_printer);
 
     RBT_inorder_tree_walk(T, tmp->left, space);
   }
