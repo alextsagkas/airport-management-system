@@ -102,24 +102,6 @@ int is_smaller(key_tp struct1,
                key_tp struct2,
                int (*comparator_smaller)(const void *, const void *));
 
-/*
-Description: Asserts that the two structs have the same data inside.
-
-Parameters:
-  - struct1 (key_tp): The first struct.
-  - struct2 (key_tp): The second struct.
-  - assignment (void (*)(const void *, const void *)): The pointer to the
-    function that assigns the data of the second struct to the data of the
-    first struct.
-
-Return values:
-    - 0: Success.
-    - 1: Failure.
-*/
-int assign(key_tp struct1,
-           key_tp struct2,
-           int (*assignment)(const void *, const void *));
-
 //! int
 
 typedef struct key_int *key_intp;
@@ -202,24 +184,5 @@ Asserts:
     - struct2 != NULL.
 */
 int int_comparator_smaller(const void *struct1, const void *struct2);
-
-/*
-Description: Asserts that data in struct1 is smaller than data in struct2.
-
-Parameters:
-  - struct1 (const void *): The first struct.
-  - struct2 (const void *): The second struct.
-
-Return values:
-    - 1: The data in the first struct is smaller than the data in the second
-         struct.
-    - 0: The data in the first struct is not smaller than the data in the
-         second struct.
-
-Asserts:
-    - struct1 != NULL.
-    - struct2 != NULL.
-*/
-int int_assignment(const void *struct1, const void *struct2);
 
 #endif

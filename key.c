@@ -59,12 +59,6 @@ int is_smaller(key_tp struct1,
   return (*comparator_smaller)((void *)struct1->data, (void *)struct2->data);
 }
 
-int assign(key_tp struct1,
-           key_tp struct2,
-           int (*assignment)(const void *, const void *)) {
-  return (*assignment)((void *)struct1->data, (void *)struct2->data);
-}
-
 //! int
 
 typedef struct key_int *key_intp;
@@ -117,13 +111,4 @@ int int_comparator_smaller(const void *struct1, const void *struct2) {
   } else {
     return 0;
   }
-}
-
-int int_assignment(const void *struct1, const void *struct2) {
-  assert(struct1 != NULL);
-  assert(struct2 != NULL);
-
-  ((key_intp)struct1)->data = ((key_intp)struct2)->data;
-
-  return 0;
 }
