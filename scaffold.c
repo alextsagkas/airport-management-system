@@ -14,6 +14,7 @@ References:
 
 #include <stdio.h>
 
+#include "key.h"
 #include "rbt.h"
 
 int main() {
@@ -23,6 +24,8 @@ int main() {
   // Helper variables
   Nodep nd;
   int return_value;
+  key_intp int_data;
+  key_tp data;
 
   // User input
   char answer = '_';
@@ -31,8 +34,9 @@ int main() {
   printf("\n--------------------------------------------------------------\n");
   printf("\nCreate the RBT\n");
 
-  while(answer != 'q') {
-    printf("\n--------------------------------------------------------------\n");
+  while (answer != 'q') {
+    printf(
+        "\n--------------------------------------------------------------\n");
     printf("Previous answer was: %c\n", answer);
     printf("Choose from the following options:\n");
     printf(" i: Insert an element in the RBT\n");
@@ -46,69 +50,76 @@ int main() {
     getchar();
 
     printf("The new answer is: %c", answer);
-    printf("\n--------------------------------------------------------------\n");
+    printf(
+        "\n--------------------------------------------------------------\n");
 
-    switch(answer) {
-      case 'i':
-        printf("\nInsert an element in the RBT");
-        printf("\nGive the key of the element: ");
-        scanf("%d", &key);
-        getchar();
+    switch (answer) {
+    case 'i':
+      printf("\nInsert an element in the RBT");
+      printf("\nGive the key of the element: ");
+      scanf("%d", &key);
+      getchar();
 
-        nd = RBT_create_node(key, RED);
-        RBT_insert(T, nd);
+      int_data = create_int_node(key);
+      data = create_key((void *)int_data);
 
+      nd = RBT_create_node(data, RED);
+      RBT_insert(T, nd);
+
+      break;
+    case 'd':
+      printf("\nDelete an element from the RBT");
+      printf("\nGive the key of the element: ");
+      scanf("%d", &key);
+      getchar();
+
+      int_data = create_int_node(key);
+      data = create_key((void *)int_data);
+
+      nd = RBT_search(T, data);
+
+      if (nd == T->nil) {
+        printf("Node not found\n");
         break;
-      case 'd':
-        printf("\nDelete an element from the RBT");
-        printf("\nGive the key of the element: ");
-        scanf("%d", &key);
-        getchar();
+      }
 
-        nd = RBT_search(T, key);
+      return_value = RBT_delete(T, nd);
 
-        if(nd == T->nil) {
-          printf("Node not found\n");
-          break;
-        }
-
-        return_value = RBT_delete(T, nd);
-
-        switch(return_value) {
-          case 0:
-            printf("Node removed successfully from the BRT\n");
-            break;
-          case -1:
-            printf("RBT is empty\n");
-            break;
-        }
-
-        RBT_delete_node(nd);
-
+      switch (return_value) {
+      case 0:
+        printf("Node removed successfully from the BRT\n");
         break;
-      case 'p':
-        printf("\nPrint the RBT");
-
-        return_value = RBT_print_tree(T);
-
-        switch(return_value) {
-          case 0:
-            printf("\nRBT printed successfully\n");
-            break;
-          case -1:
-            printf("\nRBT is empty\n");
-            break;
-        }
-
+      case -1:
+        printf("RBT is empty\n");
         break;
-      case 'q':
-        printf("\nDelete the RBT\n");
+      }
 
-        RBT_delete_tree(T);
+      RBT_delete_node(nd);
 
+      break;
+    case 'p':
+      printf("\nPrint the RBT");
+
+      return_value = RBT_print_tree(T);
+
+      switch (return_value) {
+      case 0:
+        printf("\nRBT printed successfully\n");
         break;
-      default:
-        printf("\nInvalid input, please try again.\n");
+      case -1:
+        printf("\nRBT is empty\n");
+        break;
+      }
+
+      break;
+    case 'q':
+      printf("\nDelete the RBT\n");
+
+      RBT_delete_tree(T);
+
+      break;
+    default:
+      printf("\nInvalid input, please try again.\n");
     }
   }
 

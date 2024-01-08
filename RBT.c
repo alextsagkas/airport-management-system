@@ -13,7 +13,6 @@ References:
 */
 
 #include "rbt.h"
-#include "key.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -78,7 +77,7 @@ parameters and returns a pointer to it. The parent, left and right child of the
 node are initialized to NULL.
 
 Parameters:
-  - key (int): The key of the node.
+  - key (key_tp): The key of the node.
   - color (enum color): The color of the node.
 
 Return values:
@@ -87,7 +86,7 @@ Return values:
 Asserts:
   - malloc returns successfully.
 */
-Nodep RBT_create_node(int key, enum color color) {
+Nodep RBT_create_node(key_tp key, enum color color) {
   Nodep nd = (Nodep)malloc(sizeof(struct RBT_node));
   assert(nd != NULL);
   nd->key = key;
@@ -151,9 +150,13 @@ void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
     if (tmp == T->nil)
       printf("%sL", KRESET);
     else if (tmp->color == BLACK)
-      printf("%s%d", KRESET, tmp->key);
+      // FIXME
+      // printf("%s%d", KRESET, tmp->key);
+      print_data(tmp->key, int_printer);
     else
-      printf("%s%d", KRED, tmp->key);
+      // FIXME
+      // printf("%s%d", KRED, tmp->key);
+      print_data(tmp->key, int_printer);
 
     RBT_inorder_tree_walk(T, tmp->left, space);
   }
@@ -185,18 +188,18 @@ if the node is found it is returned, else it returns the sentinel.
 
 Parameters:
   - T (Treep): The RBT to be searched.
-  - key (int): The key of the node to be searched.
+  - key (key_tp): The key of the node to be searched.
 
 Returns:
   - Nodep: The node with key key or sentinel if the node is not found. If there
 are multiple nodes with the same key, the one located in the lowest level of the
 RBT T is returned.
 */
-Nodep RBT_search(Treep T, int key) {
+Nodep RBT_search(Treep T, key_tp key) {
   Nodep tmp = T->root;
 
-  while (tmp != T->nil && tmp->key != key) {
-    if (tmp->key > key)
+  while (tmp != T->nil && !are_equal(tmp->key, key, int_equalizer)) {
+    if (is_greater(tmp->key, key, int_comparator))
       tmp = tmp->left;
     else
       tmp = tmp->right;
@@ -365,7 +368,7 @@ int RBT_insert(Treep T, Nodep z) {
 
   while (x != T->nil) {
     y = x;
-    if (z->key < x->key)
+    if (is_smaller(z->key, x->key, int_comparator))
       x = x->left;
     else
       x = x->right;
@@ -375,7 +378,7 @@ int RBT_insert(Treep T, Nodep z) {
 
   if (y == T->nil)
     T->root = z;
-  else if (z->key < y->key)
+  else if (is_smaller(z->key, y->key, int_comparator))
     y->left = z;
   else
     y->right = z;

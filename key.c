@@ -15,6 +15,7 @@ References:
 #include "key.h"
 
 #include <assert.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 //! generic
@@ -32,18 +33,18 @@ Parameters:
   - data (void *): The data of the struct.
 
 Return values:
-    - 0: Success.
+  - key_tp: The pointer to the struct created.
 
 Asserts:
-    - malloc returns successfully.
+  - malloc returns successfully.
 */
-int create_key(void *data) {
+key_tp create_key(void *data) {
   key_tp struct1 = (key_tp)malloc(sizeof(struct key_t));
   assert(struct1 != NULL);
 
   struct1->data = data;
 
-  return 0;
+  return struct1;
 }
 
 /*
@@ -174,7 +175,7 @@ Parameters:
   - struct1 (const void *): The struct to be printed.
 */
 void int_printer(const void *struct1) {
-  printf(" integer key = %d\n", ((key_intp)struct1)->data);
+  printf("%d", ((key_intp)struct1)->data);
 }
 
 /*
@@ -196,7 +197,7 @@ int int_equalizer(const void *struct1, const void *struct2) {
   assert(struct1 != NULL);
   assert(struct2 != NULL);
 
-  if ((key_intp)struct1 == (key_intp)struct2) {
+  if (((key_intp)struct1)->data == ((key_intp)struct2)->data) {
     return 1;
   } else {
     return 0;

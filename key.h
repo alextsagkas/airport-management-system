@@ -19,7 +19,7 @@ References:
 
 typedef struct key_t *key_tp;
 
-int create_key(void *data);
+key_tp create_key(void *data);
 void print_data(key_tp struct1, void (*printer)(const void *));
 int are_equal(key_tp struct1,
               key_tp struct2,

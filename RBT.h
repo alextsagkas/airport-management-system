@@ -15,6 +15,8 @@ References:
 #ifndef RBT
 #define RBT
 
+#include "key.h"
+
 typedef struct RBT_node *Nodep;
 typedef struct RBT_tree *Treep;
 
@@ -26,7 +28,7 @@ struct RBT_tree {
 };
 
 struct RBT_node {
-  int key;
+  key_tp key;
   enum color color;
   Nodep p;
   Nodep right;
@@ -68,7 +70,7 @@ parameters and returns a pointer to it. The parent, left and right child of the
 node are initialized to NULL.
 
 Parameters:
-  - key (int): The key of the node.
+  - key (key_tp): The key of the node.
   - color (enum color): The color of the node.
 
 Return values:
@@ -77,7 +79,7 @@ Return values:
 Asserts:
   - malloc returns successfully.
 */
-Nodep RBT_create_node(int key, enum color color);
+Nodep RBT_create_node(key_tp key, enum color color);
 
 /*
 Description: Deletes the node z.
@@ -99,14 +101,14 @@ if the node is found it is returned, else it returns the sentinel.
 
 Parameters:
   - T (Treep): The RBT to be searched.
-  - key (int): The key of the node to be searched.
+  - key (key_tp): The key of the node to be searched.
 
 Returns:
   - Nodep: The node with key key or sentinel if the node is not found. If there
 are multiple nodes with the same key, the one located in the lowest level of the
 RBT T is returned.
 */
-Nodep RBT_search(Treep T, int key);
+Nodep RBT_search(Treep T, key_tp key);
 
 /*
 Description: Inserts the node z in the RBT T. The color of the node

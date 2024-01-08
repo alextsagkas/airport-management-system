@@ -5,6 +5,10 @@ exec: key rbt scaffold
 scaffold: scaffold.c
 	gcc -c scaffold.c 
 
+scaffold_key: key
+	gcc scaffold_key.c key.o -o scaffold_key
+	./scaffold_key
+
 key: key.c key.h
 	gcc -c key.c
 
