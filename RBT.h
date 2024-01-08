@@ -102,13 +102,21 @@ if the node is found it is returned, else it returns the sentinel.
 Parameters:
   - T (Treep): The RBT to be searched.
   - key (key_tp): The key of the node to be searched.
+  - equalizer (int (*)(const void *, const void *)): The pointer to the function
+    that asserts that the data of the two nodes are equal.
+  - comparator (int (*)(const void *, const void *)): The pointer to the
+    function that asserts that the data of the first node is greater than the
+    data of the second node.
 
 Returns:
   - Nodep: The node with key key or sentinel if the node is not found. If there
 are multiple nodes with the same key, the one located in the lowest level of the
 RBT T is returned.
 */
-Nodep RBT_search(Treep T, key_tp key);
+Nodep RBT_search(Treep T,
+                 key_tp key,
+                 int (*equalizer)(const void *, const void *),
+                 int (*comparator)(const void *, const void *));
 
 /*
 Description: Inserts the node z in the RBT T. The color of the node
@@ -118,11 +126,16 @@ properties to be preserved.
 Parameters:
   - T (Treep): The RBT.
   - z (Nodep): The node to be inserted.
+  - comparator_smaller (int (*)(const void *, const void *)): The pointer to the
+    function that asserts that the data of the first node is smaller than the
+    data of the second node.
 
 Return values:
   - 0: Success
 */
-int RBT_insert(Treep T, Nodep z);
+int RBT_insert(Treep T,
+               Nodep z,
+               int (*comparator_smaller)(const void *, const void *));
 
 /*
 Description: Removes the node z from the RBT T. It is
@@ -145,11 +158,13 @@ Description: Prints the RBT T.
 
 Parameters:
   - T (Treep): The RBT to be printed.
+  - printer (void (*)(const char *, const void *)): The pointer to the function
+    that prints the data of the node.
 
 Return values:
   - 0: Success.
   - -1: T is empty.
 */
-int RBT_print_tree(Treep T);
+int RBT_print_tree(Treep T, void (*printer)(const char *, const void *));
 
 #endif

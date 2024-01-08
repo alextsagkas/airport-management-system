@@ -64,7 +64,7 @@ int main() {
       data = create_key((void *)int_data);
 
       nd = RBT_create_node(data, RED);
-      RBT_insert(T, nd);
+      RBT_insert(T, nd, int_comparator_smaller);
 
       break;
     case 'd':
@@ -76,7 +76,7 @@ int main() {
       int_data = create_int_node(key);
       data = create_key((void *)int_data);
 
-      nd = RBT_search(T, data);
+      nd = RBT_search(T, data, int_equalizer, int_comparator_greater);
 
       if (nd == T->nil) {
         printf("Node not found\n");
@@ -100,7 +100,7 @@ int main() {
     case 'p':
       printf("\nPrint the RBT");
 
-      return_value = RBT_print_tree(T);
+      return_value = RBT_print_tree(T, int_printer);
 
       switch (return_value) {
       case 0:

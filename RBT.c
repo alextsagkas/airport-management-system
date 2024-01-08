@@ -12,6 +12,8 @@ References:
  by Brian W. Kernighan and Rob Pike.
 */
 
+// TODO: Check printf return values.
+
 #include "rbt.h"
 
 #include <assert.h>
@@ -66,7 +68,10 @@ int RBT_delete_node(Nodep z) {
   return 0;
 }
 
-void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
+void RBT_inorder_tree_walk(Treep T,
+                           Nodep root,
+                           int space,
+                           void (*printer)(const char *, const void *)) {
   // This values might have changed in RB_delete.
   // However, they do not need to remain this way.
   T->nil->right = NULL;
@@ -77,7 +82,7 @@ void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
   if (tmp != NULL) {
     space += 8;
 
-    RBT_inorder_tree_walk(T, tmp->right, space);
+    RBT_inorder_tree_walk(T, tmp->right, space, printer);
 
     printf("\n");
     for (int i = 8; i < space; i++)
@@ -86,29 +91,32 @@ void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
     if (tmp == T->nil)
       printf("%sL", KRESET);
     else if (tmp->color == BLACK)
-      print_data(KRESET, tmp->key, int_printer);
+      print_data(KRESET, tmp->key, printer);
     else
-      print_data(KRED, tmp->key, int_printer);
+      print_data(KRED, tmp->key, printer);
 
-    RBT_inorder_tree_walk(T, tmp->left, space);
+    RBT_inorder_tree_walk(T, tmp->left, space, printer);
   }
 }
 
-int RBT_print_tree(Treep T) {
+int RBT_print_tree(Treep T, void (*printer)(const char *, const void *)) {
   if (T->root == T->nil) {
     return -1;
   }
 
-  RBT_inorder_tree_walk(T, T->root, 0);
+  RBT_inorder_tree_walk(T, T->root, 0, printer);
 
   return 0;
 }
 
-Nodep RBT_search(Treep T, key_tp key) {
+Nodep RBT_search(Treep T,
+                 key_tp key,
+                 int (*equalizer)(const void *, const void *),
+                 int (*comparator_greater)(const void *, const void *)) {
   Nodep tmp = T->root;
 
-  while (tmp != T->nil && !are_equal(tmp->key, key, int_equalizer)) {
-    if (is_greater(tmp->key, key, int_comparator_greater))
+  while (tmp != T->nil && !are_equal(tmp->key, key, equalizer)) {
+    if (is_greater(tmp->key, key, comparator_greater))
       tmp = tmp->left;
     else
       tmp = tmp->right;
@@ -209,13 +217,15 @@ void RBT_insert_fixup(Treep T, Nodep z) {
   (T->root)->color = BLACK;
 }
 
-int RBT_insert(Treep T, Nodep z) {
+int RBT_insert(Treep T,
+               Nodep z,
+               int (*comparator_smaller)(const void *, const void *)) {
   Nodep y = T->nil;
   Nodep x = T->root;
 
   while (x != T->nil) {
     y = x;
-    if (is_smaller(z->key, x->key, int_comparator_smaller))
+    if (is_smaller(z->key, x->key, comparator_smaller))
       x = x->left;
     else
       x = x->right;
@@ -225,7 +235,7 @@ int RBT_insert(Treep T, Nodep z) {
 
   if (y == T->nil)
     T->root = z;
-  else if (is_smaller(z->key, y->key, int_comparator_smaller))
+  else if (is_smaller(z->key, y->key, comparator_smaller))
     y->left = z;
   else
     y->right = z;
