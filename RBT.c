@@ -22,18 +22,6 @@ References:
 #define KRED "\x1B[31m"
 #define KRESET "\x1b[0m"
 
-/*
-Description: Creates an empty RBT struct and return a pointer to it. It
-also creates the nil node (sentinel) and assigns black color to it. The
-root of the RBT initially points to the sentinel node. Also, the root parent
-remains the sentinel node.
-
-Return values:
-  - Treep: The RBT created.
-
-Asserts:
-  - malloc returns successfully.
-*/
 Treep RBT_create_tree(void) {
   Treep T = (Treep)malloc(sizeof(struct RBT_tree));
   assert(T != NULL);
@@ -48,19 +36,6 @@ Treep RBT_create_tree(void) {
   return T;
 }
 
-/*
-Description: Deletes the RBT T.
-
-Parameters:
-  - T (Treep): The RBT to be deleted.
-
-Return values:
-  - 0: Success.
-
-Asserts:
-  - T != NULL.
-  - T->nil != NULL.
-*/
 int RBT_delete_tree(Treep T) {
   assert(T != NULL);
   assert(T->nil != NULL);
@@ -71,21 +46,6 @@ int RBT_delete_tree(Treep T) {
   return 0;
 }
 
-/*
-Description: Creates a node struct with its key and color denoted by function's
-parameters and returns a pointer to it. The parent, left and right child of the
-node are initialized to NULL.
-
-Parameters:
-  - key (key_tp): The key of the node.
-  - color (enum color): The color of the node.
-
-Return values:
-  - Nodep: The node created.
-
-Asserts:
-  - malloc returns successfully.
-*/
 Nodep RBT_create_node(key_tp key, enum color color) {
   Nodep nd = (Nodep)malloc(sizeof(struct RBT_node));
   assert(nd != NULL);
@@ -98,18 +58,6 @@ Nodep RBT_create_node(key_tp key, enum color color) {
   return nd;
 }
 
-/*
-Description: Deletes the node z.
-
-Parameters:
-  - z (Nodep): The node to be deleted.
-
-Return values:
-  - 0: Success
-
-Asserts:
-  - z != NULL
-*/
 int RBT_delete_node(Nodep z) {
   assert(z != NULL);
 
@@ -118,18 +66,6 @@ int RBT_delete_node(Nodep z) {
   return 0;
 }
 
-/*
-Description: Prints the RBT T horizontally using inorder traversal.
-
-Parameters:
-  - T (Treep): The RBT to be printed.
-  - root (Nodep): The root of the subtree to be printed.
-  - space (int): The space to be printed before the root node.
-
-Side effects:
-  - T->nil->right is set to NULL.
-  - T->nil->left is set to NULL.
-*/
 void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
   // This values might have changed in RB_delete.
   // However, they do not need to remain this way.
@@ -158,16 +94,6 @@ void RBT_inorder_tree_walk(Treep T, Nodep root, int space) {
   }
 }
 
-/*
-Description: Prints the RBT T.
-
-Parameters:
-  - T (Treep): The RBT to be printed.
-
-Return values:
-  - 0: Success.
-  - -1: T is empty.
-*/
 int RBT_print_tree(Treep T) {
   if (T->root == T->nil) {
     return -1;
@@ -178,19 +104,6 @@ int RBT_print_tree(Treep T) {
   return 0;
 }
 
-/*
-Description: Searches for the node with key key in the RBT T.
-if the node is found it is returned, else it returns the sentinel.
-
-Parameters:
-  - T (Treep): The RBT to be searched.
-  - key (key_tp): The key of the node to be searched.
-
-Returns:
-  - Nodep: The node with key key or sentinel if the node is not found. If there
-are multiple nodes with the same key, the one located in the lowest level of the
-RBT T is returned.
-*/
 Nodep RBT_search(Treep T, key_tp key) {
   Nodep tmp = T->root;
 
@@ -204,17 +117,6 @@ Nodep RBT_search(Treep T, key_tp key) {
   return tmp;
 }
 
-/*
-Description: Returns the node with the minimum key in the subtree of RBT
-T rooted in node root.
-
-Parameters:
-  - T (Treep): The RBT.
-  - root (Nodep): The root of the subtree.
-
-Return values:
-  - Nodep: The node with the minimum key in the subtree.
-*/
 Nodep RBT_minimum(Treep T, Nodep root) {
   if (root == T->nil) {
     return root;
@@ -226,21 +128,6 @@ Nodep RBT_minimum(Treep T, Nodep root) {
   }
 }
 
-/*
-Description: It produces the transformation seen below. The nodes x, y are
-rotated left-wise and their subtrees a and b,c change position respectively.
-This transformation preserves the RBT property.
-
-    x                   y
-  /  \                /  \
- a    y     ->      x     c
-    /  \          /  \
-   b    c        a   b
-
-Parameters:
-  - T (Treep): The RBT.
-  - x (Nodep): The root of the subtree.
-*/
 void RBT_left_rotate(Treep T, Nodep x) {
   Nodep y = x->right;
 
@@ -260,21 +147,6 @@ void RBT_left_rotate(Treep T, Nodep x) {
   x->p = y;
 }
 
-/*
-Description: It produces the transformation seen below. The nodes x, y are
-rotated right-wise and their subtrees c and a,b change position respectively.
-This transformation preserves the RBT property.
-
-      x             y
-    /  \          /  \
-   y    c   ->   a    x
- /  \               /  \
-a    b             b    c
-
-Parameters:
-  - T (Treep): The RBT.
-  - x (Nodep): The root of the subtree.
-*/
 void RBT_right_rotate(Treep T, Nodep x) {
   Nodep y = x->left;
 
@@ -294,15 +166,6 @@ void RBT_right_rotate(Treep T, Nodep x) {
   x->p = y;
 }
 
-/*
-Description: Asserts that the RBT properties are preserved after the insertion
-of the node z in the RBT T. Node z must have a red color when this function is
-called.
-
-Parameters:
-  - T (Treep): The RBT.
-  - z (Nodep): The node inserted.
-*/
 void RBT_insert_fixup(Treep T, Nodep z) {
   Nodep y;
 
@@ -346,18 +209,6 @@ void RBT_insert_fixup(Treep T, Nodep z) {
   (T->root)->color = BLACK;
 }
 
-/*
-Description: Inserts the node z in the RBT T. The color of the node
-z can be arbitrary since it will be fixed afterwards, so as the RBT
-properties to be preserved.
-
-Parameters:
-  - T (Treep): The RBT.
-  - z (Nodep): The node to be inserted.
-
-Return values:
-  - 0: Success
-*/
 int RBT_insert(Treep T, Nodep z) {
   Nodep y = T->nil;
   Nodep x = T->root;
@@ -388,15 +239,6 @@ int RBT_insert(Treep T, Nodep z) {
   return 0;
 }
 
-/*
-Description: Replaces the subtree rooted at node u, of RBT T,
-with the subtree rooted at node v, of RBT T.
-
-Parameters:
-  - T (Treep): The RBT.
-  - u (Nodep): The node to be replaced.
-  - v (Nodep): The node that will replace u.
-*/
 void RBT_transplant(Treep T, Nodep u, Nodep v) {
   if (u->p == T->nil)
     T->root = v;
@@ -408,14 +250,6 @@ void RBT_transplant(Treep T, Nodep u, Nodep v) {
   v->p = u->p;
 }
 
-/*
-Description: Asserts that the RBT properties are preserved after the removal
-of the node z in the RBT T.
-
-Parameters:
-  - T (Treep): The RBT.
-  - x (Nodep): The node removed.
-*/
 void RBT_delete_fixup(Treep T, Nodep x) {
   Nodep w;
 
@@ -477,20 +311,6 @@ void RBT_delete_fixup(Treep T, Nodep x) {
   x->color = BLACK;
 }
 
-/*
-Description: Removes the node z from the RBT T. It is
-advised that the node z is searched with the RBT_search function.
-To be completely deleted from the heap, node z must be put in
-function RBT_delete_node afterwards.
-
-Parameters:
-  - T (Treep): The root of the RBT.
-  - z (Nodep): The node to be deleted.
-
-Return values:
-  - 0: Success.
-  - -1: z in T->nil.
-*/
 int RBT_delete(Treep T, Nodep z) {
   if (z == T->nil) {
     return -1;
