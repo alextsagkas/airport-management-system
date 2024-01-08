@@ -14,6 +14,7 @@ References:
 
 #include <stdio.h>
 
+#include "int.h"
 #include "key.h"
 #include "rbt.h"
 
