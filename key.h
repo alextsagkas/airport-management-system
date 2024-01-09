@@ -97,7 +97,7 @@ Return values:
          second struct.
 */
 int is_smaller(key_tp struct1,
-                key_tp struct2,
+               key_tp struct2,
                int (*comparator_smaller)(const void *, const void *));
 
 #endif
