@@ -216,8 +216,14 @@ void RBT_insert_fixup(Treep T, Nodep z) {
 }
 
 int RBT_insert(Treep T,
-               Nodep z,
+               key_tp key,
                int (*comparator_smaller)(const void *, const void *)) {
+
+  Nodep z = RBT_create_node(key, RED);
+
+  if (z == NULL)
+    return -1;
+
   Nodep y = T->nil;
   Nodep x = T->root;
 
@@ -319,7 +325,12 @@ void RBT_delete_fixup(Treep T, Nodep x) {
   x->color = BLACK;
 }
 
-int RBT_delete(Treep T, Nodep z) {
+int RBT_delete(Treep T,
+               key_tp key,
+               int (*equalizer)(const void *, const void *),
+               int (*comparator_greater)(const void *, const void *)) {
+  Nodep z = RBT_search(T, key, equalizer, comparator_greater);
+
   if (z == T->nil) {
     return -1;
   }
@@ -356,6 +367,8 @@ int RBT_delete(Treep T, Nodep z) {
 
   if (y_original_color == BLACK)
     RBT_delete_fixup(T, x);
+
+  RBT_delete_node(z);
 
   return 0;
 }

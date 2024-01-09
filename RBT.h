@@ -65,93 +65,47 @@ Asserts:
 int RBT_delete_tree(Treep T);
 
 /*
-Description: Creates a node struct with its key and color denoted by function's
-parameters and returns a pointer to it. The parent, left and right child of the
-node are initialized to NULL.
-
-Parameters:
-  - key (key_tp): The key of the node.
-  - color (enum color): The color of the node.
-
-Return values:
-  - Nodep: The node created.
-
-Asserts:
-  - malloc returns successfully.
-*/
-Nodep RBT_create_node(key_tp key, enum color color);
-
-/*
-Description: Deletes the node z.
-
-Parameters:
-  - z (Nodep): The node to be deleted.
-
-Return values:
-  - 0: Success
-
-Asserts:
-  - z != NULL
-*/
-int RBT_delete_node(Nodep z);
-
-/*
-Description: Searches for the node with key key in the RBT T.
-if the node is found it is returned, else it returns the sentinel.
-
-Parameters:
-  - T (Treep): The RBT to be searched.
-  - key (key_tp): The key of the node to be searched.
-  - equalizer (int (*)(const void *, const void *)): The pointer to the function
-    that asserts that the data of the two nodes are equal.
-  - comparator (int (*)(const void *, const void *)): The pointer to the
-    function that asserts that the data of the first node is greater than the
-    data of the second node.
-
-Returns:
-  - Nodep: The node with key key or sentinel if the node is not found. If there
-are multiple nodes with the same key, the one located in the lowest level of the
-RBT T is returned.
-*/
-Nodep RBT_search(Treep T,
-                 key_tp key,
-                 int (*equalizer)(const void *, const void *),
-                 int (*comparator)(const void *, const void *));
-
-/*
-Description: Inserts the node z in the RBT T. The color of the node
-z can be arbitrary since it will be fixed afterwards, so as the RBT
-properties to be preserved.
+Description: Creates an RBT node with the key parameter and inserts it
+in the RBT T.
 
 Parameters:
   - T (Treep): The RBT.
-  - z (Nodep): The node to be inserted.
+  - key (key_tp): The key of the node to be inserted.
   - comparator_smaller (int (*)(const void *, const void *)): The pointer to the
     function that asserts that the data of the first node is smaller than the
     data of the second node.
 
 Return values:
   - 0: Success
+  - -1: z failed to be allocated.
 */
 int RBT_insert(Treep T,
-               Nodep z,
+               key_tp key,
                int (*comparator_smaller)(const void *, const void *));
 
 /*
-Description: Removes the node z from the RBT T. It is
-advised that the node z is searched with the RBT_search function.
-To be completely deleted from the heap, node z must be put in
-function RBT_delete_node afterwards.
+Description: Removes the node with key denoted by the parameter key from the
+RBT T. Also, it frees the memory allocated for the node when it was inserted in
+the RBT T, through the RBT_insert function.
 
 Parameters:
   - T (Treep): The root of the RBT.
-  - z (Nodep): The node to be deleted.
+  - key (key_tp): The key of the node to be deleted.
+  - equalizer (int (*)(const void *, const void *)): The pointer to the function
+    that asserts that the data of the first node is equal to the data of the
+    second node.
+  - comparator_greater (int (*)(const void *, const void *)): The pointer to the
+    function that asserts that the data of the first node is greater than the
+    data of the second node.
 
 Return values:
   - 0: Success.
-  - -1: z in T->nil.
+  - -1: Node was not found in the RBT T.
 */
-int RBT_delete(Treep T, Nodep z);
+int RBT_delete(Treep T,
+               key_tp key,
+               int (*equalizer)(const void *, const void *),
+               int (*comparator_greater)(const void *, const void *));
 
 /*
 Description: Prints the RBT T.

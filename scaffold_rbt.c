@@ -64,8 +64,7 @@ int main() {
       int_data = create_int_node(key);
       data = create_key((void *)int_data);
 
-      nd = RBT_create_node(data, RED);
-      RBT_insert(T, nd, int_comparator_smaller);
+      RBT_insert(T, data, int_comparator_smaller);
 
       break;
     case 'd':
@@ -77,25 +76,16 @@ int main() {
       int_data = create_int_node(key);
       data = create_key((void *)int_data);
 
-      nd = RBT_search(T, data, int_equalizer, int_comparator_greater);
-
-      if (nd == T->nil) {
-        printf("Node not found\n");
-        break;
-      }
-
-      return_value = RBT_delete(T, nd);
+      return_value = RBT_delete(T, data, int_equalizer, int_comparator_greater);
 
       switch (return_value) {
       case 0:
         printf("Node removed successfully from the BRT\n");
         break;
       case -1:
-        printf("RBT is empty\n");
+        printf("Node not found in the RBT\n");
         break;
       }
-
-      RBT_delete_node(nd);
 
       break;
     case 'p':
