@@ -15,8 +15,6 @@ References:
 #ifndef RBT
 #define RBT
 
-#include "key.h"
-
 typedef struct RBT_node *Nodep;
 typedef struct RBT_tree *Treep;
 
@@ -28,7 +26,7 @@ struct RBT_tree {
 };
 
 struct RBT_node {
-  key_tp key;
+  void *key;
   enum color color;
   Nodep p;
   Nodep right;
@@ -80,7 +78,7 @@ Return values:
   - -1: z failed to be allocated.
 */
 int RBT_insert(Treep T,
-               key_tp key,
+               void *key,
                int (*comparator_smaller)(const void *, const void *));
 
 /*
@@ -103,7 +101,7 @@ Return values:
   - -1: Node was not found in the RBT T.
 */
 int RBT_delete(Treep T,
-               key_tp key,
+               void *key,
                int (*equalizer)(const void *, const void *),
                int (*comparator_greater)(const void *, const void *));
 

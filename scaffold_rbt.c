@@ -15,7 +15,6 @@ References:
 #include <stdio.h>
 
 #include "int.h"
-#include "key.h"
 #include "rbt.h"
 
 int main() {
@@ -26,7 +25,6 @@ int main() {
   Nodep nd;
   int return_value;
   key_intp int_data;
-  key_tp data;
 
   // User input
   char answer = '_';
@@ -62,9 +60,8 @@ int main() {
       getchar();
 
       int_data = create_int_node(key);
-      data = create_key((void *)int_data);
 
-      RBT_insert(T, data, int_comparator_smaller);
+      RBT_insert(T, (void *)int_data, int_comparator_smaller);
 
       break;
     case 'd':
@@ -74,9 +71,9 @@ int main() {
       getchar();
 
       int_data = create_int_node(key);
-      data = create_key((void *)int_data);
 
-      return_value = RBT_delete(T, data, int_equalizer, int_comparator_greater);
+      return_value = RBT_delete(
+          T, (void *)int_data, int_equalizer, int_comparator_greater);
 
       switch (return_value) {
       case 0:
