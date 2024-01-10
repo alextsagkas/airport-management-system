@@ -68,10 +68,15 @@ in the RBT T.
 
 Parameters:
   - T (Treep): The RBT.
-  - key (key_tp): The key of the node to be inserted.
-  - comparator_smaller (int (*)(const void *, const void *)): The pointer to the
-    function that asserts that the data of the first node is smaller than the
-    data of the second node.
+  - key (void *): The key of the node to be inserted.
+  - comparator (int (*)(const void *, const void *)): The pointer to the
+    function that compares the data. It is expected to return the following
+    values:
+      - -1: The data of the first node is smaller than the data of the second
+        node.
+      - 0: The data of the first node is equal to the data of the second node.
+      - 1: The data of the first node is greater than the data of the second
+        node.
 
 Return values:
   - 0: Success
@@ -79,7 +84,7 @@ Return values:
 */
 int RBT_insert(Treep T,
                void *key,
-               int (*comparator_smaller)(const void *, const void *));
+               int (*comparator)(const void *, const void *));
 
 /*
 Description: Removes the node with key denoted by the parameter key from the
@@ -88,13 +93,16 @@ the RBT T, through the RBT_insert function.
 
 Parameters:
   - T (Treep): The root of the RBT.
-  - key (key_tp): The key of the node to be deleted.
-  - equalizer (int (*)(const void *, const void *)): The pointer to the function
-    that asserts that the data of the first node is equal to the data of the
-    second node.
-  - comparator_greater (int (*)(const void *, const void *)): The pointer to the
-    function that asserts that the data of the first node is greater than the
-    data of the second node.
+  - key (void *): The key of the node to be deleted.
+  - comparator (int (*)(const void *, const void *)): The pointer to the
+    function that compares the data. It is expected to return the following
+    values:
+      - -1: The data of the first node is smaller than the data of the second
+        node.
+      - 0: The data of the first node is equal to the data of the second node.
+      - 1: The data of the first node is greater than the data of the second
+        node.
+
 
 Return values:
   - 0: Success.
@@ -102,8 +110,7 @@ Return values:
 */
 int RBT_delete(Treep T,
                void *key,
-               int (*equalizer)(const void *, const void *),
-               int (*comparator_greater)(const void *, const void *));
+               int (*comparator)(const void *, const void *));
 
 /*
 Description: Prints the RBT T.
@@ -111,7 +118,7 @@ Description: Prints the RBT T.
 Parameters:
   - T (Treep): The RBT to be printed.
   - printer (void (*)(const char *, const void *)): The pointer to the function
-    that prints the data of the node.
+    that prints the key of the node.
 
 Return values:
   - 0: Success.

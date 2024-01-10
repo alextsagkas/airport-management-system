@@ -61,7 +61,7 @@ int main() {
 
       int_data = create_int_node(key);
 
-      RBT_insert(T, (void *)int_data, int_comparator_smaller);
+      RBT_insert(T, (void *)int_data, int_comparator);
 
       break;
     case 'd':
@@ -72,8 +72,7 @@ int main() {
 
       int_data = create_int_node(key);
 
-      return_value = RBT_delete(
-          T, (void *)int_data, int_equalizer, int_comparator_greater);
+      return_value = RBT_delete(T, (void *)int_data, int_comparator);
 
       switch (return_value) {
       case 0:

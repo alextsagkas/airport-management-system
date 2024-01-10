@@ -109,12 +109,11 @@ int RBT_print_tree(Treep T, void (*printer)(const char *, const void *)) {
 
 Nodep RBT_search(Treep T,
                  void *key,
-                 int (*equalizer)(const void *, const void *),
-                 int (*comparator_greater)(const void *, const void *)) {
+                 int (*comparator)(const void *, const void *)) {
   Nodep tmp = T->root;
 
-  while (tmp != T->nil && !equalizer(tmp->key, key)) {
-    if (comparator_greater(tmp->key, key))
+  while (tmp != T->nil && !(comparator(tmp->key, key) == 0)) {
+    if (comparator(tmp->key, key) == 1)
       tmp = tmp->left;
     else
       tmp = tmp->right;
@@ -217,7 +216,7 @@ void RBT_insert_fixup(Treep T, Nodep z) {
 
 int RBT_insert(Treep T,
                void *key,
-               int (*comparator_smaller)(const void *, const void *)) {
+               int (*comparator)(const void *, const void *)) {
 
   Nodep z = RBT_create_node(key, RED);
 
@@ -229,7 +228,7 @@ int RBT_insert(Treep T,
 
   while (x != T->nil) {
     y = x;
-    if (comparator_smaller(z->key, x->key))
+    if (comparator(z->key, x->key) == -1)
       x = x->left;
     else
       x = x->right;
@@ -239,7 +238,7 @@ int RBT_insert(Treep T,
 
   if (y == T->nil)
     T->root = z;
-  else if (comparator_smaller(z->key, y->key))
+  else if (comparator(z->key, y->key) == -1)
     y->left = z;
   else
     y->right = z;
@@ -327,9 +326,8 @@ void RBT_delete_fixup(Treep T, Nodep x) {
 
 int RBT_delete(Treep T,
                void *key,
-               int (*equalizer)(const void *, const void *),
-               int (*comparator_greater)(const void *, const void *)) {
-  Nodep z = RBT_search(T, key, equalizer, comparator_greater);
+               int (*comparator)(const void *, const void *)) {
+  Nodep z = RBT_search(T, key, comparator);
 
   if (z == T->nil) {
     return -1;

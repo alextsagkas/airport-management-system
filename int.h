@@ -42,58 +42,19 @@ Parameters:
 void int_printer(const char *term_color, const void *struct1);
 
 /*
-Description: Asserts that data in struct1 and struct2 structs are equal.
+Description: Compares the first and second struct's data.
 
 Parameters:
   - struct1 (const void *): The first struct.
   - struct2 (const void *): The second struct.
 
 Return values:
-    - 1: The data in the two structs are equal.
-    - 0: The data in the two structs are not equal.
-
-Asserts:
-    - struct1 != NULL.
-    - struct2 != NULL.
-*/
-int int_equalizer(const void *struct1, const void *struct2);
-
-/*
-Description: Asserts that data in struct1 is greater than data in struct2.
-
-Parameters:
-  - struct1 (const void *): The first struct.
-  - struct2 (const void *): The second struct.
-
-Return values:
+    - 0: The data in the two structs are equal.
     - 1: The data in the first struct is greater than the data in the second
          struct.
-    - 0: The data in the first struct is not greater than the data in the
-         second struct.
-
-Asserts:
-    - struct1 != NULL.
-    - struct2 != NULL.
+    - -1: The data in the first struct is smaller than the data in the second
+          struct.
 */
-int int_comparator_greater(const void *struct1, const void *struct2);
-
-/*
-Description: Asserts that data in struct1 is smaller than data in struct2.
-
-Parameters:
-  - struct1 (const void *): The first struct.
-  - struct2 (const void *): The second struct.
-
-Return values:
-    - 1: The data in the first struct is smaller than the data in the second
-         struct.
-    - 0: The data in the first struct is not smaller than the data in the
-         second struct.
-
-Asserts:
-    - struct1 != NULL.
-    - struct2 != NULL.
-*/
-int int_comparator_smaller(const void *struct1, const void *struct2);
+int int_comparator(const void *struct1, const void *struct2);
 
 #endif

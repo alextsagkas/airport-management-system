@@ -37,35 +37,15 @@ void int_printer(const char *term_color, const void *struct1) {
   printf("%s%d", term_color, ((key_intp)struct1)->data);
 }
 
-int int_equalizer(const void *struct1, const void *struct2) {
+int int_comparator(const void *struct1, const void *struct2) {
   assert(struct1 != NULL);
   assert(struct2 != NULL);
 
   if (((key_intp)struct1)->data == ((key_intp)struct2)->data) {
+    return 0;
+  } else if (((key_intp)struct1)->data > ((key_intp)struct2)->data) {
     return 1;
   } else {
-    return 0;
-  }
-}
-
-int int_comparator_greater(const void *struct1, const void *struct2) {
-  assert(struct1 != NULL);
-  assert(struct2 != NULL);
-
-  if (((key_intp)struct1)->data > ((key_intp)struct2)->data) {
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-int int_comparator_smaller(const void *struct1, const void *struct2) {
-  assert(struct1 != NULL);
-  assert(struct2 != NULL);
-
-  if (((key_intp)struct1)->data < ((key_intp)struct2)->data) {
-    return 1;
-  } else {
-    return 0;
+    return -1;
   }
 }
