@@ -22,6 +22,21 @@ References:
 #define KRED "\x1B[31m"
 #define KRESET "\x1b[0m"
 
+// Struct representing a RBT
+struct RBT_tree {
+  Nodep root;
+  Nodep nil;
+};
+
+// Struct representing a RBT node
+struct RBT_node {
+  void *key;
+  enum color color;
+  Nodep p;
+  Nodep right;
+  Nodep left;
+};
+
 Treep RBT_create_tree(void) {
   Treep T = (Treep)malloc(sizeof(struct RBT_tree));
   assert(T != NULL);
