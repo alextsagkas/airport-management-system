@@ -31,6 +31,14 @@ key_intp create_int_node(int data) {
   return node;
 }
 
+int delete_int_node(void *node) {
+  assert(node != NULL);
+
+  free(node);
+
+  return 0;
+}
+
 void int_printer(const char *term_color, const void *struct1) {
   printf("%s%d", term_color, ((key_intp)struct1)->data);
 }

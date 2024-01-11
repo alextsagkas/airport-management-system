@@ -76,7 +76,8 @@ int RBT_insert(Treep T,
 /*
 Description: Removes the node with key denoted by the parameter key from the
 RBT T. Also, it frees the memory allocated for the node when it was inserted in
-the RBT T, through the RBT_insert function.
+the RBT T, through the RBT_insert function. It returns the pointer to node's key
+if the node was found in the RBT T, otherwise it returns NULL.
 
 Parameters:
   - T (Treep): The root of the RBT.
@@ -91,13 +92,11 @@ Parameters:
         node.
 
 
-Return values:
-  - 0: Success.
-  - -1: Node was not found in the RBT T.
+Return value:
+  - (void *): The pointer to the key of the node that was deleted.
 */
-int RBT_delete(Treep T,
-               void *key,
-               int (*comparator)(const void *, const void *));
+void *
+RBT_delete(Treep T, void *key, int (*comparator)(const void *, const void *));
 
 /*
 Description: Prints the RBT T.

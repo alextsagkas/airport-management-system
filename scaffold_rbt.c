@@ -23,6 +23,7 @@ int main() {
 
   // Helper variables
   int return_value;
+  void *return_node;
   key_intp int_data;
 
   // User input
@@ -71,15 +72,22 @@ int main() {
 
       int_data = create_int_node(int_key);
 
-      return_value = RBT_delete(T, (void *)int_data, int_comparator);
+      return_node = RBT_delete(T, (void *)int_data, int_comparator);
 
-      switch (return_value) {
-      case 0:
-        printf("Node removed successfully from the BRT\n");
-        break;
-      case -1:
+      delete_int_node(int_data);
+
+      if (return_node != NULL) {
+        printf("Node removed successfully from the RBT\n");
+
+        return_value = delete_int_node(return_node);
+
+        switch (return_value) {
+        case 0:
+          printf("Key strcut deleted successfully\n");
+          break;
+        }
+      } else {
         printf("Node not found in the RBT\n");
-        break;
       }
 
       break;

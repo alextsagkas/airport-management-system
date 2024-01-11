@@ -447,13 +447,12 @@ void RBT_delete_fixup(Treep T, Nodep x) {
   x->color = BLACK;
 }
 
-int RBT_delete(Treep T,
-               void *key,
-               int (*comparator)(const void *, const void *)) {
+void *
+RBT_delete(Treep T, void *key, int (*comparator)(const void *, const void *)) {
   Nodep z = RBT_search(T, key, comparator);
 
   if (z == T->nil) {
-    return -1;
+    return NULL;
   }
 
   Nodep y = z;
@@ -489,7 +488,9 @@ int RBT_delete(Treep T,
   if (y_original_color == BLACK)
     RBT_delete_fixup(T, x);
 
+  void *data = z->key;
+
   RBT_delete_node(z);
 
-  return 0;
+  return data;
 }
