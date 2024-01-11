@@ -31,7 +31,8 @@ key_stringp create_string_key(char* data) {
   char* data_copy = (char*)malloc(sizeof(char) * strlen(data) + 1);
   assert(data_copy != NULL);
 
-  node->data = strdup(data);
+  strcpy(data_copy, data);
+  node->data = data_copy;
 
   return node;
 }
