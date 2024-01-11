@@ -18,8 +18,6 @@ References:
 typedef struct RBT_node* Nodep;
 typedef struct RBT_tree* Treep;
 
-enum color { RED, BLACK };
-
 /*
 Description: Creates an empty RBT struct and return a pointer to it. It
 also creates the nil node (sentinel) and assigns black color to it. The

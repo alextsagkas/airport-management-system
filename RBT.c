@@ -22,6 +22,8 @@ References:
 #define KRED "\x1B[31m"
 #define KRESET "\x1b[0m"
 
+enum color { RED, BLACK };
+
 // Struct representing a RBT
 struct RBT_tree {
   Nodep root;
