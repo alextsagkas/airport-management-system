@@ -30,7 +30,7 @@ struct RBT_tree {
 
 // Struct representing a RBT node
 struct RBT_node {
-  void *key;
+  void* key;
   enum color color;
   Nodep p;
   Nodep right;
@@ -73,7 +73,7 @@ Return values:
 Asserts:
   - malloc returns successfully.
 */
-Nodep RBT_create_node(void *key) {
+Nodep RBT_create_node(void* key) {
   Nodep nd = (Nodep)malloc(sizeof(struct RBT_node));
   assert(nd != NULL);
 
@@ -121,7 +121,7 @@ Parameters:
 void RBT_inorder_tree_walk(Treep T,
                            Nodep root,
                            int space,
-                           void (*printer)(const char *, const void *)) {
+                           void (*printer)(const char*, const void*)) {
   // This values might have changed in RB_delete.
   // However, they do not need to remain this way.
   T->nil->right = NULL;
@@ -151,7 +151,7 @@ void RBT_inorder_tree_walk(Treep T,
   }
 }
 
-int RBT_print_tree(Treep T, void (*printer)(const char *, const void *)) {
+int RBT_print_tree(Treep T, void (*printer)(const char*, const void*)) {
   if (T->root == T->nil) {
     return -1;
   }
@@ -182,8 +182,8 @@ Return value:
     found, then it returns T->nil.
 */
 Nodep RBT_search(Treep T,
-                 void *key,
-                 int (*comparator)(const void *, const void *)) {
+                 void* key,
+                 int (*comparator)(const void*, const void*)) {
   Nodep tmp = T->root;
 
   while (tmp != T->nil && !(comparator(tmp->key, key) == 0)) {
@@ -322,8 +322,8 @@ void RBT_insert_fixup(Treep T, Nodep z) {
 }
 
 int RBT_insert(Treep T,
-               void *key,
-               int (*comparator)(const void *, const void *)) {
+               void* key,
+               int (*comparator)(const void*, const void*)) {
 
   Nodep z = RBT_create_node(key);
 
@@ -447,8 +447,9 @@ void RBT_delete_fixup(Treep T, Nodep x) {
   x->color = BLACK;
 }
 
-void *
-RBT_delete(Treep T, void *key, int (*comparator)(const void *, const void *)) {
+void* RBT_delete(Treep T,
+                 void* key,
+                 int (*comparator)(const void*, const void*)) {
   Nodep z = RBT_search(T, key, comparator);
 
   if (z == T->nil) {
@@ -488,7 +489,7 @@ RBT_delete(Treep T, void *key, int (*comparator)(const void *, const void *)) {
   if (y_original_color == BLACK)
     RBT_delete_fixup(T, x);
 
-  void *data = z->key;
+  void* data = z->key;
 
   RBT_delete_node(z);
 

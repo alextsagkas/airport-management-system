@@ -15,7 +15,7 @@ References:
 #ifndef INT
 #define INT
 
-typedef struct key_int *key_intp;
+typedef struct key_int* key_intp;
 
 /*
 Description: Creates a struct with its data denoted by function's parameter.
@@ -43,7 +43,7 @@ Return values:
 Asserts:
     - node != NULL.
 */
-int delete_int_node(void *node);
+int delete_int_node(void* node);
 
 /*
 Description: Prints the data of the struct with the terminal color that
@@ -53,7 +53,7 @@ Parameters:
   - term_color (const char *): The terminal color.
   - struct1 (const void *): The struct to be printed.
 */
-void int_printer(const char *term_color, const void *struct1);
+void int_printer(const char* term_color, const void* struct1);
 
 /*
 Description: Compares the first and second struct's data.
@@ -69,6 +69,6 @@ Return values:
     - -1: The data in the first struct is smaller than the data in the second
           struct.
 */
-int int_comparator(const void *struct1, const void *struct2);
+int int_comparator(const void* struct1, const void* struct2);
 
 #endif

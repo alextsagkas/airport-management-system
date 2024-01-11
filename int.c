@@ -31,7 +31,7 @@ key_intp create_int_node(int data) {
   return node;
 }
 
-int delete_int_node(void *node) {
+int delete_int_node(void* node) {
   assert(node != NULL);
 
   free(node);
@@ -39,11 +39,11 @@ int delete_int_node(void *node) {
   return 0;
 }
 
-void int_printer(const char *term_color, const void *struct1) {
+void int_printer(const char* term_color, const void* struct1) {
   printf("%s%d", term_color, ((key_intp)struct1)->data);
 }
 
-int int_comparator(const void *struct1, const void *struct2) {
+int int_comparator(const void* struct1, const void* struct2) {
   assert(struct1 != NULL);
   assert(struct2 != NULL);
 

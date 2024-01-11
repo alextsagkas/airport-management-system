@@ -15,8 +15,8 @@ References:
 #ifndef RBT
 #define RBT
 
-typedef struct RBT_node *Nodep;
-typedef struct RBT_tree *Treep;
+typedef struct RBT_node* Nodep;
+typedef struct RBT_tree* Treep;
 
 enum color { RED, BLACK };
 
@@ -69,9 +69,7 @@ Return values:
   - 0: Success
   - -1: z failed to be allocated.
 */
-int RBT_insert(Treep T,
-               void *key,
-               int (*comparator)(const void *, const void *));
+int RBT_insert(Treep T, void* key, int (*comparator)(const void*, const void*));
 
 /*
 Description: Removes the node with key denoted by the parameter key from the
@@ -95,8 +93,9 @@ Parameters:
 Return value:
   - (void *): The pointer to the key of the node that was deleted.
 */
-void *
-RBT_delete(Treep T, void *key, int (*comparator)(const void *, const void *));
+void* RBT_delete(Treep T,
+                 void* key,
+                 int (*comparator)(const void*, const void*));
 
 /*
 Description: Prints the RBT T.
@@ -112,6 +111,6 @@ Return values:
   - 0: Success.
   - -1: T is empty.
 */
-int RBT_print_tree(Treep T, void (*printer)(const char *, const void *));
+int RBT_print_tree(Treep T, void (*printer)(const char*, const void*));
 
 #endif

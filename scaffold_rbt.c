@@ -23,7 +23,7 @@ int main() {
 
   // Helper variables
   int return_value;
-  void *return_node;
+  void* return_node;
   key_intp int_data;
 
   // User input
@@ -61,7 +61,7 @@ int main() {
 
       int_data = create_int_node(int_key);
 
-      RBT_insert(T, (void *)int_data, int_comparator);
+      RBT_insert(T, (void*)int_data, int_comparator);
 
       break;
     case 'd':
@@ -72,7 +72,7 @@ int main() {
 
       int_data = create_int_node(int_key);
 
-      return_node = RBT_delete(T, (void *)int_data, int_comparator);
+      return_node = RBT_delete(T, (void*)int_data, int_comparator);
 
       delete_int_node(int_data);
 
