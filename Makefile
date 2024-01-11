@@ -1,7 +1,7 @@
 # ------------------------------------------------------- #
 
-exec_rbt: int rbt scaffold_rbt
-	gcc scaffold_rbt.o rbt.o int.o -o exec_rbt
+exec_rbt: int string rbt scaffold_rbt
+	gcc scaffold_rbt.o rbt.o int.o string.o -o exec_rbt
 	./exec_rbt
 
 exec_int: int scaffold_int

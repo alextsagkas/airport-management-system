@@ -13,9 +13,11 @@ References:
 */
 
 #include <stdio.h>
+#include <string.h>
 
 #include "int.h"
 #include "rbt.h"
+#include "string.h"
 
 /*
 Description: Prints a string separator.
@@ -102,12 +104,17 @@ char choose_key_type() {
 void tree_operations(Treep T, char key_type) {
   // User input
   char answer = '_';
-  int int_key;
 
   // Helper variables
   int return_value;
+  void* key_generic;
   void* return_node;
+  // int
+  int int_key;
   key_intp int_data;
+  // string
+  char str_key[100];
+  key_stringp str_data;
 
   while (answer != 'q') {
     print_separator();
@@ -130,45 +137,77 @@ void tree_operations(Treep T, char key_type) {
     case 'i':
       printf("\nInsert an element in the RBT");
       printf("\nGive the key of the element: ");
-      scanf("%d", &int_key);
-      getchar();
 
-      int_data = create_int_key(int_key);
+      if (key_type == 'i') {
+        scanf("%d", &int_key);
+        getchar();
 
-      RBT_insert(T, (void*)int_data, int_comparator);
+        int_data = create_int_key(int_key);
+        key_generic = (void*)int_data;
+
+        RBT_insert(T, key_generic, int_comparator);
+      } else {
+        scanf("%s", str_key);
+        getchar();
+
+        printf("str_key: %s", str_key);
+
+        str_data = create_string_key(str_key);
+        key_generic = (void*)str_data;
+
+        RBT_insert(T, key_generic, string_comparator);
+      }
 
       break;
     case 'd':
       printf("\nDelete an element from the RBT");
       printf("\nGive the key of the element: ");
-      scanf("%d", &int_key);
-      getchar();
 
-      int_data = create_int_key(int_key);
+      if (key_type == 'i') {
+        scanf("%d", &int_key);
+        getchar();
 
-      return_node = RBT_delete(T, (void*)int_data, int_comparator);
+        int_data = create_int_key(int_key);
+        key_generic = (void*)int_data;
 
-      delete_int_key(int_data);
+        return_node = RBT_delete(T, key_generic, int_comparator);
 
-      if (return_node != NULL) {
-        printf("Node removed successfully from the RBT\n");
+        delete_int_key(int_data);
 
-        return_value = delete_int_key(return_node);
-
-        switch (return_value) {
-        case 0:
-          printf("Key strcut deleted successfully\n");
-          break;
+        if ((return_node != NULL)) {
+          printf("Node removed successfully from the RBT\n");
+          delete_int_key(return_node);
+        } else {
+          printf("Node not found in the RBT\n");
         }
       } else {
-        printf("Node not found in the RBT\n");
+        scanf("%s", str_key);
+        getchar();
+
+        str_data = create_string_key(str_key);
+        key_generic = (void*)str_data;
+
+        return_node = RBT_delete(T, key_generic, string_comparator);
+
+        delete_string_key(str_data);
+
+        if ((return_node != NULL)) {
+          printf("Node removed successfully from the RBT\n");
+          delete_string_key(return_node);
+        } else {
+          printf("Node not found in the RBT\n");
+        }
       }
 
       break;
     case 'p':
       printf("\nPrint the RBT");
 
-      return_value = RBT_print_tree(T, int_printer);
+      if (key_type == 'i') {
+        return_value = RBT_print_tree(T, int_printer);
+      } else {
+        return_value = RBT_print_tree(T, string_printer);
+      }
 
       switch (return_value) {
       case 0:
