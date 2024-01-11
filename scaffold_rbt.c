@@ -165,15 +165,19 @@ void int_tree_operations(Treep T) {
       scanf("%d", &int_key);
       getchar();
 
+      // Create a key struct to use it for searching the node
+      // that will be deleted.
       int_data = create_int_key(int_key);
 
       return_key = RBT_delete(T, (void*)int_data, int_comparator);
 
+      // Delete the key struct that was used for searching.
       delete_int_key((void*)int_data);
 
       if (return_key != NULL) {
         printf("Node removed successfully from the RBT\n");
 
+        // Delete the key struct that was used by the deleted node.
         return_value = delete_int_key(return_key);
 
         switch (return_value) {
@@ -269,15 +273,19 @@ void string_tree_operations(Treep T) {
       scanf("%s", &string_key[0]);
       getchar();
 
+      // Create a key struct to use it for searching the node
+      // that will be deleted.
       string_data = create_string_key(string_key);
 
       return_key = RBT_delete(T, (void*)string_data, string_comparator);
 
+      // Delete the key struct that was used for searching.
       delete_string_key((void*)string_data);
 
       if (return_key != NULL) {
         printf("Node removed successfully from the RBT\n");
 
+        // Delete the key struct that was used by the deleted node.
         return_value = delete_string_key(return_key);
 
         switch (return_value) {

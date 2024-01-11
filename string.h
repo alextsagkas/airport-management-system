@@ -19,7 +19,7 @@ typedef struct key_string* key_stringp;
 
 /*
 Description: Creates a string struct with its data denoted by function's
-parameter. The data is copied to the struct's data with strdup.
+parameter. The data is copied to the struct's data with strcpy.
 
 Parameters:
   - data (char*): The data of the struct.
