@@ -19,6 +19,8 @@
     "type_traits": "cpp",
     "utility": "cpp",
     "limits": "cpp",
-    "tuple": "cpp"
+    "tuple": "cpp",
+    "__locale": "c",
+    "cstring": "c"
   }
 }
