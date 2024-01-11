@@ -22,13 +22,12 @@ int main() {
   Treep T = RBT_create_tree();
 
   // Helper variables
-  Nodep nd;
   int return_value;
   key_intp int_data;
 
   // User input
   char answer = '_';
-  int key;
+  int int_key;
 
   printf("\n--------------------------------------------------------------\n");
   printf("\nCreate the RBT\n");
@@ -56,10 +55,10 @@ int main() {
     case 'i':
       printf("\nInsert an element in the RBT");
       printf("\nGive the key of the element: ");
-      scanf("%d", &key);
+      scanf("%d", &int_key);
       getchar();
 
-      int_data = create_int_node(key);
+      int_data = create_int_node(int_key);
 
       RBT_insert(T, (void *)int_data, int_comparator);
 
@@ -67,10 +66,10 @@ int main() {
     case 'd':
       printf("\nDelete an element from the RBT");
       printf("\nGive the key of the element: ");
-      scanf("%d", &key);
+      scanf("%d", &int_key);
       getchar();
 
-      int_data = create_int_node(key);
+      int_data = create_int_node(int_key);
 
       return_value = RBT_delete(T, (void *)int_data, int_comparator);
 
