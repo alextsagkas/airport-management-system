@@ -61,12 +61,23 @@ int RBT_delete_tree(Treep T) {
   return 0;
 }
 
-Nodep RBT_create_node(void *key, enum color color) {
+/*
+Description: Creates an RBT node with the key parameter.
+
+Parameters:
+  - key (void *): The key of the node to be created.
+
+Return values:
+  - Nodep: The node created.
+
+Asserts:
+  - malloc returns successfully.
+*/
+Nodep RBT_create_node(void *key) {
   Nodep nd = (Nodep)malloc(sizeof(struct RBT_node));
   assert(nd != NULL);
 
   nd->key = key;
-  nd->color = color;
   nd->p = NULL;
   nd->right = NULL;
   nd->left = NULL;
@@ -74,6 +85,18 @@ Nodep RBT_create_node(void *key, enum color color) {
   return nd;
 }
 
+/*
+Description: Deletes the RBT node z.
+
+Parameters:
+  - z (Nodep): The node to be deleted.
+
+Return values:
+  - 0: Success.
+
+Asserts:
+  - z != NULL.
+*/
 int RBT_delete_node(Nodep z) {
   assert(z != NULL);
 
@@ -82,6 +105,19 @@ int RBT_delete_node(Nodep z) {
   return 0;
 }
 
+/*
+Description: Prints the RBT T in the terminal with colorful output. It uses
+inorder tree walk to achieve this, as the name suggests.
+
+Parameters:
+  - T (Treep): The RBT.
+  - root (Nodep): The root of the RBT.
+  - space (int): The space from the beginning of the line.
+  - printer (void (*)(const char *, const void *)): The pointer to the function
+    that prints the key of the node. It is expected to print the data of the
+    node with the terminal color that the first parameter of the function
+    indicates.
+*/
 void RBT_inorder_tree_walk(Treep T,
                            Nodep root,
                            int space,
@@ -93,13 +129,16 @@ void RBT_inorder_tree_walk(Treep T,
 
   Nodep tmp = root;
 
+  // Space between nodes.
+  int space_increment = 8;
+
   if (tmp != NULL) {
-    space += 8;
+    space += space_increment;
 
     RBT_inorder_tree_walk(T, tmp->right, space, printer);
 
     printf("\n");
-    for (int i = 8; i < space; i++)
+    for (int i = space_increment; i < space; i++)
       printf(" ");
 
     if (tmp == T->nil)
@@ -122,6 +161,26 @@ int RBT_print_tree(Treep T, void (*printer)(const char *, const void *)) {
   return 0;
 }
 
+/*
+Description: Searches the RBT T for the node with key denoted by the parameter
+key. It uses the comparator function to compare the keys of the nodes.
+
+Parameters:
+  - T (Treep): The RBT.
+  - key (void *): The key of the node to be searched.
+  - comparator (int (*)(const void *, const void *)): The pointer to the
+    function that compares the data. It is expected to return the following
+    values:
+      - -1: The data of the first node is smaller than the data of the second
+        node.
+      - 0: The data of the first node is equal to the data of the second node.
+      - 1: The data of the first node is greater than the data of the second
+        node.
+
+Return value:
+  - Nodep: The node with key denoted by the parameter key. If the node is not
+    found, then it returns T->nil.
+*/
 Nodep RBT_search(Treep T,
                  void *key,
                  int (*comparator)(const void *, const void *)) {
@@ -137,6 +196,17 @@ Nodep RBT_search(Treep T,
   return tmp;
 }
 
+/*
+Description: Returns the node with the minimum key in the RBT T.
+
+Parameters:
+  - T (Treep): The RBT.
+  - root (Nodep): The root of the RBT.
+
+Return value:
+  - Nodep: The node with the minimum key in the RBT T. If the RBT is empty, then
+    it returns T->nil.
+*/
 Nodep RBT_minimum(Treep T, Nodep root) {
   if (root == T->nil) {
     return root;
@@ -148,6 +218,13 @@ Nodep RBT_minimum(Treep T, Nodep root) {
   }
 }
 
+/*
+Description: It performs a left rotation on node x of the RBT T.
+
+Parameters:
+  - T (Treep): The RBT.
+  - x (Nodep): The node to be rotated.
+*/
 void RBT_left_rotate(Treep T, Nodep x) {
   Nodep y = x->right;
 
@@ -167,6 +244,13 @@ void RBT_left_rotate(Treep T, Nodep x) {
   x->p = y;
 }
 
+/*
+Description: It performs a right rotation on node x of the RBT T.
+
+Parameters:
+  - T (Treep): The RBT.
+  - x (Nodep): The node to be rotated.
+*/
 void RBT_right_rotate(Treep T, Nodep x) {
   Nodep y = x->left;
 
@@ -186,6 +270,14 @@ void RBT_right_rotate(Treep T, Nodep x) {
   x->p = y;
 }
 
+/*
+Description: It fixes the RBT T after an insertion of a node z,
+so as that the RBT properties are not violated.
+
+Parameters:
+  - T (Treep): The RBT.
+  - z (Nodep): The node that was inserted.
+*/
 void RBT_insert_fixup(Treep T, Nodep z) {
   Nodep y;
 
@@ -233,7 +325,7 @@ int RBT_insert(Treep T,
                void *key,
                int (*comparator)(const void *, const void *)) {
 
-  Nodep z = RBT_create_node(key, RED);
+  Nodep z = RBT_create_node(key);
 
   if (z == NULL)
     return -1;
@@ -267,6 +359,14 @@ int RBT_insert(Treep T,
   return 0;
 }
 
+/*
+Description: It performs a transplant of node u with node v of the RBT T.
+
+Parameters:
+  - T (Treep): The RBT.
+  - u (Nodep): The node to be replaced.
+  - v (Nodep): The node to replace with.
+*/
 void RBT_transplant(Treep T, Nodep u, Nodep v) {
   if (u->p == T->nil)
     T->root = v;
@@ -278,6 +378,14 @@ void RBT_transplant(Treep T, Nodep u, Nodep v) {
   v->p = u->p;
 }
 
+/*
+Description: It fixes the RBT T after a deletion of a node x,
+so as that the RBT properties are not violated.
+
+Parameters:
+  - T (Treep): The RBT.
+  - x (Nodep): The node that was deleted.
+*/
 void RBT_delete_fixup(Treep T, Nodep x) {
   Nodep w;
 

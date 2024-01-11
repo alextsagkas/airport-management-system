@@ -23,8 +23,8 @@ enum color { RED, BLACK };
 /*
 Description: Creates an empty RBT struct and return a pointer to it. It
 also creates the nil node (sentinel) and assigns black color to it. The
-root of the RBT initially points to the sentinel node. Also, the root parent
-remains the sentinel node.
+root of the RBT initially points to the sentinel node. Also, the root
+parent is set to point to sentinel node and it never changes.
 
 Return values:
   - Treep: The RBT created.
@@ -35,7 +35,7 @@ Asserts:
 Treep RBT_create_tree();
 
 /*
-Description: Deletes the RBT T.
+Description: Deletes the RBT T. It also deletes the nil node (sentinel).
 
 Parameters:
   - T (Treep): The RBT to be deleted.
@@ -105,7 +105,9 @@ Description: Prints the RBT T.
 Parameters:
   - T (Treep): The RBT to be printed.
   - printer (void (*)(const char *, const void *)): The pointer to the function
-    that prints the key of the node.
+    that prints the key of the node. It is expected to print the data of the
+    node with the terminal color that the first parameter of the function
+    indicates.
 
 Return values:
   - 0: Success.
