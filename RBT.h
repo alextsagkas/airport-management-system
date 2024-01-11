@@ -90,8 +90,9 @@ Parameters:
         node.
 
 
-Return value:
+Return values:
   - (void *): The pointer to the key of the node that was deleted.
+  - NULL: The node was not found in the RBT T.
 */
 void* RBT_delete(Treep T,
                  void* key,
