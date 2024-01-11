@@ -18,8 +18,6 @@ References:
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct key_int *key_intp;
-
 struct key_int {
   int data;
 };
