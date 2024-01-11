@@ -29,7 +29,7 @@ Return values:
 Asserts:
     - malloc returns successfully.
 */
-key_intp create_int_node(int data);
+key_intp create_int_key(int data);
 
 /*
 Description: Deletes the struct denoted by function's parameter.
@@ -43,7 +43,7 @@ Return values:
 Asserts:
     - node != NULL.
 */
-int delete_int_node(void* node);
+int delete_int_key(void* node);
 
 /*
 Description: Prints the data of the struct with the terminal color that

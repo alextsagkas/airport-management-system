@@ -59,7 +59,7 @@ int main() {
       scanf("%d", &int_key);
       getchar();
 
-      int_data = create_int_node(int_key);
+      int_data = create_int_key(int_key);
 
       RBT_insert(T, (void*)int_data, int_comparator);
 
@@ -70,16 +70,16 @@ int main() {
       scanf("%d", &int_key);
       getchar();
 
-      int_data = create_int_node(int_key);
+      int_data = create_int_key(int_key);
 
       return_node = RBT_delete(T, (void*)int_data, int_comparator);
 
-      delete_int_node(int_data);
+      delete_int_key(int_data);
 
       if (return_node != NULL) {
         printf("Node removed successfully from the RBT\n");
 
-        return_value = delete_int_node(return_node);
+        return_value = delete_int_key(return_node);
 
         switch (return_value) {
         case 0:

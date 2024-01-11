@@ -2,10 +2,9 @@
 #include <stdio.h>
 
 int main() {
-  key_intp int_key1 = create_int_node(1);
-  key_intp int_key2 = create_int_node(2);
-  key_intp int_key3 = create_int_node(1);
-
+  key_intp int_key1 = create_int_key(1);
+  key_intp int_key2 = create_int_key(2);
+  key_intp int_key3 = create_int_key(3);
   // Printer
   printf("\nPrinter:\n--------\n");
   int_printer("int_key1: ", (void*)int_key1);
@@ -34,15 +33,15 @@ int main() {
 
   // Delete
   printf("\nDelete:\n-------\n");
-  if (!delete_int_node((void*)int_key1)) {
+  if (!delete_int_key((void*)int_key1)) {
     printf("int_key1 was deleted successfully\n");
   }
 
-  if (!delete_int_node((void*)int_key2)) {
+  if (!delete_int_key((void*)int_key2)) {
     printf("int_key2 was deleted successfully\n");
   }
 
-  if (!delete_int_node((void*)int_key3)) {
+  if (!delete_int_key((void*)int_key3)) {
     printf("int_key3 was deleted successfully\n");
   }
 

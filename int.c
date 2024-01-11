@@ -22,7 +22,7 @@ struct key_int {
   int data;
 };
 
-key_intp create_int_node(int data) {
+key_intp create_int_key(int data) {
   key_intp node = (key_intp)malloc(sizeof(struct key_int));
   assert(node != NULL);
 
@@ -31,7 +31,7 @@ key_intp create_int_node(int data) {
   return node;
 }
 
-int delete_int_node(void* node) {
+int delete_int_key(void* node) {
   assert(node != NULL);
 
   free(node);
