@@ -24,10 +24,10 @@ Parameters:
   - data (int): The data of the struct.
 
 Return values:
-    - key_intp: The pointer to the struct created.
+  - key_intp: The pointer to the struct created.
 
 Asserts:
-    - malloc returns successfully.
+  - malloc returns successfully.
 */
 key_intp create_int_key(int data);
 
@@ -38,10 +38,10 @@ Parameters:
   - node (void*): The struct to be deleted.
 
 Return values:
-    - 0: Success.
+  - 0: Success.
 
 Asserts:
-    - node != NULL.
+  - node != NULL.
 */
 int delete_int_key(void* node);
 
@@ -63,10 +63,10 @@ Parameters:
   - struct2 (const void *): The second struct.
 
 Return values:
-    - 0: The data in the two structs are equal.
-    - 1: The data in the first struct is greater than the data in the second
+  - 0: The data in the two structs are equal.
+  - 1: The data in the first struct is greater than the data in the second
          struct.
-    - -1: The data in the first struct is smaller than the data in the second
+  - -1: The data in the first struct is smaller than the data in the second
           struct.
 */
 int int_comparator(const void* struct1, const void* struct2);
