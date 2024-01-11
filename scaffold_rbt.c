@@ -259,8 +259,7 @@ void string_tree_operations(Treep T) {
     case 'i':
       printf("\nInsert an element in the RBT");
       printf("\nGive the key of the element: ");
-      scanf("%s", &string_key[0]);
-      getchar();
+      fgets(string_key, 100, stdin);
 
       string_data = create_string_key(string_key);
 
@@ -270,8 +269,7 @@ void string_tree_operations(Treep T) {
     case 'd':
       printf("\nDelete an element from the RBT");
       printf("\nGive the key of the element: ");
-      scanf("%s", &string_key[0]);
-      getchar();
+      fgets(string_key, 100, stdin);
 
       // Create a key struct to use it for searching the node
       // that will be deleted.
