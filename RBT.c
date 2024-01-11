@@ -56,7 +56,10 @@ int RBT_delete_tree(Treep T) {
   assert(T->nil != NULL);
 
   free(T->nil);
+  T->nil = NULL;
+
   free(T);
+  T = NULL;
 
   return 0;
 }
@@ -101,6 +104,7 @@ int RBT_delete_node(Nodep z) {
   assert(z != NULL);
 
   free(z);
+  z = NULL;
 
   return 0;
 }

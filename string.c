@@ -44,7 +44,10 @@ int delete_string_key(void* struct1) {
   assert(struct1_casted->data != NULL);
 
   free(struct1_casted->data);
+  struct1_casted->data = NULL;
+
   free(struct1_casted);
+  struct1_casted = NULL;
 
   return 0;
 }

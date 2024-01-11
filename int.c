@@ -35,6 +35,7 @@ int delete_int_key(void* node) {
   assert(node != NULL);
 
   free(node);
+  node = NULL;
 
   return 0;
 }
