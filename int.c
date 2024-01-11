@@ -22,7 +22,7 @@ struct key_int {
   int data;
 };
 
-key_intp create_int_key(int data) {
+key_intp int_create_key(int data) {
   key_intp node = (key_intp)malloc(sizeof(struct key_int));
   assert(node != NULL);
 
@@ -31,7 +31,7 @@ key_intp create_int_key(int data) {
   return node;
 }
 
-int delete_int_key(void* node) {
+int int_delete_key(void* node) {
   assert(node != NULL);
 
   free(node);
@@ -40,11 +40,11 @@ int delete_int_key(void* node) {
   return 0;
 }
 
-void int_printer(const char* term_color, const void* struct1) {
+void int_print(const char* term_color, const void* struct1) {
   printf("%s%d", term_color, ((key_intp)struct1)->data);
 }
 
-int int_comparator(const void* struct1, const void* struct2) {
+int int_compare(const void* struct1, const void* struct2) {
   assert(struct1 != NULL);
   assert(struct2 != NULL);
 

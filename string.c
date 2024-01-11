@@ -23,7 +23,7 @@ struct key_string {
   char* data;
 };
 
-key_stringp create_string_key(char* data) {
+key_stringp string_create_key(char* data) {
   key_stringp node = (key_stringp)malloc(sizeof(struct key_string));
   assert(node != NULL);
 
@@ -37,7 +37,7 @@ key_stringp create_string_key(char* data) {
   return node;
 }
 
-int delete_string_key(void* struct1) {
+int string_delete_key(void* struct1) {
   key_stringp struct1_casted = (key_stringp)struct1;
 
   assert(struct1_casted != NULL);
@@ -52,11 +52,11 @@ int delete_string_key(void* struct1) {
   return 0;
 }
 
-void string_printer(const char* term_color, const void* struct1) {
+void string_print(const char* term_color, const void* struct1) {
   printf("%s%s", term_color, ((key_stringp)struct1)->data);
 }
 
-int string_comparator(const void* struct1, const void* struct2) {
+int string_compare(const void* struct1, const void* struct2) {
   key_stringp struct1_casted = (key_stringp)struct1;
   assert(struct1_casted != NULL);
   assert(struct1_casted->data != NULL);

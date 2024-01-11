@@ -30,7 +30,7 @@ Return values:
 Asserts:
   - malloc returns successfully.
 */
-key_stringp create_string_key(char* data);
+key_stringp string_create_key(char* data);
 
 /*
 Description: Deletes the struct denoted by function's parameter.
@@ -45,7 +45,7 @@ Asserts:
   - node != NULL.
   - node->data != NULL.
 */
-int delete_string_key(void* struct1);
+int string_delete_key(void* struct1);
 
 /*
 Description: Prints the data of the struct with the terminal color that
@@ -55,7 +55,7 @@ Parameters:
   - term_color (const char *): The terminal color.
   - struct1 (const void *): The struct to be printed.
 */
-void string_printer(const char* term_color, const void* struct1);
+void string_print(const char* term_color, const void* struct1);
 
 /*
 Description: Compares the first and second struct's data in alphabetical
@@ -72,6 +72,6 @@ Return values:
   - -1: The data in the first struct is smaller than the data in the second
        struct.
 */
-int string_comparator(const void* struct1, const void* struct2);
+int string_compare(const void* struct1, const void* struct2);
 
 #endif

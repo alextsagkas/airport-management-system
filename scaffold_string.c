@@ -7,47 +7,47 @@ int main() {
   char str3[6] = "hello";
 
   // Create Key
-  key_stringp string_key1 = create_string_key(str1);
-  key_stringp string_key2 = create_string_key(str2);
-  key_stringp string_key3 = create_string_key(str3);
+  key_stringp string_key1 = string_create_key(str1);
+  key_stringp string_key2 = string_create_key(str2);
+  key_stringp string_key3 = string_create_key(str3);
 
-  // Printer
-  printf("\nPrinter:\n--------\n");
-  string_printer("string_key1: ", (void*)string_key1);
+  // Print
+  printf("\nprint:\n--------\n");
+  string_print("string_key1: ", (void*)string_key1);
   printf("\n");
-  string_printer("string_key2: ", (void*)string_key2);
+  string_print("string_key2: ", (void*)string_key2);
   printf("\n");
-  string_printer("string_key3: ", (void*)string_key3);
+  string_print("string_key3: ", (void*)string_key3);
   printf("\n");
 
-  // Comparator
-  printf("\nComparator:\n-----------\n");
-  string_printer("", (void*)string_key1);
+  // Compare
+  printf("\ncompare:\n-----------\n");
+  string_print("", (void*)string_key1);
   printf(" cmp ");
-  string_printer("", (void*)string_key2);
-  printf(" = %d\n", string_comparator((void*)string_key1, (void*)string_key2));
+  string_print("", (void*)string_key2);
+  printf(" = %d\n", string_compare((void*)string_key1, (void*)string_key2));
 
-  string_printer("", (void*)string_key2);
+  string_print("", (void*)string_key2);
   printf(" cmp ");
-  string_printer("", (void*)string_key1);
-  printf(" = %d\n", string_comparator((void*)string_key2, (void*)string_key1));
+  string_print("", (void*)string_key1);
+  printf(" = %d\n", string_compare((void*)string_key2, (void*)string_key1));
 
-  string_printer("", (void*)string_key1);
+  string_print("", (void*)string_key1);
   printf(" cmp ");
-  string_printer("", (void*)string_key3);
-  printf(" = %d\n", string_comparator((void*)string_key1, (void*)string_key3));
+  string_print("", (void*)string_key3);
+  printf(" = %d\n", string_compare((void*)string_key1, (void*)string_key3));
 
   // Delete
   printf("\nDelete:\n-------\n");
-  if (!delete_string_key((void*)string_key1)) {
+  if (!string_delete_key((void*)string_key1)) {
     printf("string_key1 was deleted successfully\n");
   }
 
-  if (!delete_string_key((void*)string_key2)) {
+  if (!string_delete_key((void*)string_key2)) {
     printf("string_key2 was deleted successfully\n");
   }
 
-  if (!delete_string_key((void*)string_key3)) {
+  if (!string_delete_key((void*)string_key3)) {
     printf("string_key3 was deleted successfully\n");
   }
 

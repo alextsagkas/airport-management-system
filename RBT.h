@@ -54,7 +54,7 @@ in the RBT T.
 Parameters:
   - T (Treep): The RBT.
   - key (void *): The key of the node to be inserted.
-  - comparator (int (*)(const void *, const void *)): The pointer to the
+  - compare (int (*)(const void *, const void *)): The pointer to the
     function that compares the data. It is expected to return the following
     values:
       - -1: The data of the first node is smaller than the data of the second
@@ -67,7 +67,7 @@ Return values:
   - 0: Success
   - -1: z failed to be allocated.
 */
-int RBT_insert(Treep T, void* key, int (*comparator)(const void*, const void*));
+int RBT_insert(Treep T, void* key, int (*compare)(const void*, const void*));
 
 /*
 Description: Removes the node with key denoted by the parameter key from the
@@ -78,7 +78,7 @@ if the node was found in the RBT T, otherwise it returns NULL.
 Parameters:
   - T (Treep): The root of the RBT.
   - key (void *): The key of the node to be deleted.
-  - comparator (int (*)(const void *, const void *)): The pointer to the
+  - compare (int (*)(const void *, const void *)): The pointer to the
     function that compares the data. It is expected to return the following
     values:
       - -1: The data of the first node is smaller than the data of the second
@@ -92,16 +92,14 @@ Return values:
   - (void *): The pointer to the key of the node that was deleted.
   - NULL: The node was not found in the RBT T.
 */
-void* RBT_delete(Treep T,
-                 void* key,
-                 int (*comparator)(const void*, const void*));
+void* RBT_delete(Treep T, void* key, int (*compare)(const void*, const void*));
 
 /*
 Description: Prints the RBT T.
 
 Parameters:
   - T (Treep): The RBT to be printed.
-  - printer (void (*)(const char *, const void *)): The pointer to the function
+  - print (void (*)(const char *, const void *)): The pointer to the function
     that prints the key of the node. It is expected to print the data of the
     node with the terminal color that the first parameter of the function
     indicates.
@@ -110,6 +108,6 @@ Return values:
   - 0: Success.
   - -1: T is empty.
 */
-int RBT_print_tree(Treep T, void (*printer)(const char*, const void*));
+int RBT_print_tree(Treep T, void (*print)(const char*, const void*));
 
 #endif

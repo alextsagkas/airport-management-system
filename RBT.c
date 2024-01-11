@@ -119,7 +119,7 @@ Parameters:
   - T (Treep): The RBT.
   - root (Nodep): The root of the RBT.
   - space (int): The space from the beginning of the line.
-  - printer (void (*)(const char *, const void *)): The pointer to the function
+  - print (void (*)(const char *, const void *)): The pointer to the function
     that prints the key of the node. It is expected to print the data of the
     node with the terminal color that the first parameter of the function
     indicates.
@@ -127,7 +127,7 @@ Parameters:
 void RBT_inorder_tree_walk(Treep T,
                            Nodep root,
                            int space,
-                           void (*printer)(const char*, const void*)) {
+                           void (*print)(const char*, const void*)) {
   // This values might have changed in RB_delete.
   // However, they do not need to remain this way.
   T->nil->right = NULL;
@@ -141,40 +141,41 @@ void RBT_inorder_tree_walk(Treep T,
   if (tmp != NULL) {
     space += space_increment;
 
-    RBT_inorder_tree_walk(T, tmp->right, space, printer);
+    RBT_inorder_tree_walk(T, tmp->right, space, print);
 
     printf("\n");
-    for (int i = space_increment; i < space; i++)
+    int i;
+    for (i = space_increment; i < space; i++)
       printf(" ");
 
     if (tmp == T->nil)
       printf("%sL", KRESET);
     else if (tmp->color == BLACK)
-      printer(KRESET, tmp->key);
+      print(KRESET, tmp->key);
     else
-      printer(KRED, tmp->key);
-    RBT_inorder_tree_walk(T, tmp->left, space, printer);
+      print(KRED, tmp->key);
+    RBT_inorder_tree_walk(T, tmp->left, space, print);
   }
 }
 
-int RBT_print_tree(Treep T, void (*printer)(const char*, const void*)) {
+int RBT_print_tree(Treep T, void (*print)(const char*, const void*)) {
   if (T->root == T->nil) {
     return -1;
   }
 
-  RBT_inorder_tree_walk(T, T->root, 0, printer);
+  RBT_inorder_tree_walk(T, T->root, 0, print);
 
   return 0;
 }
 
 /*
 Description: Searches the RBT T for the node with key denoted by the parameter
-key. It uses the comparator function to compare the keys of the nodes.
+key. It uses the compare function to compare the keys of the nodes.
 
 Parameters:
   - T (Treep): The RBT.
   - key (void *): The key of the node to be searched.
-  - comparator (int (*)(const void *, const void *)): The pointer to the
+  - compare (int (*)(const void *, const void *)): The pointer to the
     function that compares the data. It is expected to return the following
     values:
       - -1: The data of the first node is smaller than the data of the second
@@ -189,11 +190,11 @@ Return value:
 */
 Nodep RBT_search(Treep T,
                  void* key,
-                 int (*comparator)(const void*, const void*)) {
+                 int (*compare)(const void*, const void*)) {
   Nodep tmp = T->root;
 
-  while (tmp != T->nil && !(comparator(tmp->key, key) == 0)) {
-    if (comparator(tmp->key, key) == 1)
+  while (tmp != T->nil && !(compare(tmp->key, key) == 0)) {
+    if (compare(tmp->key, key) == 1)
       tmp = tmp->left;
     else
       tmp = tmp->right;
@@ -329,7 +330,7 @@ void RBT_insert_fixup(Treep T, Nodep z) {
 
 int RBT_insert(Treep T,
                void* key,
-               int (*comparator)(const void*, const void*)) {
+               int (*compare)(const void*, const void*)) {
 
   Nodep z = RBT_create_node(key);
 
@@ -341,7 +342,7 @@ int RBT_insert(Treep T,
 
   while (x != T->nil) {
     y = x;
-    if (comparator(z->key, x->key) == -1)
+    if (compare(z->key, x->key) == -1)
       x = x->left;
     else
       x = x->right;
@@ -351,7 +352,7 @@ int RBT_insert(Treep T,
 
   if (y == T->nil)
     T->root = z;
-  else if (comparator(z->key, y->key) == -1)
+  else if (compare(z->key, y->key) == -1)
     y->left = z;
   else
     y->right = z;
@@ -455,8 +456,8 @@ void RBT_delete_fixup(Treep T, Nodep x) {
 
 void* RBT_delete(Treep T,
                  void* key,
-                 int (*comparator)(const void*, const void*)) {
-  Nodep z = RBT_search(T, key, comparator);
+                 int (*compare)(const void*, const void*)) {
+  Nodep z = RBT_search(T, key, compare);
 
   if (z == T->nil) {
     return NULL;
