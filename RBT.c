@@ -24,6 +24,8 @@ References:
 
 enum color { RED, BLACK };
 
+typedef struct RBT_node* Nodep;
+
 // Struct representing a RBT
 struct RBT_tree {
   Nodep root;
@@ -188,9 +190,7 @@ Return value:
   - Nodep: The node with key denoted by the parameter key. If the node is not
     found, then it returns T->nil.
 */
-Nodep RBT_search(Treep T,
-                 void* key,
-                 int (*compare)(const void*, const void*)) {
+Nodep RBT_search(Treep T, void* key, int (*compare)(const void*, const void*)) {
   Nodep tmp = T->root;
 
   while (tmp != T->nil && !(compare(tmp->key, key) == 0)) {
@@ -328,9 +328,7 @@ void RBT_insert_fixup(Treep T, Nodep z) {
   (T->root)->color = BLACK;
 }
 
-int RBT_insert(Treep T,
-               void* key,
-               int (*compare)(const void*, const void*)) {
+int RBT_insert(Treep T, void* key, int (*compare)(const void*, const void*)) {
 
   Nodep z = RBT_create_node(key);
 
@@ -454,9 +452,7 @@ void RBT_delete_fixup(Treep T, Nodep x) {
   x->color = BLACK;
 }
 
-void* RBT_delete(Treep T,
-                 void* key,
-                 int (*compare)(const void*, const void*)) {
+void* RBT_delete(Treep T, void* key, int (*compare)(const void*, const void*)) {
   Nodep z = RBT_search(T, key, compare);
 
   if (z == T->nil) {

@@ -15,7 +15,6 @@ References:
 #ifndef RBT
 #define RBT
 
-typedef struct RBT_node* Nodep;
 typedef struct RBT_tree* Treep;
 
 /*
