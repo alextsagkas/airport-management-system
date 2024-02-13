@@ -36,6 +36,7 @@
     "tuple": "cpp",
     "__locale": "c",
     "cstring": "c",
-    "stdlib.h": "c"
+    "stdlib.h": "c",
+    "evretirio.h": "c"
   }
 }
