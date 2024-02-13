@@ -98,9 +98,6 @@ int TSEvr_readValue(FILE* from, TStoixeiouEvr* Elem) {
     Elem->departures = 0;
   }
 
-  // TODO: remove for submission
-  TSEvr_printStruct(*Elem);
-
   return 0;
 }
 

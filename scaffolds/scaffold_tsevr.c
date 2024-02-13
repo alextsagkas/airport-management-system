@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #define FILEPATH "data/linux/airportsLinuxRandom.txt"
-#define NEW_FILEPATH "data/linux/new_airportsLinuxRandom.txt"
+#define NEW_FILEPATH "data/linux/test/new_airportsLinuxRandom.txt"
 
 int main() {
   FILE* file = fopen(FILEPATH, "r");
