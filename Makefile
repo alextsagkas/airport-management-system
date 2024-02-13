@@ -1,5 +1,9 @@
 # ------------------------------------------------------- #
 
+exec_tsevr: tsevr scaffold_tsevr
+	gcc scaffolds/scaffold_tsevr.o index/TSEvr.o -o executables/exec_tsevr
+	./executables/exec_tsevr
+
 exec_rbt: int string rbt scaffold_rbt
 	gcc scaffolds/scaffold_rbt.o rbt_module/rbt.o int_module/int.o string_module/string.o -o executables/exec_rbt
 	./executables/exec_rbt
@@ -13,6 +17,9 @@ exec_string: string scaffold_string
 	./executables/exec_string
 
 # ------------------------------------------------------- #
+
+scaffold_tsevr: scaffolds/scaffold_tsevr.c
+	gcc -c scaffolds/scaffold_tsevr.c -o scaffolds/scaffold_tsevr.o
 
 scaffold_rbt: scaffolds/scaffold_rbt.c
 	gcc -c scaffolds/scaffold_rbt.c -o scaffolds/scaffold_rbt.o
@@ -31,6 +38,9 @@ string: string_module/string.c string_module/string.h
 
 rbt: rbt_module/rbt.c rbt_module/rbt.h
 	gcc -c rbt_module/rbt.c -o rbt_module/rbt.o 
+
+tsevr: index/TSEvr.c index/TSEvr.h
+	gcc -c index/TSEvr.c -o index/TSEvr.o
 
 # ------------------------------------------------------- #
 

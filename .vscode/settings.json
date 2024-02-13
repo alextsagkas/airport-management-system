@@ -15,6 +15,7 @@
     "megalytero",
     "mikrotero",
     "nodep",
+    "Pirie",
     "predeseccor",
     "sthn",
     "Stoixeiou",
@@ -24,7 +25,8 @@
     "symplhrvmatikes",
     "Treep",
     "TSDDA",
-    "xrhsh"
+    "xrhsh",
+    "YPIR"
   ],
   "files.associations": {
     "stdio.h": "c",
