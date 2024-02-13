@@ -16,18 +16,29 @@ typedef struct data {
   int departures;
 } TStoixeiouEvr;
 
-// int TSEvr_setValue(TStoixeiouEvr* target, TStoixeiouEvr source);
+/*
+Description: Initializes the target struct with the values the source struct
+holds.
+
+Parameters:
+  - target (TStoixeiouEvr*): The struct to be initialized.
+  - source (TStoixeiouEvr): The struct to initialize the target with.
+
+Return value:
+    - 0 if the operation was successful.
+*/
+int TSEvr_setValue(TStoixeiouEvr* target, TStoixeiouEvr source);
 
 /*
 Description: Reads a line from the file from and stores the values in the
-TStoixeiouEvr ELem struct
+TStoixeiouEvr ELem struct.
 
 Parameters:
-  - from (FILE*): The file to read from
-  - Elem (TStoixeiouEvr*): The struct to store the values
+  - from (FILE*): The file to read from.
+  - Elem (TStoixeiouEvr*): The struct to store the values.
 
-Return values:
-    - 0 if the operation was successful
+Return value:
+    - 0 if the operation was successful.
 */
 int TSEvr_readValue(FILE* from, TStoixeiouEvr* Elem);
 

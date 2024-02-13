@@ -5,6 +5,7 @@
 
 int main() {
   TStoixeiouEvr airport;
+  TStoixeiouEvr airport2;
 
   FILE* file = fopen(FILEPATH, "r");
   if (file == NULL) {
@@ -13,6 +14,7 @@ int main() {
 
   while (!feof(file)) {
     TSEvr_readValue(file, &airport);
+    TSEvr_setValue(&airport2, airport);
   }
 
   fclose(file);

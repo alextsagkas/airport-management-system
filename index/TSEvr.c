@@ -1,17 +1,55 @@
 #include "TSEvr.h"
 
-#define MAX_LINE_LENGTH 100
+#define MAX_LINE_LENGTH 150
 
-// int TSEvr_setValue(TStoixeiouEvr* target, TStoixeiouEvr source) {
-//   target->airportID = source.airportID;
-//   target->name = strdup(source.name);
-//   target->city = strdup(source.city);
-//   target->country = strdup(source.country);
-//   target->IATA = strdup(source.IATA);
-//   target->ICAO = strdup(source.ICAO);
+/*
+Description: Prints the fields of the given Elem struct. It is used for
+debugging purposes.
 
-//   return 0;
-// }
+Parameters:
+  - Elem (TStoixeiouEvr): The struct to print.
+
+Return value:
+  - 0: Success.
+*/
+int TSEvr_printStruct(TStoixeiouEvr Elem);
+
+int TSEvr_setValue(TStoixeiouEvr* target, TStoixeiouEvr source) {
+  target->airportID = source.airportID;
+  target->name = strdup(source.name);
+
+  if (source.city == NULL) {
+    target->city = NULL;
+  } else {
+    target->city = strdup(source.city);
+  }
+
+  if (source.country == NULL) {
+    target->country = NULL;
+  } else {
+    target->country = strdup(source.country);
+  }
+
+  if (source.IATA == NULL) {
+    target->IATA = NULL;
+  } else {
+    target->IATA = strdup(source.IATA);
+  }
+
+  if (source.ICAO == NULL) {
+    target->ICAO = NULL;
+  } else {
+    target->ICAO = strdup(source.ICAO);
+  }
+
+  target->arrivals = source.arrivals;
+  target->departures = source.departures;
+
+  // TODO: remove for submission
+  TSEvr_printStruct(*target);
+
+  return 0;
+}
 
 int TSEvr_readValue(FILE* from, TStoixeiouEvr* Elem) {
   char line[MAX_LINE_LENGTH];
@@ -62,18 +100,24 @@ int TSEvr_readValue(FILE* from, TStoixeiouEvr* Elem) {
     Elem->departures = 0;
   }
 
-  // Debug: Print the TStoixeiouEvr struct
-  // printf("airportID: %d\n", Elem->airportID);
-  // printf("name: %s\n", Elem->name);
-  // printf("city: %s\n", Elem->city);
-  // printf("country: %s\n", Elem->country);
-  // printf("IATA: %s\n", Elem->IATA);
-  // printf("ICAO: %s\n", Elem->ICAO);
-  // printf("arrivals: %d\n", Elem->arrivals);
-  // printf("departures: %d\n", Elem->departures);
-  // printf("\n");
+  // TODO: remove for submission
+  TSEvr_printStruct(*Elem);
 
   return 0;
 }
 
 // int TSEvr_writeValue(FILE* to, TStoixeiouEvr Elem) {}
+
+int TSEvr_printStruct(TStoixeiouEvr Elem) {
+  printf("airportID: %d\n", Elem.airportID);
+  printf("name: %s\n", Elem.name);
+  printf("city: %s\n", Elem.city);
+  printf("country: %s\n", Elem.country);
+  printf("IATA: %s\n", Elem.IATA);
+  printf("ICAO: %s\n", Elem.ICAO);
+  printf("arrivals: %d\n", Elem.arrivals);
+  printf("departures: %d\n", Elem.departures);
+  printf("\n");
+
+  return 0;
+}
