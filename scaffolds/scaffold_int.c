@@ -12,7 +12,7 @@ References:
  by Brian W. Kernighan and Rob Pike.
 */
 
-#include "int.h"
+#include "../int_module/int.h"
 #include <stdio.h>
 
 int main() {

@@ -12,7 +12,7 @@ References:
  by Brian W. Kernighan and Rob Pike.
 */
 
-#include "string.h"
+#include "../string_module/string.h"
 #include <stdio.h>
 
 int main() {
