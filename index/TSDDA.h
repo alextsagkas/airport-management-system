@@ -17,7 +17,7 @@ fields of the source struct.
 Parameters:
   - target (TStoixeiouDDA*): The struct that will be initialized.
   - source (TStoixeiouDDA): The struct that will be used to initialize the
-target.
+  target.
 
 Return value:
   - 0 : The function executed successfully.

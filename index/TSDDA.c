@@ -1,8 +1,8 @@
 #include "TSDDA.h"
 
 int TSDDA_setValue(TStoixeiouDDA* target, TStoixeiouDDA source) {
-  target->arrayIndex = source.arrayIndex;
   target->key = source.key;
+  target->arrayIndex = source.arrayIndex;
 
   return 0;
 }
