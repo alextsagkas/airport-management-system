@@ -1,7 +1,7 @@
 # ------------------------------------------------------- #
 
-exec_evretirio: evretirio scaffold_evretirio
-	gcc scaffolds/scaffold_evretirio.o index/Evretirio.o -o executables/exec_evretirio
+exec_evretirio: rbt tsdda tsevr evretirio scaffold_evretirio
+	gcc rbt_module/rbt.o index/TSDDA.o index/TSEvr.o scaffolds/scaffold_evretirio.o index/Evretirio.o -o executables/exec_evretirio
 	./executables/exec_evretirio
 
 exec_tsdda: tsdda scaffold_tsdda
@@ -43,6 +43,8 @@ scaffold_int: scaffolds/scaffold_int.c
 
 scaffold_string: scaffolds/scaffold_string.c
 	gcc -c scaffolds/scaffold_string.c -o scaffolds/scaffold_string.o
+
+# ------------------------------------------------------- #
 
 int: int_module/int.c int_module/int.h
 	gcc -c int_module/int.c -o int_module/int.o
