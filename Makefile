@@ -1,5 +1,9 @@
 # ------------------------------------------------------- #
 
+exec_tsdda: tsdda scaffold_tsdda
+	gcc scaffolds/scaffold_tsdda.o index/TSDDA.o -o executables/exec_tsdda
+	./executables/exec_tsdda
+
 exec_tsevr: tsevr scaffold_tsevr
 	gcc scaffolds/scaffold_tsevr.o index/TSEvr.o -o executables/exec_tsevr
 	./executables/exec_tsevr
@@ -17,6 +21,9 @@ exec_string: string scaffold_string
 	./executables/exec_string
 
 # ------------------------------------------------------- #
+
+scaffold_tsdda: scaffolds/scaffold_tsdda.c
+	gcc -c scaffolds/scaffold_tsdda.c -o scaffolds/scaffold_tsdda.o
 
 scaffold_tsevr: scaffolds/scaffold_tsevr.c
 	gcc -c scaffolds/scaffold_tsevr.c -o scaffolds/scaffold_tsevr.o
@@ -41,6 +48,9 @@ rbt: rbt_module/rbt.c rbt_module/rbt.h
 
 tsevr: index/TSEvr.c index/TSEvr.h
 	gcc -c index/TSEvr.c -o index/TSEvr.o
+
+tsdda: index/TSDDA.c index/TSDDA.h
+	gcc -c index/TSDDA.c -o index/TSDDA.o
 
 # ------------------------------------------------------- #
 
