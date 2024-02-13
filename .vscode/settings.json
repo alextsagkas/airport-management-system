@@ -40,5 +40,6 @@
     "cstring": "c",
     "stdlib.h": "c",
     "evretirio.h": "c"
-  }
+  },
+  "todo-tree.filtering.excludeGlobs": ["**/*.txt"]
 }
