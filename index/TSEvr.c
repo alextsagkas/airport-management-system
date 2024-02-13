@@ -106,7 +106,37 @@ int TSEvr_readValue(FILE* from, TStoixeiouEvr* Elem) {
   return 0;
 }
 
-// int TSEvr_writeValue(FILE* to, TStoixeiouEvr Elem) {}
+int TSEvr_writeValue(FILE* to, TStoixeiouEvr Elem) {
+  fprintf(to, "%d;%s;", Elem.airportID, Elem.name);
+
+  if (Elem.city == NULL) {
+    fprintf(to, "\\N;");
+  } else {
+    fprintf(to, "%s;", Elem.city);
+  }
+
+  if (Elem.country == NULL) {
+    fprintf(to, "\\N;");
+  } else {
+    fprintf(to, "%s;", Elem.country);
+  }
+
+  if (Elem.IATA == NULL) {
+    fprintf(to, "\\N;");
+  } else {
+    fprintf(to, "%s;", Elem.IATA);
+  }
+
+  if (Elem.ICAO == NULL) {
+    fprintf(to, "\\N;");
+  } else {
+    fprintf(to, "%s;", Elem.ICAO);
+  }
+
+  fprintf(to, "%d;%d;\n", Elem.arrivals, Elem.departures);
+
+  return 0;
+}
 
 int TSEvr_printStruct(TStoixeiouEvr Elem) {
   printf("airportID: %d\n", Elem.airportID);

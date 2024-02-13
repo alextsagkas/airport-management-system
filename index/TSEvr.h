@@ -42,6 +42,18 @@ Return value:
 */
 int TSEvr_readValue(FILE* from, TStoixeiouEvr* Elem);
 
-// int TSEvr_writeValue(FILE* to, TStoixeiouEvr Elem);
+/*
+Description: Writes the values of the TStoixeiouEvr Elem struct to the file to.
+The fields are separated with the delimeter ';' and when a char* field is NULL,
+the string "\N" is written instead.
+
+Parameters:
+  - to (FILE*): The file to write to.
+  - Elem (TStoixeiouEvr): The struct to write the values from.
+
+Return value:
+    - 0 if the operation was successful.
+*/
+int TSEvr_writeValue(FILE* to, TStoixeiouEvr Elem);
 
 #endif
