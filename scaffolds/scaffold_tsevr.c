@@ -27,5 +27,15 @@ int main() {
   fclose(file);
   fclose(new_file);
 
+  /*
+    Verification of similarity:
+    ---------------------------
+
+     In order to check the new_file, use the diff command in the terminal
+     One caveat is that the new_file contains also the arrivals and departures,
+     so, you could temporarily remove them from TSEvr_writeValue in TSEvr.c to
+     compare the files.
+  */
+
   return 0;
 }

@@ -15,6 +15,7 @@ Return value:
 int TSEvr_printStruct(TStoixeiouEvr Elem);
 
 int TSEvr_setValue(TStoixeiouEvr* target, TStoixeiouEvr source) {
+  // These two fields cannot be NULL so we can use strdup directly
   target->airportID = source.airportID;
   target->name = strdup(source.name);
 
@@ -44,9 +45,6 @@ int TSEvr_setValue(TStoixeiouEvr* target, TStoixeiouEvr source) {
 
   target->arrivals = source.arrivals;
   target->departures = source.departures;
-
-  // TODO: remove for submission
-  TSEvr_printStruct(*target);
 
   return 0;
 }
