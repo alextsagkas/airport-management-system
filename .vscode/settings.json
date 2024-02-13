@@ -35,6 +35,7 @@
     "limits": "cpp",
     "tuple": "cpp",
     "__locale": "c",
-    "cstring": "c"
+    "cstring": "c",
+    "stdlib.h": "c"
   }
 }
