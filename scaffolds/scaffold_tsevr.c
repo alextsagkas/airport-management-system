@@ -1,8 +1,10 @@
 #include "../index/TSEvr.h"
 #include <stdio.h>
 
-#define FILEPATH "data/linux/airportsLinuxRandom.txt"
-#define NEW_FILEPATH "data/linux/test/new_airportsLinuxRandom.txt"
+// #define FILEPATH "data/linux/airportsLinuxRandom.txt"
+#define FILEPATH "data/linux/airportsLinuxSorted.txt"
+// #define NEW_FILEPATH "data/linux/test/new_airportsLinuxRandom.txt"
+#define NEW_FILEPATH "data/linux/test/new_airportsLinuxSorted.txt"
 
 int main() {
   FILE* file = fopen(FILEPATH, "r");
