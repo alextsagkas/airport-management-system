@@ -1,5 +1,9 @@
 # ------------------------------------------------------- #
 
+exec_evretirio: evretirio scaffold_evretirio
+	gcc scaffolds/scaffold_evretirio.o index/Evretirio.o -o executables/exec_evretirio
+	./executables/exec_evretirio
+
 exec_tsdda: tsdda scaffold_tsdda
 	gcc scaffolds/scaffold_tsdda.o index/TSDDA.o -o executables/exec_tsdda
 	./executables/exec_tsdda
@@ -21,6 +25,9 @@ exec_string: string scaffold_string
 	./executables/exec_string
 
 # ------------------------------------------------------- #
+
+scaffold_evretirio: scaffolds/scaffold_evretirio.c
+	gcc -c scaffolds/scaffold_evretirio.c -o scaffolds/scaffold_evretirio.o
 
 scaffold_tsdda: scaffolds/scaffold_tsdda.c
 	gcc -c scaffolds/scaffold_tsdda.c -o scaffolds/scaffold_tsdda.o
@@ -51,6 +58,9 @@ tsevr: index/TSEvr.c index/TSEvr.h
 
 tsdda: index/TSDDA.c index/TSDDA.h
 	gcc -c index/TSDDA.c -o index/TSDDA.o
+
+evretirio: index/Evretirio.c index/Evretirio.h
+	gcc -c index/Evretirio.c -o index/Evretirio.o
 
 # ------------------------------------------------------- #
 
