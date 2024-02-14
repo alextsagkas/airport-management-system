@@ -110,7 +110,22 @@ int main() {
   /* ------------------------------------------------------ */
   FILE* out = fopen(OUTPUT_FILEPATH, "w");
 
-  Evr_printAll(E, out);
+  int print_result = Evr_printAll(E, out);
+
+  switch (print_result) {
+  case -2:
+    printf("\nThe log file failed to be deleted.\n");
+    break;
+  case -1:
+    printf("\nThe RBT is empty.\n");
+    break;
+  case 0:
+    printf("\nThe file was written successfully.\n");
+    break;
+
+  default:
+    break;
+  }
 
   fclose(out);
   /* ------------------------------------------------------ */
