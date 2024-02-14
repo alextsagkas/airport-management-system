@@ -2,6 +2,56 @@
 #include <stdio.h>
 
 int main() {
+
+  // Create
+  TStoixeiouDDA* ss1 = TSDDA_create(0, 10);
+  TStoixeiouDDA* ss2 = TSDDA_create(1, 11);
+  TStoixeiouDDA* ss3 = TSDDA_create(0, 12);
+
+  // Print
+  printf("\nprint:\n--------\n");
+  TSDDA_print("ss1: ", (void*)ss1);
+  printf("\n");
+  TSDDA_print("ss2: ", (void*)ss2);
+  printf("\n");
+  TSDDA_print("ss3: ", (void*)ss3);
+  printf("\n");
+
+  // Compare
+  printf("\ncompare:\n------------\n");
+  TSDDA_print("", (void*)ss1);
+  printf(" cmp ");
+  TSDDA_print("", (void*)ss2);
+  printf(" = %d\n", TSDDA_compare((void*)ss1, (void*)ss2));
+
+  TSDDA_print("", (void*)ss1);
+  printf(" cmp ");
+  TSDDA_print("", (void*)ss3);
+  printf(" = %d\n", TSDDA_compare((void*)ss1, (void*)ss3));
+
+  TSDDA_print("", (void*)ss2);
+  printf(" cmp ");
+  TSDDA_print("", (void*)ss3);
+  printf(" = %d\n", TSDDA_compare((void*)ss2, (void*)ss3));
+
+  // Delete
+  printf("\nDelete:\n-------\n");
+  if (!TSDDA_delete((void*)ss1)) {
+    printf("ss1 was deleted successfully\n");
+  }
+
+  if (!TSDDA_delete((void*)ss2)) {
+    printf("ss2 was deleted successfully\n");
+  }
+
+  if (!TSDDA_delete((void*)ss3)) {
+    printf("ss3 was deleted successfully\n");
+  }
+
+  printf("\n\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+
+  /* ---------------------------------------------------------------- */
+
   TStoixeiouDDA s1, s2, s3;
 
   TSDDA_setValue(&s1, (TStoixeiouDDA){.key = 0, .arrayIndex = 10});
@@ -25,101 +75,83 @@ int main() {
   printf("-----------------------------------\n");
 
   printf("\n-----------------------------------\n");
-  printf("s1.key = %d compare s2.key = %d : %d\n",
-         s1.key,
-         s2.key,
-         TSDDA_compare(s1, s2));
-  printf("s1.key = %d compare s3.key = %d : %d\n",
-         s1.key,
-         s3.key,
-         TSDDA_compare(s1, s3));
-  printf("s2.key = %d compare s3.key = %d : %d\n",
-         s2.key,
-         s3.key,
-         TSDDA_compare(s2, s3));
+  printf(
+      "s1.key = %d == s2.key = %d : %d\n", s1.key, s2.key, TSDDA_equal(s1, s2));
+  printf(
+      "s1.key = %d == s3.key = %d : %d\n", s1.key, s3.key, TSDDA_equal(s1, s3));
+  printf(
+      "s2.key = %d == s3.key = %d : %d\n", s2.key, s3.key, TSDDA_equal(s2, s3));
+
   printf("-----------------------------------\n");
+  printf("s1.key = %d < s2.key = %d : %d\n",
+         s1.key,
+         s2.key,
+         TSDDA_smaller(s1, s2));
+  printf("s1.key = %d < s3.key = %d : %d\n",
+         s1.key,
+         s3.key,
+         TSDDA_smaller(s1, s3));
+  printf("s2.key = %d < s3.key = %d : %d\n",
+         s2.key,
+         s3.key,
+         TSDDA_smaller(s2, s3));
 
-  //   printf("\n-----------------------------------\n");
-  //   printf(
-  //       "s1.key = %d == s2.key = %d : %d\n", s1.key, s2.key, TSDDA_equal(s1,
-  //       s2));
-  //   printf(
-  //       "s1.key = %d == s3.key = %d : %d\n", s1.key, s3.key, TSDDA_equal(s1,
-  //       s3));
-  //   printf(
-  //       "s2.key = %d == s3.key = %d : %d\n", s2.key, s3.key, TSDDA_equal(s2,
-  //       s3));
+  printf("-----------------------------------\n");
+  printf("s1.key = %d > s2.key = %d : %d\n",
+         s1.key,
+         s2.key,
+         TSDDA_greater(s1, s2));
+  printf("s1.key = %d > s3.key = %d : %d\n",
+         s1.key,
+         s3.key,
+         TSDDA_greater(s1, s3));
+  printf("s2.key = %d > s3.key = %d : %d\n",
+         s2.key,
+         s3.key,
+         TSDDA_greater(s2, s3));
 
-  //   printf("-----------------------------------\n");
-  //   printf("s1.key = %d < s2.key = %d : %d\n",
-  //          s1.key,
-  //          s2.key,
-  //          TSDDA_smaller(s1, s2));
-  //   printf("s1.key = %d < s3.key = %d : %d\n",
-  //          s1.key,
-  //          s3.key,
-  //          TSDDA_smaller(s1, s3));
-  //   printf("s2.key = %d < s3.key = %d : %d\n",
-  //          s2.key,
-  //          s3.key,
-  //          TSDDA_smaller(s2, s3));
+  printf("-----------------------------------\n");
+  printf("s1.key = %d <= s2.key = %d : %d\n",
+         s1.key,
+         s2.key,
+         TSDDA_smaller_or_equal(s1, s2));
+  printf("s1.key = %d <= s3.key = %d : %d\n",
+         s1.key,
+         s3.key,
+         TSDDA_smaller_or_equal(s1, s3));
+  printf("s1.key = %d <= s2.key = %d : %d\n",
+         s1.key,
+         s2.key,
+         TSDDA_smaller_or_equal(s1, s2));
 
-  //   printf("-----------------------------------\n");
-  //   printf("s1.key = %d > s2.key = %d : %d\n",
-  //          s1.key,
-  //          s2.key,
-  //          TSDDA_greater(s1, s2));
-  //   printf("s1.key = %d > s3.key = %d : %d\n",
-  //          s1.key,
-  //          s3.key,
-  //          TSDDA_greater(s1, s3));
-  //   printf("s2.key = %d > s3.key = %d : %d\n",
-  //          s2.key,
-  //          s3.key,
-  //          TSDDA_greater(s2, s3));
+  printf("-----------------------------------\n");
+  printf("s1.key = %d >= s2.key = %d : %d\n",
+         s1.key,
+         s2.key,
+         TSDDA_greater_or_equal(s1, s2));
+  printf("s1.key = %d >= s3.key = %d : %d\n",
+         s1.key,
+         s3.key,
+         TSDDA_greater_or_equal(s1, s3));
+  printf("s1.key = %d >= s2.key = %d : %d\n",
+         s1.key,
+         s2.key,
+         TSDDA_greater_or_equal(s1, s2));
 
-  //   printf("-----------------------------------\n");
-  //   printf("s1.key = %d <= s2.key = %d : %d\n",
-  //          s1.key,
-  //          s2.key,
-  //          TSDDA_smaller_or_equal(s1, s2));
-  //   printf("s1.key = %d <= s3.key = %d : %d\n",
-  //          s1.key,
-  //          s3.key,
-  //          TSDDA_smaller_or_equal(s1, s3));
-  //   printf("s1.key = %d <= s2.key = %d : %d\n",
-  //          s1.key,
-  //          s2.key,
-  //          TSDDA_smaller_or_equal(s1, s2));
-
-  //   printf("-----------------------------------\n");
-  //   printf("s1.key = %d >= s2.key = %d : %d\n",
-  //          s1.key,
-  //          s2.key,
-  //          TSDDA_greater_or_equal(s1, s2));
-  //   printf("s1.key = %d >= s3.key = %d : %d\n",
-  //          s1.key,
-  //          s3.key,
-  //          TSDDA_greater_or_equal(s1, s3));
-  //   printf("s1.key = %d >= s2.key = %d : %d\n",
-  //          s1.key,
-  //          s2.key,
-  //          TSDDA_greater_or_equal(s1, s2));
-
-  //   printf("-----------------------------------\n");
-  //   printf("s1.key = %d != s2.key = %d : %d\n",
-  //          s1.key,
-  //          s2.key,
-  //          TSDDA_not_equal(s1, s2));
-  //   printf("s1.key = %d != s3.key = %d : %d\n",
-  //          s1.key,
-  //          s3.key,
-  //          TSDDA_not_equal(s1, s3));
-  //   printf("s2.key = %d != s3.key = %d : %d\n",
-  //          s2.key,
-  //          s3.key,
-  //          TSDDA_not_equal(s2, s3));
-  //   printf("-----------------------------------\n");
+  printf("-----------------------------------\n");
+  printf("s1.key = %d != s2.key = %d : %d\n",
+         s1.key,
+         s2.key,
+         TSDDA_not_equal(s1, s2));
+  printf("s1.key = %d != s3.key = %d : %d\n",
+         s1.key,
+         s3.key,
+         TSDDA_not_equal(s1, s3));
+  printf("s2.key = %d != s3.key = %d : %d\n",
+         s2.key,
+         s3.key,
+         TSDDA_not_equal(s2, s3));
+  printf("-----------------------------------\n");
 
   return 0;
 }
