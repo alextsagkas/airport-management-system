@@ -498,3 +498,21 @@ void* RBT_delete(Treep T, void* key, int (*compare)(const void*, const void*)) {
 
   return data;
 }
+
+void* RBT_search_key(Treep T,
+                     void* key,
+                     int (*compare)(const void*, const void*)) {
+  Nodep tmp = T->root;
+
+  while (tmp != T->nil && !(compare(tmp->key, key) == 0)) {
+    if (compare(tmp->key, key) == 1)
+      tmp = tmp->left;
+    else
+      tmp = tmp->right;
+  }
+
+  if (tmp == T->nil)
+    return NULL;
+
+  return tmp->key;
+}

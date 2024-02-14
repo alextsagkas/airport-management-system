@@ -109,4 +109,28 @@ Return values:
 */
 int RBT_print_tree(Treep T, void (*print)(const char*, const void*));
 
+/*
+Description: Searches the RBT T for the node with key denoted by the parameter
+key. It uses the compare function to compare the keys of the nodes.
+
+Parameters:
+  - T (Treep): The RBT.
+  - key (void *): The key of the node to be searched.
+  - compare (int (*)(const void *, const void *)): The pointer to the
+    function that compares the data. It is expected to return the following
+    values:
+      - -1: The data of the first node is smaller than the data of the second
+        node.
+      - 0: The data of the first node is equal to the data of the second node.
+      - 1: The data of the first node is greater than the data of the second
+        node.
+
+Return value:
+  - void *: The key of the node with key denoted by the parameter key. If the
+    node is not found, then it returns NULL.
+*/
+void* RBT_search_key(Treep T,
+                     void* key,
+                     int (*compare)(const void*, const void*));
+
 #endif

@@ -23,6 +23,7 @@ int TSDDA_delete(void* node) {
   return 0;
 }
 
+// TODO: make it return in all paths
 void TSDDA_print(const char* term_color, const void* struct1) {
   printf("%s%d", term_color, ((TStoixeiouDDA*)struct1)->key);
 }
