@@ -78,7 +78,7 @@ int insert_elements_to_evr(EvrPtr E) {
   gettimeofday(&t_start_11, NULL);
   gettimeofday(&t_start_12, NULL);
 
-  while (feof(file) == 0) {
+  while (!feof(file)) {
     // start timers
     if (count_elements % 511 == 0) {
       gettimeofday(&t_end_9, NULL);
