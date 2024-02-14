@@ -12,11 +12,10 @@ Goal			    	: Extention of RBT to manage airports
 #include "TSDDA.h"
 #include "TSEvr.h"
 
-int main(int argc, char* argv[]) {
+int main() {
   EvrPtr E;
 
-  E = EvrConstruct(7200);
+  E = Evr_construct(7200);
 
-  getchar();
   return 0;
 }
