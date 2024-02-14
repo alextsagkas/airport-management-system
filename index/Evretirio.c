@@ -93,12 +93,25 @@ int Evr_search(EvrPtr E, keyType key, int InOut, int* found) {
 // int Evr_printAll(EvrPtr E, FILE* out, int* counter) {}
 
 int Evr_destruct(EvrPtr* E) {
+  keyType key;
+  void* TSDDAData;
+
+  for (int i = 0; i < (*E)->Index; i++) {
+    key = (*E)->DataArray[i].airportID;
+    // Deallocate the RBT node
+    TSDDAData = RBT_delete((*E)->TreeRoot, (void*)&key, TSDDA_compare);
+    // Deallocate the key of the RBT node
+    TSDDA_delete(TSDDAData);
+  }
+
+  // Deallocate the DataArray
   free((*E)->DataArray);
   (*E)->DataArray = NULL;
 
-  // TODO: free all of RBT's nodes
+  // Deallocate the RBT
   RBT_delete_tree((*E)->TreeRoot);
 
+  // Deallocate the EvrNode
   free(*E);
   *E = NULL;
 
