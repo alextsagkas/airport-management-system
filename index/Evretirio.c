@@ -146,6 +146,13 @@ int Evr_destruct(EvrPtr* E) {
     TSDDAData = RBT_delete((*E)->TreeRoot, (void*)&key, TSDDA_compare);
     // Deallocate the key of the RBT node
     TSDDA_delete(TSDDAData);
+
+    // TODO: Deallocate the DataArray Strings when you read them from file
+    free((*E)->DataArray[i].name);
+    free((*E)->DataArray[i].city);
+    free((*E)->DataArray[i].country);
+    free((*E)->DataArray[i].IATA);
+    free((*E)->DataArray[i].ICAO);
   }
 
   // Deallocate the DataArray
