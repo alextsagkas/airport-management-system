@@ -52,6 +52,19 @@ Parameters:
 void TSDDA_print(const char* term_color, const void* struct1);
 
 /*
+Description: Prints the data of the struct to the file denoted by the
+function's parameter. The form of the printed output is: airportID;arrayIndex;
+
+Parameters:
+  - out (FILE*): The file to be printed.
+  - struct1 (const void*): The struct to be printed.
+
+Asserts:
+  - out != NULL.
+*/
+void TSDDA_fprint(FILE* out, const void* struct1);
+
+/*
 Description: Compares the first and second struct's data. The comparison is
 based on the key field of the structs. The return values follow the rules:
   - -1: The key in the first struct is smaller than the key in the second

@@ -3,6 +3,7 @@
 #include <stdio.h>
 
 #define MAXSIZE 10
+#define OUTPUT_FILEPATH "data/linux/output/test.txt"
 
 int main() {
   /* ------------------------------------------------------ */
@@ -106,6 +107,12 @@ int main() {
   }
 
   Evr_printArrayRBT(E);
+  /* ------------------------------------------------------ */
+  FILE* out = fopen(OUTPUT_FILEPATH, "w");
+
+  Evr_printAll(E, out);
+
+  fclose(out);
   /* ------------------------------------------------------ */
   Evr_destruct(&E);
   /* ------------------------------------------------------ */

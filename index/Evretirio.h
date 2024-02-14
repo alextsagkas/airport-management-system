@@ -80,6 +80,21 @@ int Evr_search(EvrPtr E, keyType key, int InOut, int* found);
 // TODO: remove before submission
 int Evr_printArrayRBT(EvrPtr E);
 
-// int Evr_printAll(EvrPtr E, FILE* out, int* counter);
+/*
+Description: Print all the elements in the DataArray of the EvrPtr in sorted
+ascending order. For this to happen the RBT is traversed in order and the
+elements are printed. Each line of the out file has the following format:
+airportID;arrivals;departures;
+
+Parameters:
+    - E (EvrPtr): A pointer to the EvrPtr.
+    - out (FILE*): The file to which the elements are printed.
+Return values:
+    - -2: if the log file used to store temporary information could not be
+    deleted successfully.
+    - -1: if the RBT is empty.
+    - 0: if the function was successful.
+*/
+int Evr_printAll(EvrPtr E, FILE* out);
 
 #endif

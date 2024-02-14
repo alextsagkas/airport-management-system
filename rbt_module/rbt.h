@@ -15,6 +15,8 @@ References:
 #ifndef RBT
 #define RBT
 
+#include <stdio.h>
+
 typedef struct RBT_tree* Treep;
 
 /*
@@ -132,5 +134,23 @@ Return value:
 void* RBT_search_key(Treep T,
                      void* key,
                      int (*compare)(const void*, const void*));
+
+/*
+Description: Prints the RBT T to the file out, by using the fprint function. The
+first parameter of the fprint function is the file to be printed and the second
+parameter is the key of the node.
+
+Parameters:
+  - T (Treep): The RBT to be printed.
+  - out (FILE *): The file to be printed.
+  - fprint (void (*)(FILE *, const void *)): The pointer to the function that
+    prints the key of the node. It is expected to print the data of the node
+    to the file out.
+
+Return values:
+  - -1: T is empty.
+  - 0: Success.
+*/
+int RBT_print_to_file(Treep T, FILE* out, void (*fprint)(FILE*, const void*));
 
 #endif

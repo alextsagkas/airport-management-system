@@ -3,6 +3,8 @@
 
 #include "../rbt_module/rbt.h" /* h Ylopoihsh sas toy R/B */
 
+#define LOG_FILEPATH "data/linux/output/temp.txt"
+
 /*
 Description: Prints the EvrNode E. Specifically, it prints the DataArray and the
 RBT TreeRoot. It is used for debugging purposes.
@@ -90,7 +92,49 @@ int Evr_search(EvrPtr E, keyType key, int InOut, int* found) {
   return 0;
 }
 
-// int Evr_printAll(EvrPtr E, FILE* out, int* counter) {}
+int Evr_printAll(EvrPtr E, FILE* out) {
+  FILE* log = fopen(LOG_FILEPATH, "w+");
+
+  // Write the AirportID and the arrayIndex to the file
+  int result = RBT_print_to_file(E->TreeRoot, log, TSDDA_fprint) == -1;
+
+  // T is empty
+  if (result == -1) {
+    return -1;
+  }
+
+  // Reading specific variables
+  char delimeter[] = ";";
+  char line[100];
+  char* token;
+
+  TStoixeiouEvr* Data;
+
+  fseek(log, 0, SEEK_SET);
+
+  // Read the file and print the AirportID and the arrayIndex and print the
+  // corresponding arrivals and departures from the DataArray
+  while (fgets(line, sizeof(line), log)) {
+    token = strtok(line, delimeter);
+    int airportID = atoi(token);
+
+    token = strtok(NULL, delimeter);
+    int arrayIndex = atoi(token);
+
+    Data = &(E->DataArray[arrayIndex]);
+
+    fprintf(out, "%d;", Data->airportID);
+    fprintf(out, "%d;", Data->arrivals);
+    fprintf(out, "%d;\n", Data->departures);
+  }
+
+  fclose(log);
+
+  if (remove(LOG_FILEPATH) != 0)
+    return -2;
+
+  return 0;
+}
 
 int Evr_destruct(EvrPtr* E) {
   keyType key;

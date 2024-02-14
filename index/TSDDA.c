@@ -23,7 +23,15 @@ int TSDDA_delete(void* node) {
   return 0;
 }
 
-// TODO: make it return in all paths
+void TSDDA_fprint(FILE* out, const void* struct1) {
+  assert(out != NULL);
+
+  fprintf(out,
+          "%d;%d;\n",
+          ((TStoixeiouDDA*)struct1)->key,
+          ((TStoixeiouDDA*)struct1)->arrayIndex);
+}
+
 void TSDDA_print(const char* term_color, const void* struct1) {
   printf("%s%d", term_color, ((TStoixeiouDDA*)struct1)->key);
 }
@@ -36,7 +44,7 @@ int TSDDA_compare(const void* s1, const void* s2) {
     return -1;
   } else if (ss1->key == ss2->key) {
     return 0;
-  } else if (ss1->key > ss2->key) {
+  } else {
     return 1;
   }
 }
