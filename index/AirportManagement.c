@@ -15,6 +15,21 @@ Goal			    	: Extention of RBT to manage airports
 
 #define RANDOM_FILEPATH "data/linux/airportsLinuxRandom.txt"
 
+/*
+Description: Insert elements to the Evr (both DataArray and RBT) from the
+RANDOM_FILEPATH file. It also prints to the console the following information:
+  - Time intervals for 2^N - 1 elements where N = 9, 10, 11, 12.
+  - Total time elapsed for the insertion of all elements.
+  - Total elements inserted.
+
+Parameters:
+  - E (EvrPtr): Pointer to the Evr.
+
+Returns:
+  - -2: if the insertion on the RBT fails.
+  - -1: if the file cannot be opened.
+  - 0: if the procedure is successful.
+*/
 int insert_elements_to_evr(EvrPtr E);
 
 int main() {
@@ -102,7 +117,7 @@ int insert_elements_to_evr(EvrPtr E) {
     TSEvr_readValue(file, &elem);
     ret = Evr_insert(E, elem);
     if (ret != 0) {
-      return -1;
+      return -2;
     }
 
     count_elements++;
