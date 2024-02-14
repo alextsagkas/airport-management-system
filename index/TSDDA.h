@@ -48,107 +48,131 @@ Return value:
 */
 int TSDDA_setIndex(int* Index, int Val);
 
-/* Main functions for insertion/deletion/searching in DDA */
-
 /*
-Description: Checks if the key field of the two structs are equal. If they are,
-the function returns 1, otherwise it returns 0.
-
-Parameters:
-  - TStoixeiouDDA: The first struct that will be compared.
-  - TStoixeiouDDA: The second struct that will be compared.
-
-Return values:
-  - 1 : The fields of the two structs are equal.
-  - 0 : The fields of the two structs are not equal.
-*/
-int TSDDA_equal(TStoixeiouDDA, TStoixeiouDDA);
-
-/*
-Description: Checks if the key field of the first struct is smaller than the key
-field of the second struct. If it is, the function returns 1, otherwise it
-returns 0.
-
-Parameters:
-  - TStoixeiouDDA: The first struct that will be compared.
-  - TStoixeiouDDA: The second struct that will be compared.
-
-Return values:
-  - 1 : The key field of the first struct is smaller than the key field of the
-  second struct.
-  - 0 : The key field of the first struct is not smaller than the key field of
-  the second struct.
-*/
-int TSDDA_smaller(TStoixeiouDDA, TStoixeiouDDA);
-
-/*
-Description: Checks if the key field of the first struct is greater than the key
-field of the second struct. If it is, the function returns 1, otherwise it
-returns 0.
-
-Parameters:
-  - TStoixeiouDDA: The first struct that will be compared.
-  - TStoixeiouDDA: The second struct that will be compared.
-
-Return values:
-  - 1 : The key field of the first struct is greater than the key field of the
-  second struct.
-  - 0 : The key field of the first struct is not greater than the key field of
-  the second struct.
-*/
-int TSDDA_greater(TStoixeiouDDA, TStoixeiouDDA);
-
-/* Supplementary comparison functions */
-
-/*
-Description: Checks if the key field of the first struct is smaller or equal to
-the key field of the second struct. If it is, the function returns 1, otherwise
-it returns 0.
-
-Parameters:
-  - TStoixeiouDDA: The first struct that will be compared.
-  - TStoixeiouDDA: The second struct that will be compared.
-
-Return values:
-  - 1 : The key field of the first struct is smaller or equal to the key field
-  of the second struct.
-  - 0 : The key field of the first struct is not smaller or equal to the key
-  field of the second struct.
-*/
-int TSDDA_smaller_or_equal(TStoixeiouDDA, TStoixeiouDDA);
-
-/*
-Description: Checks if the key field of the first struct is greater or equal to
-the key field of the second struct. If it is, the function returns 1, otherwise
-it returns 0.
-
-Parameters:
-  - TStoixeiouDDA: The first struct that will be compared.
-  - TStoixeiouDDA: The second struct that will be compared.
-
-Return values:
-  - 1 : The key field of the first struct is greater or equal to the key field
-  of the second struct.
-  - 0 : The key field of the first struct is not greater or equal to the key
-  field of the second struct.
-*/
-int TSDDA_greater_or_equal(TStoixeiouDDA, TStoixeiouDDA);
-
-/*
-Description: Checks if the key field of the first struct is not equal to the key
-field of the second struct. If it is, the function returns 1, otherwise it
-returns 0.
-
-Parameters:
-  - TStoixeiouDDA: The first struct that will be compared.
-  - TStoixeiouDDA: The second struct that will be compared.
-
-Return values:
-  - 1 : The key field of the first struct is not equal to the key field of the
-  second struct.
+Description: This function compares the key field of the two structs. The output
+is the following:
+  - -1 : The key field of the first struct is smaller than the key field of the
+    second struct.
   - 0 : The key field of the first struct is equal to the key field of the
-  second struct.
+    second struct.
+  - 1 : The key field of the first struct is greater than the key field of the
+    second struct.
+
+Parameters:
+  - TStoixeiouDDA: The first struct that will be compared.
+  - TStoixeiouDDA: The second struct that will be compared.
+
+Return values:
+  - -1 : The key field of the first struct is smaller than the key field of the
+    second struct.
+  - 0 : The key field of the first struct is equal to the key field of the
+    second struct.
+  - 1 : The key field of the first struct is greater than the key field of the
+    second struct.
 */
-int TSDDA_not_equal(TStoixeiouDDA, TStoixeiouDDA);
+int TSDDA_compare(TStoixeiouDDA, TStoixeiouDDA);
+
+// /* Main functions for insertion/deletion/searching in DDA */
+
+// /*
+// Description: Checks if the key field of the two structs are equal. If they
+// are, the function returns 1, otherwise it returns 0.
+
+// Parameters:
+//   - TStoixeiouDDA: The first struct that will be compared.
+//   - TStoixeiouDDA: The second struct that will be compared.
+
+// Return values:
+//   - 1 : The fields of the two structs are equal.
+//   - 0 : The fields of the two structs are not equal.
+// */
+// int TSDDA_equal(TStoixeiouDDA, TStoixeiouDDA);
+
+// /*
+// Description: Checks if the key field of the first struct is smaller than the
+// key field of the second struct. If it is, the function returns 1, otherwise
+// it returns 0.
+
+// Parameters:
+//   - TStoixeiouDDA: The first struct that will be compared.
+//   - TStoixeiouDDA: The second struct that will be compared.
+
+// Return values:
+//   - 1 : The key field of the first struct is smaller than the key field of
+//   the second struct.
+//   - 0 : The key field of the first struct is not smaller than the key field
+//   of the second struct.
+// */
+// int TSDDA_smaller(TStoixeiouDDA, TStoixeiouDDA);
+
+// /*
+// Description: Checks if the key field of the first struct is greater than the
+// key field of the second struct. If it is, the function returns 1, otherwise
+// it returns 0.
+
+// Parameters:
+//   - TStoixeiouDDA: The first struct that will be compared.
+//   - TStoixeiouDDA: The second struct that will be compared.
+
+// Return values:
+//   - 1 : The key field of the first struct is greater than the key field of
+//   the second struct.
+//   - 0 : The key field of the first struct is not greater than the key field
+//   of the second struct.
+// */
+// int TSDDA_greater(TStoixeiouDDA, TStoixeiouDDA);
+
+// /* Supplementary comparison functions */
+
+// /*
+// Description: Checks if the key field of the first struct is smaller or equal
+// to the key field of the second struct. If it is, the function returns 1,
+// otherwise it returns 0.
+
+// Parameters:
+//   - TStoixeiouDDA: The first struct that will be compared.
+//   - TStoixeiouDDA: The second struct that will be compared.
+
+// Return values:
+//   - 1 : The key field of the first struct is smaller or equal to the key
+//   field of the second struct.
+//   - 0 : The key field of the first struct is not smaller or equal to the key
+//   field of the second struct.
+// */
+// int TSDDA_smaller_or_equal(TStoixeiouDDA, TStoixeiouDDA);
+
+// /*
+// Description: Checks if the key field of the first struct is greater or equal
+// to the key field of the second struct. If it is, the function returns 1,
+// otherwise it returns 0.
+
+// Parameters:
+//   - TStoixeiouDDA: The first struct that will be compared.
+//   - TStoixeiouDDA: The second struct that will be compared.
+
+// Return values:
+//   - 1 : The key field of the first struct is greater or equal to the key
+//   field of the second struct.
+//   - 0 : The key field of the first struct is not greater or equal to the key
+//   field of the second struct.
+// */
+// int TSDDA_greater_or_equal(TStoixeiouDDA, TStoixeiouDDA);
+
+// /*
+// Description: Checks if the key field of the first struct is not equal to the
+// key field of the second struct. If it is, the function returns 1, otherwise
+// it returns 0.
+
+// Parameters:
+//   - TStoixeiouDDA: The first struct that will be compared.
+//   - TStoixeiouDDA: The second struct that will be compared.
+
+// Return values:
+//   - 1 : The key field of the first struct is not equal to the key field of
+//   the second struct.
+//   - 0 : The key field of the first struct is equal to the key field of the
+//   second struct.
+// */
+// int TSDDA_not_equal(TStoixeiouDDA, TStoixeiouDDA);
 
 #endif
