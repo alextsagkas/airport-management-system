@@ -30,8 +30,9 @@ EvrPtr Evr_construct(int MaxSize);
 
 /*
 Description: Destroy an EvrNode. The function frees the memory allocated for the
-DataArray and the RBT's nodes. Ir also frees the memory allocated for the
-EvrPtr.
+DataArray and the RBT's nodes. Specifically for the elements of DataArray, every
+string that is dynamically allocated is freed before the dynamically allocated
+array is freed. It also frees the memory allocated for the EvrNode.
 
 Parameters:
     - E (EvrPtr*): A pointer to the EvrPtr.
@@ -96,6 +97,6 @@ Return values:
     - -1: if the RBT is empty.
     - 0: if the function was successful.
 */
-int Evr_printAll(EvrPtr E, FILE* out, int *counter);
+int Evr_printAll(EvrPtr E, FILE* out, int* counter);
 
 #endif

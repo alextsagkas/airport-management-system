@@ -178,7 +178,7 @@ int main() {
   FILE* output_sorted_file = fopen(output_sorted_file_FILEPATH, "w");
   assert(output_sorted_file != NULL);
 
-  client_program(airports_random_file, routes_file, output_random_file);
+  client_program(airports_sorted_file, routes_file, output_sorted_file);
 
   fclose(airports_sorted_file);
   fclose(routes_file);
@@ -302,6 +302,10 @@ int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
 
   // Start timer
   gettimeofday(&t_start, NULL);
+
+  // Start from the beginning of the file -- maybe you have read it before and
+  // it is still open
+  fseek(routes_file, 0, SEEK_SET);
 
   while (!feof(routes_file)) {
     // Process a line
