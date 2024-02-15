@@ -18,24 +18,25 @@ Goal			    	: Extention of RBT to manage airports
 #define ROUTES_FILEPATH "data/linux/routesLinux.txt"
 #define OUTPUT_RANDOM_FILEPATH "data/linux/output/OUTPUTRandomBST.txt"
 
-// TODO: Make two fist functions to take file as an argument
-
 /*
-Description: Insert elements to the Evr (both DataArray and RBT) from the
-RANDOM_FILEPATH file. It also prints to the console the following information:
-        - Time intervals for 2^N - 1 elements where N = 9, 10, 11, 12.
-        - Total time elapsed for the insertion of all elements.
-        - Total elements inserted.
+Description: Insert elements to the Evr (both DataArray and RBT) from the file
+provided from the parameters. It also prints to the console the following
+information:
+  - Time intervals for 2^N - 1 elements where N = 9, 10, 11, 12.
+  - Total time elapsed for the insertion of all elements.
+  - Total elements inserted.
 
 Parameters:
-        - E (EvrPtr): Pointer to the Evr.
+  - E (EvrPtr): Pointer to the Evr.
+  - file (FILE*): The file from which the elements are inserted.
 
 Returns:
-        - -2: if the insertion on the RBT fails.
-        - -1: if the file cannot be opened.
-        - 0: if the procedure is successful.
+  - -1: if the insertion on the RBT fails.
+  - 0: if the procedure is successful.
 */
-int insert_elements_to_evr(EvrPtr E);
+int insert_elements_to_evr(EvrPtr E, FILE* file);
+
+// TODO: Make two fist functions to take file as an argument
 
 /*
 Description: Update the arrivals and departures of the airports in the RBT from
@@ -82,7 +83,12 @@ int main() {
 
   E = Evr_construct(7200);
 
-  insert_elements_to_evr(E);
+  FILE* file1 = fopen(RANDOM_FILEPATH, "r");
+  assert(file1 != NULL);
+
+  insert_elements_to_evr(E, file1);
+
+  fclose(file1);
 
   printf("\n----------------------------------------\n");
 
@@ -125,15 +131,8 @@ int main() {
   return 0;
 }
 
-int insert_elements_to_evr(EvrPtr E) {
-  FILE* file;
+int insert_elements_to_evr(EvrPtr E, FILE* file) {
   TStoixeiouEvr elem;
-  int ret;
-
-  file = fopen(RANDOM_FILEPATH, "r");
-  if (file == NULL) {
-    return -1;
-  }
 
   // total time elapsed
   struct timeval t_start, t_end;
@@ -198,9 +197,9 @@ int insert_elements_to_evr(EvrPtr E) {
     }
 
     TSEvr_readValue(file, &elem);
-    ret = Evr_insert(E, elem);
+    int ret = Evr_insert(E, elem);
     if (ret != 0) {
-      return -2;
+      return -1;
     }
 
     count_elements++;
