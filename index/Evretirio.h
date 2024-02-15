@@ -84,7 +84,8 @@ int Evr_printArrayRBT(EvrPtr E);
 Description: Print all the elements in the DataArray of the EvrPtr in sorted
 ascending order. For this to happen the RBT is traversed in order and the
 elements are printed. Each line of the out file has the following format:
-airportID;arrivals;departures;
+airportID;arrivals;departures;. The function also prints the total number of
+elements that were printed.
 
 Parameters:
     - E (EvrPtr): A pointer to the EvrPtr.

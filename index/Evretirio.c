@@ -112,6 +112,9 @@ int Evr_printAll(EvrPtr E, FILE* out) {
 
   fseek(log, 0, SEEK_SET);
 
+  // Count the elements that will be printed
+  int element_counter = 0;
+
   // Read the file and print the AirportID and the arrayIndex and print the
   // corresponding arrivals and departures from the DataArray
   while (fgets(line, sizeof(line), log)) {
@@ -126,7 +129,11 @@ int Evr_printAll(EvrPtr E, FILE* out) {
     fprintf(out, "%d;", Data->airportID);
     fprintf(out, "%d;", Data->arrivals);
     fprintf(out, "%d;\n", Data->departures);
+
+    element_counter++;
   }
+
+  fprintf(out, "\nNumber of elements printed: %d\n", element_counter);
 
   fclose(log);
 
