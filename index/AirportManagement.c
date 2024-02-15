@@ -36,27 +36,24 @@ Returns:
 */
 int insert_elements_to_evr(EvrPtr E, FILE* file);
 
-// TODO: Make two fist functions to take file as an argument
-
 /*
 Description: Update the arrivals and departures of the airports in the RBT from
-the routes file and print the following information to the
-OUTPUT_RANDOM_FILEPATH:
-        - Total time elapsed.
-        - Mean time per route.
-        - Routes counter.
-        - Found counter.
-        - Not found counter.
+the routes_file and print the following information to the output_file:
+  - Total time elapsed.
+  - Mean time per route.
+  - Routes counter.
+  - Found counter.
+  - Not found counter.
 
 Parameters:
-        - E (EvrPtr): Pointer to the Evr.
+  - E (EvrPtr): Pointer to the Evr.
+  - routes_file (FILE*): The file from which the routes are read.
+  - output_file (FILE*): The file to which the information is printed.
 
 Returns:
-        - -2 : if the output file cannot be opened.
-        - -1: if the routes file cannot be opened.
-        - 0: if the procedure is successful.
+  - 0: if the procedure is successful.
 */
-int update_arrivals_departures(EvrPtr E);
+int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file);
 
 /*
 Description: Print the elements of the Evr to the file, in ascending order, by
@@ -92,7 +89,15 @@ int main() {
 
   printf("\n----------------------------------------\n");
 
-  update_arrivals_departures(E);
+  FILE* file2 = fopen(ROUTES_FILEPATH, "r");
+  assert(file2 != NULL);
+  FILE* file3 = fopen(OUTPUT_RANDOM_FILEPATH, "w");
+  assert(file3 != NULL);
+
+  update_arrivals_departures(E, file2, file3);
+
+  fclose(file2);
+  fclose(file3);
 
   printf("\n----------------------------------------\n");
 
@@ -216,13 +221,7 @@ int insert_elements_to_evr(EvrPtr E, FILE* file) {
   return 0;
 }
 
-int update_arrivals_departures(EvrPtr E) {
-  FILE* file = fopen(ROUTES_FILEPATH, "r");
-
-  if (file == NULL) {
-    return -1;
-  }
-
+int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
   // Read data from routes file
   char line[100];
   char delimeter[] = ";";
@@ -253,9 +252,9 @@ int update_arrivals_departures(EvrPtr E) {
   // Start timer
   gettimeofday(&t_start, NULL);
 
-  while (!feof(file)) {
+  while (!feof(routes_file)) {
     // Process a line
-    if (fgets(line, sizeof(line), file)) {
+    if (fgets(line, sizeof(line), routes_file)) {
       // Read the fields from the line for the route
       token = strtok(line, delimeter);
       airline = strdup(token);
@@ -320,12 +319,6 @@ int update_arrivals_departures(EvrPtr E) {
                  ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
 
   // Store Information in OUTPUTRandomBST.txt
-  FILE* output_file = fopen(OUTPUT_RANDOM_FILEPATH, "w");
-
-  if (output_file == NULL) {
-    return -2;
-  }
-
   fprintf(output_file, "Total time elapsed: %g ms\n", elapsed_time);
   fprintf(output_file,
           "Mean time per route: %g ms\n",
@@ -333,11 +326,6 @@ int update_arrivals_departures(EvrPtr E) {
   fprintf(output_file, "Routes counter: %d\n", routes_counter);
   fprintf(output_file, "Found counter: %d\n", found_counter);
   fprintf(output_file, "Not found counter: %d\n", not_found_counter);
-
-  fclose(output_file);
-
-  // Close the routes file
-  fclose(file);
 
   return 0;
 }
