@@ -16,9 +16,10 @@ Goal			    	: Extention of RBT to manage airports
 
 // Filepaths
 #define RANDOM_FILEPATH "data/linux/airportsLinuxRandom.txt"
+#define SORTED_FILEPATH "data/linux/airportsLinuxSorted.txt"
 #define ROUTES_FILEPATH "data/linux/routesLinux.txt"
-#define OUTPUT_RANDOM_FILEPATH "data/linux/output/OUTPUTRandomBST.txt"
-#define OUTPUT_SORTED_FILEPATH "data/linux/output/OUTPUTSortedBST.txt"
+#define output_random_file_FILEPATH "data/linux/output/OUTPUTRandomBST.txt"
+#define output_sorted_file_FILEPATH "data/linux/output/OUTPUTSortedBST.txt"
 
 /*
 Description: Insert elements to the Evr (both DataArray and RBT) from the file
@@ -73,15 +74,29 @@ Return values:
 */
 int print_elements_to_file(EvrPtr E, FILE* file);
 
-int main() {
+/*
+Description: The client program that uses the Evr to handle airports and routes
+between them. The steps it executes are the following:
+  1. Construct the Evr.
+  2. Insert elements to the Evr from the airports_file.
+  3. Update arrivals and departures from routes_file and print to output_file.
+  4. Print elements and log data to the output_file.
+  5. Destruct the Evr.
+
+Parameters:
+  - airports_file (FILE*): The file from which the airports are read.
+  - routes_file (FILE*): The file from which the routes are read.
+  - output_file (FILE*): The file to which the information is printed.
+
+Returns:
+  - 0: if the procedure is successful.
+*/
+int client_program(FILE* airports_file, FILE* routes_file, FILE* output_file) {
   // Construct the Evr
   EvrPtr E = Evr_construct(7200);
 
   // Insert elements to the Evr from file
-  FILE* airports_random = fopen(RANDOM_FILEPATH, "r");
-  assert(airports_random != NULL);
-
-  int result_insert = insert_elements_to_evr(E, airports_random);
+  int result_insert = insert_elements_to_evr(E, airports_file);
 
   switch (result_insert) {
   case 0:
@@ -95,16 +110,9 @@ int main() {
     break;
   }
 
-  fclose(airports_random);
-
-  // Update arrivals and departures from routes file and print to output file
-  FILE* routes = fopen(ROUTES_FILEPATH, "r");
-  assert(routes != NULL);
-
-  FILE* output_random = fopen(OUTPUT_RANDOM_FILEPATH, "w");
-  assert(output_random != NULL);
-
-  int result_update = update_arrivals_departures(E, routes, output_random);
+  // Update arrivals and departures from routes_file file and print to output
+  // file
+  int result_update = update_arrivals_departures(E, routes_file, output_file);
 
   switch (result_update) {
   case 0:
@@ -115,10 +123,8 @@ int main() {
     break;
   }
 
-  fclose(routes);
-
   // Print elements and log data to the output file
-  int result_print = print_elements_to_file(E, output_random);
+  int result_print = print_elements_to_file(E, output_file);
 
   switch (result_print) {
   case 0:
@@ -132,8 +138,6 @@ int main() {
     break;
   }
 
-  fclose(output_random);
-
   // Destruct the Evr
   int result_destruct = Evr_destruct(&E);
 
@@ -145,6 +149,40 @@ int main() {
     assert(0);
     break;
   }
+
+  return 0;
+}
+
+int main() {
+  // Random airports file
+  printf("\n~~~~~~~~~ Random Airports File ~~~~~~~~~~\n");
+  FILE* airports_random_file = fopen(RANDOM_FILEPATH, "r");
+  assert(airports_random_file != NULL);
+
+  FILE* routes_file = fopen(ROUTES_FILEPATH, "r");
+  assert(routes_file != NULL);
+
+  FILE* output_random_file = fopen(output_random_file_FILEPATH, "w");
+  assert(output_random_file != NULL);
+
+  client_program(airports_random_file, routes_file, output_random_file);
+
+  fclose(airports_random_file);
+  fclose(output_random_file);
+
+  // Sorted airports file
+  printf("\n~~~~~~~~~~ Sorted Airports File ~~~~~~~~~\n");
+  FILE* airports_sorted_file = fopen(SORTED_FILEPATH, "r");
+  assert(airports_sorted_file != NULL);
+
+  FILE* output_sorted_file = fopen(output_sorted_file_FILEPATH, "w");
+  assert(output_sorted_file != NULL);
+
+  client_program(airports_random_file, routes_file, output_random_file);
+
+  fclose(airports_sorted_file);
+  fclose(routes_file);
+  fclose(output_sorted_file);
 
   return 0;
 }
