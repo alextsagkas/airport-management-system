@@ -11,14 +11,16 @@ int main() {
 
   Evr_printArrayRBT(E);
   /* ------------------------------------------------------ */
-  TStoixeiouEvr Elem = {.airportID = 2561,
-                        .name = "Guajara-Mirim Airport",
-                        .city = "Guajara-Mirim",
-                        .country = "Brazil",
-                        .IATA = "\\N",
-                        .ICAO = "SBGM",
-                        .arrivals = 0,
-                        .departures = 0};
+  TStoixeiouEvr Elem;
+
+  Elem.airportID = 2561;
+  Elem.name = strdup("Guajara-Mirim Airport");
+  Elem.city = strdup("Guajara-Mirim");
+  Elem.country = strdup("Brazil");
+  Elem.IATA = strdup("\\N");
+  Elem.ICAO = strdup("SBGM");
+  Elem.arrivals = 0;
+  Elem.departures = 0;
 
   int insertResult = Evr_insert(E, Elem);
 
@@ -30,14 +32,16 @@ int main() {
 
   Evr_printArrayRBT(E);
   /* ------------------------------------------------------ */
-  TStoixeiouEvr Elem1 = {.airportID = 3941,
-                         .name = "Eleftherios Venizelos International Airport",
-                         .city = "Athens",
-                         .country = "Greece",
-                         .IATA = "ATH",
-                         .ICAO = "LGAV",
-                         .arrivals = 0,
-                         .departures = 0};
+  TStoixeiouEvr Elem1;
+
+  Elem1.airportID = 3941;
+  Elem1.name = strdup("Eleftherios Venizelos International Airport");
+  Elem1.city = strdup("Athens");
+  Elem1.country = strdup("Greece");
+  Elem1.IATA = strdup("ATH");
+  Elem1.ICAO = strdup("LGAV");
+  Elem1.arrivals = 0;
+  Elem1.departures = 0;
 
   insertResult = Evr_insert(E, Elem1);
 
@@ -49,14 +53,17 @@ int main() {
 
   Evr_printArrayRBT(E);
   /* ------------------------------------------------------ */
-  TStoixeiouEvr Elem2 = {.airportID = 6908,
-                         .name = "Brest Airport",
-                         .city = "Brest",
-                         .country = "Belarus",
-                         .IATA = "BQT",
-                         .ICAO = "UMBB",
-                         .arrivals = 0,
-                         .departures = 0};
+  TStoixeiouEvr Elem2;
+
+  Elem2.airportID = 6908;
+  Elem2.name = strdup("Brest Airport");
+  Elem2.city = strdup("Brest");
+  Elem2.country = strdup("Belarus");
+  Elem2.IATA = strdup("BQT");
+  Elem2.ICAO = strdup("UMBB");
+  Elem2.arrivals = 0;
+  Elem2.departures = 0;
+
   insertResult = Evr_insert(E, Elem2);
 
   if (insertResult == -1) {
