@@ -335,8 +335,10 @@ int print_elements_to_file(EvrPtr E, FILE* file) {
   // Start timer
   gettimeofday(&t_start, NULL);
 
-  fprintf(file, "\n");
-  int print_result = Evr_printAll(E, file);
+  // Count the elements that will be printed
+  int element_counter;
+
+  int print_result = Evr_printAll(E, file, &element_counter);
 
   if (print_result != 0) {
     return -1;
@@ -348,7 +350,8 @@ int print_elements_to_file(EvrPtr E, FILE* file) {
   double elapsed_time = ((t_end.tv_sec - t_start.tv_sec) / 1000.0) +
                         ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
 
-  fprintf(file, "Total time elapsed: %g ms", elapsed_time);
+  fprintf(file, "\nTotal time elapsed: %g ms\n", elapsed_time);
+  fprintf(file, "Total elements printed: %d", element_counter);
 
   return 0;
 }

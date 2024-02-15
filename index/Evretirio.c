@@ -92,7 +92,7 @@ int Evr_search(EvrPtr E, keyType key, int InOut, int* found) {
   return 0;
 }
 
-int Evr_printAll(EvrPtr E, FILE* out) {
+int Evr_printAll(EvrPtr E, FILE* out, int* counter) {
   FILE* log = fopen(LOG_FILEPATH, "w+");
 
   // Write the AirportID and the arrayIndex to the file
@@ -113,7 +113,7 @@ int Evr_printAll(EvrPtr E, FILE* out) {
   fseek(log, 0, SEEK_SET);
 
   // Count the elements that will be printed
-  int element_counter = 0;
+  *counter = 0;
 
   // Read the file and print the AirportID and the arrayIndex and print the
   // corresponding arrivals and departures from the DataArray
@@ -130,10 +130,8 @@ int Evr_printAll(EvrPtr E, FILE* out) {
     fprintf(out, "%d;", Data->arrivals);
     fprintf(out, "%d;\n", Data->departures);
 
-    element_counter++;
+    (*counter)++;
   }
-
-  fprintf(out, "\nNumber of elements printed: %d\n", element_counter);
 
   fclose(log);
 
