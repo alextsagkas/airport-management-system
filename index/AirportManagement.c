@@ -4,6 +4,7 @@ Author			    : Alexandros Tsagkaropoulos
 Goal			    	: Extention of RBT to manage airports
 */
 
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -17,20 +18,22 @@ Goal			    	: Extention of RBT to manage airports
 #define ROUTES_FILEPATH "data/linux/routesLinux.txt"
 #define OUTPUT_RANDOM_FILEPATH "data/linux/output/OUTPUTRandomBST.txt"
 
+// TODO: Make two fist functions to take file as an argument
+
 /*
 Description: Insert elements to the Evr (both DataArray and RBT) from the
 RANDOM_FILEPATH file. It also prints to the console the following information:
-  - Time intervals for 2^N - 1 elements where N = 9, 10, 11, 12.
-  - Total time elapsed for the insertion of all elements.
-  - Total elements inserted.
+        - Time intervals for 2^N - 1 elements where N = 9, 10, 11, 12.
+        - Total time elapsed for the insertion of all elements.
+        - Total elements inserted.
 
 Parameters:
-  - E (EvrPtr): Pointer to the Evr.
+        - E (EvrPtr): Pointer to the Evr.
 
 Returns:
-  - -2: if the insertion on the RBT fails.
-  - -1: if the file cannot be opened.
-  - 0: if the procedure is successful.
+        - -2: if the insertion on the RBT fails.
+        - -1: if the file cannot be opened.
+        - 0: if the procedure is successful.
 */
 int insert_elements_to_evr(EvrPtr E);
 
@@ -38,23 +41,29 @@ int insert_elements_to_evr(EvrPtr E);
 Description: Update the arrivals and departures of the airports in the RBT from
 the routes file and print the following information to the
 OUTPUT_RANDOM_FILEPATH:
-  - Total time elapsed.
-  - Mean time per route.
-  - Routes counter.
-  - Found counter.
-  - Not found counter.
+        - Total time elapsed.
+        - Mean time per route.
+        - Routes counter.
+        - Found counter.
+        - Not found counter.
 
 Parameters:
-  - E (EvrPtr): Pointer to the Evr.
+        - E (EvrPtr): Pointer to the Evr.
 
 Returns:
-  - -2 : if the output file cannot be opened.
-  - -1: if the routes file cannot be opened.
-  - 0: if the procedure is successful.
+        - -2 : if the output file cannot be opened.
+        - -1: if the routes file cannot be opened.
+        - 0: if the procedure is successful.
 */
 int update_arrivals_departures(EvrPtr E);
 
+int print_elements_to_file(EvrPtr E, FILE* file);
+
 int main() {
+  int result;
+
+  printf("\n----------------------------------------\n");
+
   EvrPtr E;
 
   E = Evr_construct(7200);
@@ -64,6 +73,25 @@ int main() {
   printf("\n----------------------------------------\n");
 
   update_arrivals_departures(E);
+
+  printf("\n----------------------------------------\n");
+
+  FILE* file = fopen(OUTPUT_RANDOM_FILEPATH, "a");
+  result = print_elements_to_file(E, file);
+
+  switch (result) {
+  case 0:
+    printf("Elements printed to file successfully.\n");
+    break;
+  case -1:
+    printf("Error: Elements could not be printed to file.\n");
+    break;
+  default:
+    assert(0);
+    break;
+  }
+
+  fclose(file);
 
   printf("\n----------------------------------------\n");
 
@@ -254,9 +282,9 @@ int update_arrivals_departures(EvrPtr E) {
       free(destination_airport);
       free(codeshare);
       free(equipment);
-    }
 
-    routes_counter++;
+      routes_counter++;
+    }
   }
 
   // Stop timer
@@ -284,6 +312,31 @@ int update_arrivals_departures(EvrPtr E) {
 
   // Close the routes file
   fclose(file);
+
+  return 0;
+}
+
+int print_elements_to_file(EvrPtr E, FILE* file) {
+  // Time Capture
+  struct timeval t_start, t_end;
+
+  // Start timer
+  gettimeofday(&t_start, NULL);
+
+  fprintf(file, "\n");
+  int print_result = Evr_printAll(E, file);
+
+  if (print_result != 0) {
+    return -1;
+  }
+
+  // Stop timer
+  gettimeofday(&t_end, NULL);
+
+  double elapsed_time = ((t_end.tv_sec - t_start.tv_sec) / 1000.0) +
+                        ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
+
+  fprintf(file, "Total time elapsed: %g ms", elapsed_time);
 
   return 0;
 }
