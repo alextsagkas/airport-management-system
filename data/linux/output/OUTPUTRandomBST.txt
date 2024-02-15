@@ -1,5 +1,5 @@
-Total time elapsed: 329.153 ms
-Mean time per route: 0.00244578 ms
+Total time elapsed: 68.533 ms
+Mean time per route: 0.000509236 ms
 Routes counter: 67290
 Found counter: 132920
 Not found counter: 1660
@@ -7188,5 +7188,5 @@ Not found counter: 1660
 12056;0;0;
 12057;0;0;
 
-Total time elapsed: 3.963 ms
+Total time elapsed: 2.989 ms
 Total elements printed: 7184

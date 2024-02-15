@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define MAXSIZE 10
-#define OUTPUT_FILEPATH "data/linux/output/test.txt"
+#define OUTPUT_FILEPATH "data/linux/test/output.txt"
 
 int main() {
   /* ------------------------------------------------------ */
@@ -117,7 +117,8 @@ int main() {
   /* ------------------------------------------------------ */
   FILE* out = fopen(OUTPUT_FILEPATH, "w");
 
-  int print_result = Evr_printAll(E, out);
+  int counter;
+  int print_result = Evr_printAll(E, out, &counter);
 
   switch (print_result) {
   case -2:
