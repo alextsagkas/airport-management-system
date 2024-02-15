@@ -2,6 +2,7 @@
   "cSpell.words": [
     "Alexandros",
     "basikes",
+    "codeshare",
     "diaforo",
     "diagarfh",
     "eisagcgh",
@@ -50,5 +51,6 @@
     "evretirio.h": "c",
     "rbt.h": "c"
   },
-  "todo-tree.filtering.excludeGlobs": ["**/*.txt"]
+  "todo-tree.filtering.excludeGlobs": ["**/*.txt"],
+  "C_Cpp.default.compilerPath": "/usr/bin/gcc"
 }
