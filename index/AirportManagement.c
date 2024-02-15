@@ -109,6 +109,19 @@ int main() {
 
   printf("\n----------------------------------------\n");
 
+  result = Evr_destruct(&E);
+
+  switch (result) {
+  case 0:
+    printf("Evr destructed successfully.\n");
+    break;
+  default:
+    assert(0);
+    break;
+  }
+
+  printf("\n----------------------------------------\n");
+
   return 0;
 }
 
