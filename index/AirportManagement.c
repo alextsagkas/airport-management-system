@@ -80,29 +80,27 @@ int main() {
 
   E = Evr_construct(7200);
 
-  FILE* file1 = fopen(RANDOM_FILEPATH, "r");
-  assert(file1 != NULL);
+  FILE* airports_random = fopen(RANDOM_FILEPATH, "r");
+  assert(airports_random != NULL);
 
-  insert_elements_to_evr(E, file1);
+  insert_elements_to_evr(E, airports_random);
 
-  fclose(file1);
-
-  printf("\n----------------------------------------\n");
-
-  FILE* file2 = fopen(ROUTES_FILEPATH, "r");
-  assert(file2 != NULL);
-  FILE* file3 = fopen(OUTPUT_RANDOM_FILEPATH, "w");
-  assert(file3 != NULL);
-
-  update_arrivals_departures(E, file2, file3);
-
-  fclose(file2);
-  fclose(file3);
+  fclose(airports_random);
 
   printf("\n----------------------------------------\n");
 
-  FILE* file = fopen(OUTPUT_RANDOM_FILEPATH, "a");
-  result = print_elements_to_file(E, file);
+  FILE* routes = fopen(ROUTES_FILEPATH, "r");
+  assert(routes != NULL);
+  FILE* output_random = fopen(OUTPUT_RANDOM_FILEPATH, "w");
+  assert(output_random != NULL);
+
+  update_arrivals_departures(E, routes, output_random);
+
+  fclose(routes);
+
+  printf("\n----------------------------------------\n");
+
+  result = print_elements_to_file(E, output_random);
 
   switch (result) {
   case 0:
@@ -116,7 +114,7 @@ int main() {
     break;
   }
 
-  fclose(file);
+  fclose(output_random);
 
   printf("\n----------------------------------------\n");
 
