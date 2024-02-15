@@ -374,6 +374,8 @@ int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
                  ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
 
   // Store Information in OUTPUTRandomBST.txt
+  fprintf(output_file, "Update Arrivals and Departures\n");
+  fprintf(output_file, "------------------------------\n");
   fprintf(output_file, "Total time elapsed: %g ms\n", elapsed_time);
   fprintf(output_file,
           "Mean time per route: %g ms\n",
