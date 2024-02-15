@@ -1,8 +1,11 @@
-Total time elapsed: 68.533 ms
-Mean time per route: 0.000509236 ms
+Total time elapsed: 66.557 ms
+Mean time per route: 0.000494553 ms
 Routes counter: 67290
 Found counter: 132920
 Not found counter: 1660
+
+AirportID;Arrivals;Departures;
+------------------------------
 1;5;5;
 2;8;8;
 3;12;10;
@@ -7188,5 +7191,5 @@ Not found counter: 1660
 12056;0;0;
 12057;0;0;
 
-Total time elapsed: 2.989 ms
+Total time elapsed: 3.016 ms
 Total elements printed: 7184

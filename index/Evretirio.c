@@ -100,6 +100,10 @@ int Evr_printAll(EvrPtr E, FILE* out, int* counter) {
 
   fseek(log, 0, SEEK_SET);
 
+  // Preamble of the data that will follow
+  fprintf(out, "\nAirportID;Arrivals;Departures;\n");
+  fprintf(out, "------------------------------\n");
+
   // Count the elements that will be printed
   *counter = 0;
 
