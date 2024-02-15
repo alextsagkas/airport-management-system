@@ -57,6 +57,20 @@ Returns:
 */
 int update_arrivals_departures(EvrPtr E);
 
+/*
+Description: Print the elements of the Evr to the file, in ascending order, by
+traversing the RBT. The format of each line is: airportID;arrivals;departures;.
+In the end, it prints the total number of elements printed and the total time
+elapsed for the print completion.
+
+Parameters:
+  - E (EvrPtr): Pointer to the Evr.
+  - file (FILE*): The file to which the elements are printed.
+
+Return values:
+  - -1: if the elements could not be printed to the file.
+  - 0: if the procedure is successful.
+*/
 int print_elements_to_file(EvrPtr E, FILE* file);
 
 int main() {
