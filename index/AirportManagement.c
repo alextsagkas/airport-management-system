@@ -8,15 +8,17 @@ Goal			    	: Extention of RBT to manage airports
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/time.h> /* for gettimeofday() */
+#include <sys/time.h>
 
 #include "Evretirio.h"
 #include "TSDDA.h"
 #include "TSEvr.h"
 
+// Filepaths
 #define RANDOM_FILEPATH "data/linux/airportsLinuxRandom.txt"
 #define ROUTES_FILEPATH "data/linux/routesLinux.txt"
 #define OUTPUT_RANDOM_FILEPATH "data/linux/output/OUTPUTRandomBST.txt"
+#define OUTPUT_SORTED_FILEPATH "data/linux/output/OUTPUTSortedBST.txt"
 
 /*
 Description: Insert elements to the Evr (both DataArray and RBT) from the file
@@ -72,42 +74,58 @@ Return values:
 int print_elements_to_file(EvrPtr E, FILE* file);
 
 int main() {
-  int result;
+  // Construct the Evr
+  EvrPtr E = Evr_construct(7200);
 
-  printf("\n----------------------------------------\n");
-
-  EvrPtr E;
-
-  E = Evr_construct(7200);
-
+  // Insert elements to the Evr from file
   FILE* airports_random = fopen(RANDOM_FILEPATH, "r");
   assert(airports_random != NULL);
 
-  insert_elements_to_evr(E, airports_random);
+  int result_insert = insert_elements_to_evr(E, airports_random);
+
+  switch (result_insert) {
+  case 0:
+    printf("\nElements inserted to Evr successfully.\n");
+    break;
+  case -1:
+    printf("\nInsertion in the RBT of the Evr failed.\n");
+    break;
+  default:
+    assert(0);
+    break;
+  }
 
   fclose(airports_random);
 
-  printf("\n----------------------------------------\n");
-
+  // Update arrivals and departures from routes file and print to output file
   FILE* routes = fopen(ROUTES_FILEPATH, "r");
   assert(routes != NULL);
+
   FILE* output_random = fopen(OUTPUT_RANDOM_FILEPATH, "w");
   assert(output_random != NULL);
 
-  update_arrivals_departures(E, routes, output_random);
+  int result_update = update_arrivals_departures(E, routes, output_random);
+
+  switch (result_update) {
+  case 0:
+    printf("\nArrivals and departures updated successfully.\n");
+    break;
+  default:
+    assert(0);
+    break;
+  }
 
   fclose(routes);
 
-  printf("\n----------------------------------------\n");
+  // Print elements and log data to the output file
+  int result_print = print_elements_to_file(E, output_random);
 
-  result = print_elements_to_file(E, output_random);
-
-  switch (result) {
+  switch (result_print) {
   case 0:
-    printf("Elements printed to file successfully.\n");
+    printf("\nElements printed to file successfully.\n");
     break;
   case -1:
-    printf("Error: Elements could not be printed to file.\n");
+    printf("\nError: Elements could not be printed to file.\n");
     break;
   default:
     assert(0);
@@ -116,20 +134,17 @@ int main() {
 
   fclose(output_random);
 
-  printf("\n----------------------------------------\n");
+  // Destruct the Evr
+  int result_destruct = Evr_destruct(&E);
 
-  result = Evr_destruct(&E);
-
-  switch (result) {
+  switch (result_destruct) {
   case 0:
-    printf("Evr destructed successfully.\n");
+    printf("\nEvr destructed successfully.\n");
     break;
   default:
     assert(0);
     break;
   }
-
-  printf("\n----------------------------------------\n");
 
   return 0;
 }
@@ -170,7 +185,7 @@ int insert_elements_to_evr(EvrPtr E, FILE* file) {
 
       time_elapsed_9 = ((t_end_9.tv_sec - t_start_9.tv_sec) / 1000.0) +
                        ((t_end_9.tv_usec - t_start_9.tv_usec) / 1000.0);
-      printf("Time interval for 511 elements: %g ms\n", time_elapsed_9);
+      printf("Time interval for 511  elements: %g ms\n", time_elapsed_9);
 
       gettimeofday(&t_start_9, NULL);
     } else if (count_elements % 1023 == 0) {
