@@ -91,67 +91,7 @@ Parameters:
 Returns:
   - 0: if the procedure is successful.
 */
-int client_program(FILE* airports_file, FILE* routes_file, FILE* output_file) {
-  // Construct the Evr
-  EvrPtr E = Evr_construct(7200);
-
-  // Insert elements to the Evr from file
-  int result_insert = insert_elements_to_evr(E, airports_file);
-
-  switch (result_insert) {
-  case 0:
-    printf("\nElements inserted to Evr successfully.\n");
-    break;
-  case -1:
-    printf("\nInsertion in the RBT of the Evr failed.\n");
-    break;
-  default:
-    assert(0);
-    break;
-  }
-
-  // Update arrivals and departures from routes_file file and print to output
-  // file
-  int result_update = update_arrivals_departures(E, routes_file, output_file);
-
-  switch (result_update) {
-  case 0:
-    printf("\nArrivals and departures updated successfully.\n");
-    break;
-  default:
-    assert(0);
-    break;
-  }
-
-  // Print elements and log data to the output file
-  int result_print = print_elements_to_file(E, output_file);
-
-  switch (result_print) {
-  case 0:
-    printf("\nElements printed to file successfully.\n");
-    break;
-  case -1:
-    printf("\nError: Elements could not be printed to file.\n");
-    break;
-  default:
-    assert(0);
-    break;
-  }
-
-  // Destruct the Evr
-  int result_destruct = Evr_destruct(&E);
-
-  switch (result_destruct) {
-  case 0:
-    printf("\nEvr destructed successfully.\n");
-    break;
-  default:
-    assert(0);
-    break;
-  }
-
-  return 0;
-}
+int client_program(FILE* airports_file, FILE* routes_file, FILE* output_file);
 
 int main() {
   // Random airports file
@@ -411,6 +351,68 @@ int print_elements_to_file(EvrPtr E, FILE* file) {
 
   fprintf(file, "\nTotal time elapsed: %g ms\n", elapsed_time);
   fprintf(file, "Total elements printed: %d", element_counter);
+
+  return 0;
+}
+
+int client_program(FILE* airports_file, FILE* routes_file, FILE* output_file) {
+  // Construct the Evr
+  EvrPtr E = Evr_construct(7200);
+
+  // Insert elements to the Evr from file
+  int result_insert = insert_elements_to_evr(E, airports_file);
+
+  switch (result_insert) {
+  case 0:
+    printf("\nElements inserted to Evr successfully.\n");
+    break;
+  case -1:
+    printf("\nInsertion in the RBT of the Evr failed.\n");
+    break;
+  default:
+    assert(0);
+    break;
+  }
+
+  // Update arrivals and departures from routes_file file and print to output
+  // file
+  int result_update = update_arrivals_departures(E, routes_file, output_file);
+
+  switch (result_update) {
+  case 0:
+    printf("\nArrivals and departures updated successfully.\n");
+    break;
+  default:
+    assert(0);
+    break;
+  }
+
+  // Print elements and log data to the output file
+  int result_print = print_elements_to_file(E, output_file);
+
+  switch (result_print) {
+  case 0:
+    printf("\nElements printed to file successfully.\n");
+    break;
+  case -1:
+    printf("\nError: Elements could not be printed to file.\n");
+    break;
+  default:
+    assert(0);
+    break;
+  }
+
+  // Destruct the Evr
+  int result_destruct = Evr_destruct(&E);
+
+  switch (result_destruct) {
+  case 0:
+    printf("\nEvr destructed successfully.\n");
+    break;
+  default:
+    assert(0);
+    break;
+  }
 
   return 0;
 }

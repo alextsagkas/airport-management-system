@@ -144,6 +144,7 @@ int Evr_destruct(EvrPtr* E) {
     // Deallocate the key of the RBT node
     TSDDA_delete(TSDDAData);
 
+    // Deallocate the strings that used strdup
     free((*E)->DataArray[i].name);
     free((*E)->DataArray[i].city);
     free((*E)->DataArray[i].country);
@@ -165,16 +166,6 @@ int Evr_destruct(EvrPtr* E) {
   return 0;
 }
 
-/*
-Description: Prints the EvrNode E. Specifically, it prints the DataArray and
-the RBT TreeRoot. It is used for debugging purposes.
-
-Parameters:
-  - E (EvrPtr): The EvrNode to be printed.
-
-Return value:
-  - 0: Success.
-*/
 int Evr_printArrayRBT(EvrPtr E) {
   printf("\n----------------------------------\n");
   for (int i = 0; i < E->Index; i++) {
