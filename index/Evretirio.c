@@ -5,18 +5,6 @@
 
 #define LOG_FILEPATH "data/linux/output/temp.txt"
 
-/*
-Description: Prints the EvrNode E. Specifically, it prints the DataArray and the
-RBT TreeRoot. It is used for debugging purposes.
-
-Parameters:
-  - E (EvrPtr): The EvrNode to be printed.
-
-Return value:
-  - 0: Success.
-*/
-int Evr_printArrayRBT(EvrPtr E);
-
 struct EvrNode {
   TStoixeiouEvr* DataArray; /* array of size MaxSize */
   int Index;                /* index of first available element in array */

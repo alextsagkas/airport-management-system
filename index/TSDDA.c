@@ -49,9 +49,8 @@ int TSDDA_compare(const void* s1, const void* s2) {
   }
 }
 
-// ------------------------------------------------------------------------- //
+// --------------------- Recommended from Support File --------------------- //
 
-// TODO: delete the following if not needed
 int TSDDA_setValue(TStoixeiouDDA* target, TStoixeiouDDA source) {
   target->key = source.key;
   target->arrayIndex = source.arrayIndex;

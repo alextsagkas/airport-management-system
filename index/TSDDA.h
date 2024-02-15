@@ -86,7 +86,7 @@ Return values:
 */
 int TSDDA_compare(const void* s1, const void* s2);
 
-// ------------------------------------------------------------------------- //
+// --------------------- Recommended from Support File --------------------- //
 
 /*
 Description: This function initializes the value of the target struct with the

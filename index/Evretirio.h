@@ -78,7 +78,16 @@ Return values:
 */
 int Evr_search(EvrPtr E, keyType key, int InOut, int* found);
 
-// TODO: remove before submission
+/*
+Description: Prints the EvrNode E. Specifically, it prints the DataArray and the
+RBT TreeRoot. It is used for debugging purposes only.
+
+Parameters:
+  - E (EvrPtr): The EvrNode to be printed.
+
+Return value:
+  - 0: Success.
+*/
 int Evr_printArrayRBT(EvrPtr E);
 
 /*
