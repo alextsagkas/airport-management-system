@@ -1,9 +1,9 @@
 ~~~~~~~~~ Random Airports File ~~~~~~~~~~
-Total time elapsed: 5.474 ms
-Mean time per 511  elements: 0.389429 ms
-Mean time per 1023 elements: 0.779571 ms
-Mean time per 2047 elements: 1.579 ms
-Mean time per 4095 elements: 3.374 ms
+Total time elapsed: 4.768 ms
+Mean time per 511  elements: 0.339071 ms
+Mean time per 1023 elements: 0.678714 ms
+Mean time per 2047 elements: 1.365 ms
+Mean time per 4095 elements: 2.882 ms
 Total elements inserted: 7184
 
 Elements inserted to Evr successfully.
@@ -15,11 +15,11 @@ Elements printed to file successfully.
 Evr destructed successfully.
 
 ~~~~~~~~~~ Sorted Airports File ~~~~~~~~~
-Total time elapsed: 4.379 ms
-Mean time per 511  elements: 0.311643 ms
-Mean time per 1023 elements: 0.623714 ms
-Mean time per 2047 elements: 1.23 ms
-Mean time per 4095 elements: 2.607 ms
+Total time elapsed: 3.582 ms
+Mean time per 511  elements: 0.254786 ms
+Mean time per 1023 elements: 0.51 ms
+Mean time per 2047 elements: 1.035 ms
+Mean time per 4095 elements: 2.2 ms
 Total elements inserted: 7184
 
 Elements inserted to Evr successfully.
