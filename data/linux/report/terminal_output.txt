@@ -1,32 +1,10 @@
 ~~~~~~~~~ Random Airports File ~~~~~~~~~~
-Time interval for 511  elements: 0.937 ms
-Time interval for 511  elements: 0.361 ms
-Time interval for 1023 elements: 1.312 ms
-Time interval for 511  elements: 0.285 ms
-Time interval for 511  elements: 0.27 ms
-Time interval for 1023 elements: 0.561 ms
-Time interval for 2047 elements: 1.875 ms
-Time interval for 511  elements: 0.3 ms
-Time interval for 511  elements: 0.272 ms
-Time interval for 1023 elements: 0.576 ms
-Time interval for 511  elements: 0.27 ms
-Time interval for 511  elements: 0.272 ms
-Time interval for 1023 elements: 0.546 ms
-Time interval for 2047 elements: 1.125 ms
-Time interval for 4095 elements: 3.003 ms
-Time interval for 511  elements: 0.321 ms
-Time interval for 511  elements: 0.281 ms
-Time interval for 1023 elements: 0.606 ms
-Time interval for 511  elements: 0.283 ms
-Time interval for 511  elements: 0.287 ms
-Time interval for 1023 elements: 0.574 ms
-Time interval for 2047 elements: 1.18 ms
-Time interval for 511  elements: 0.274 ms
-Time interval for 511  elements: 0.288 ms
-Time interval for 1023 elements: 0.571 ms
-
-Total time elapsed: 4.769 ms
-Total elements inserted: 7185
+Total time elapsed: 5.474 ms
+Mean time per 511  elements: 0.389429 ms
+Mean time per 1023 elements: 0.779571 ms
+Mean time per 2047 elements: 1.579 ms
+Mean time per 4095 elements: 3.374 ms
+Total elements inserted: 7184
 
 Elements inserted to Evr successfully.
 
@@ -37,34 +15,12 @@ Elements printed to file successfully.
 Evr destructed successfully.
 
 ~~~~~~~~~~ Sorted Airports File ~~~~~~~~~
-Time interval for 511  elements: 0.641 ms
-Time interval for 511  elements: 0.269 ms
-Time interval for 1023 elements: 0.923 ms
-Time interval for 511  elements: 0.232 ms
-Time interval for 511  elements: 0.226 ms
-Time interval for 1023 elements: 0.462 ms
-Time interval for 2047 elements: 1.386 ms
-Time interval for 511  elements: 0.242 ms
-Time interval for 511  elements: 0.229 ms
-Time interval for 1023 elements: 0.477 ms
-Time interval for 511  elements: 0.235 ms
-Time interval for 511  elements: 0.23 ms
-Time interval for 1023 elements: 0.47 ms
-Time interval for 2047 elements: 0.948 ms
-Time interval for 4095 elements: 2.337 ms
-Time interval for 511  elements: 0.251 ms
-Time interval for 511  elements: 0.263 ms
-Time interval for 1023 elements: 0.518 ms
-Time interval for 511  elements: 0.232 ms
-Time interval for 511  elements: 0.234 ms
-Time interval for 1023 elements: 0.47 ms
-Time interval for 2047 elements: 0.989 ms
-Time interval for 511  elements: 0.234 ms
-Time interval for 511  elements: 0.235 ms
-Time interval for 1023 elements: 0.473 ms
-
-Total time elapsed: 3.808 ms
-Total elements inserted: 7185
+Total time elapsed: 4.379 ms
+Mean time per 511  elements: 0.311643 ms
+Mean time per 1023 elements: 0.623714 ms
+Mean time per 2047 elements: 1.23 ms
+Mean time per 4095 elements: 2.607 ms
+Total elements inserted: 7184
 
 Elements inserted to Evr successfully.
 

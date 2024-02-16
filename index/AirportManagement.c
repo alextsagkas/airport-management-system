@@ -240,16 +240,15 @@ int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
   // Fields for searching in the RBT
   int found;
 
-  int routes_counter = 0;
+  int search_counter = 0;
   int found_counter = 0;
   int not_found_counter = 0;
 
   // Time Capture
   struct timeval t_start, t_end;
-  double elapsed_time;
 
-  // Start timer
-  gettimeofday(&t_start, NULL);
+  double elapsed_time = 0;
+  double elapsed_time_found = 0;
 
   // Start from the beginning of the file -- maybe you have read it before and
   // it is still open
@@ -286,23 +285,47 @@ int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
       token = strtok(NULL, delimeter);
       equipment = strdup(token);
 
+      // Start timer
+      gettimeofday(&t_start, NULL);
+
       // Search for source airport in the RBT
       Evr_search(E, source_airport_id, 1, &found);
 
+      // Stop timer
+      gettimeofday(&t_end, NULL);
+
+      elapsed_time += ((t_end.tv_sec - t_start.tv_sec) / 1000.0) +
+                      ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
+
       if (found == 1) {
         found_counter++;
+        elapsed_time_found += ((t_end.tv_sec - t_start.tv_sec) / 1000.0) +
+                              ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
       } else {
         not_found_counter++;
       }
+
+      // Start timer
+      gettimeofday(&t_start, NULL);
 
       // Search for the destination airport in the RBT
       Evr_search(E, destination_airport_id, 0, &found);
 
+      // Stop timer
+      gettimeofday(&t_end, NULL);
+
+      elapsed_time += ((t_end.tv_sec - t_start.tv_sec) / 1000.0) +
+                      ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
+
       if (found == 1) {
         found_counter++;
+        elapsed_time_found += ((t_end.tv_sec - t_start.tv_sec) / 1000.0) +
+                              ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
       } else {
         not_found_counter++;
       }
+
+      search_counter++;
 
       // Free Strings that hold route fields
       free(airline);
@@ -311,15 +334,12 @@ int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
       free(codeshare);
       free(equipment);
 
-      routes_counter++;
+      search_counter++;
     }
   }
 
   // Stop timer
   gettimeofday(&t_end, NULL);
-
-  elapsed_time = ((t_end.tv_sec - t_start.tv_sec) / 1000.0) +
-                 ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
 
   // Store Information in OUTPUTRandomBST.txt
   fprintf(output_file, "Update Arrivals and Departures\n");
@@ -327,8 +347,11 @@ int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
   fprintf(output_file, "Total time elapsed: %g ms\n", elapsed_time);
   fprintf(output_file,
           "Mean time per route: %g ms\n",
-          elapsed_time / (routes_counter * 2));
-  fprintf(output_file, "Routes counter: %d\n", routes_counter);
+          elapsed_time / search_counter);
+  fprintf(output_file,
+          "Mean time per found route: %g ms\n",
+          elapsed_time_found / search_counter);
+  fprintf(output_file, "Search counter: %d\n", search_counter);
   fprintf(output_file, "Found counter: %d\n", found_counter);
   fprintf(output_file, "Not found counter: %d\n", not_found_counter);
 

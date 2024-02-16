@@ -1,8 +1,9 @@
 Update Arrivals and Departures
 ------------------------------
-Total time elapsed: 57.571 ms
-Mean time per route: 0.000427783 ms
-Routes counter: 67290
+Total time elapsed: 35.493 ms
+Mean time per route: 0.000263732 ms
+Mean time per found route: 0.000261592 ms
+Search counter: 134580
 Found counter: 132920
 Not found counter: 1660
 
@@ -7193,5 +7194,5 @@ AirportID;Arrivals;Departures;
 12056;0;0;
 12057;0;0;
 
-Total time elapsed: 2.939 ms
+Total time elapsed: 3.045 ms
 Total elements printed: 7184
