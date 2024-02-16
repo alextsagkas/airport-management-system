@@ -5,6 +5,7 @@ Goal			    	: Extention of RBT to manage airports
 */
 
 #include <assert.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -142,10 +143,10 @@ int insert_elements_to_evr(EvrPtr E, FILE* file) {
   struct timeval t_start_11, t_end_11;
   struct timeval t_start_12, t_end_12;
 
-  double time_elapsed_9;
-  double time_elapsed_10;
-  double time_elapsed_11;
-  double time_elapsed_12;
+  double time_elapsed_9 = 0;
+  double time_elapsed_10 = 0;
+  double time_elapsed_11 = 0;
+  double time_elapsed_12 = 0;
 
   int count_elements = 1;
 
@@ -161,33 +162,29 @@ int insert_elements_to_evr(EvrPtr E, FILE* file) {
     if (count_elements % 511 == 0) {
       gettimeofday(&t_end_9, NULL);
 
-      time_elapsed_9 = ((t_end_9.tv_sec - t_start_9.tv_sec) / 1000.0) +
-                       ((t_end_9.tv_usec - t_start_9.tv_usec) / 1000.0);
-      printf("Time interval for 511  elements: %g ms\n", time_elapsed_9);
+      time_elapsed_9 += ((t_end_9.tv_sec - t_start_9.tv_sec) / 1000.0) +
+                        ((t_end_9.tv_usec - t_start_9.tv_usec) / 1000.0);
 
       gettimeofday(&t_start_9, NULL);
     } else if (count_elements % 1023 == 0) {
       gettimeofday(&t_end_10, NULL);
 
-      time_elapsed_10 = ((t_end_10.tv_sec - t_start_10.tv_sec) / 1000.0) +
-                        ((t_end_10.tv_usec - t_start_10.tv_usec) / 1000.0);
-      printf("Time interval for 1023 elements: %g ms\n", time_elapsed_10);
+      time_elapsed_10 += ((t_end_10.tv_sec - t_start_10.tv_sec) / 1000.0) +
+                         ((t_end_10.tv_usec - t_start_10.tv_usec) / 1000.0);
 
       gettimeofday(&t_start_10, NULL);
     } else if (count_elements % 2047 == 0) {
       gettimeofday(&t_end_11, NULL);
 
-      time_elapsed_11 = ((t_end_11.tv_sec - t_start_11.tv_sec) / 1000.0) +
-                        ((t_end_11.tv_usec - t_start_11.tv_usec) / 1000.0);
-      printf("Time interval for 2047 elements: %g ms\n", time_elapsed_11);
+      time_elapsed_11 += ((t_end_11.tv_sec - t_start_11.tv_sec) / 1000.0) +
+                         ((t_end_11.tv_usec - t_start_11.tv_usec) / 1000.0);
 
       gettimeofday(&t_start_11, NULL);
     } else if (count_elements % 4095 == 0) {
       gettimeofday(&t_end_12, NULL);
 
-      time_elapsed_12 = ((t_end_12.tv_sec - t_start_12.tv_sec) / 1000.0) +
-                        ((t_end_12.tv_usec - t_start_12.tv_usec) / 1000.0);
-      printf("Time interval for 4095 elements: %g ms\n", time_elapsed_12);
+      time_elapsed_12 += ((t_end_12.tv_sec - t_start_12.tv_sec) / 1000.0) +
+                         ((t_end_12.tv_usec - t_start_12.tv_usec) / 1000.0);
 
       gettimeofday(&t_start_12, NULL);
     }
@@ -201,11 +198,22 @@ int insert_elements_to_evr(EvrPtr E, FILE* file) {
     count_elements++;
   }
 
+  // Reduced by 1 because of the last iteration due to the EOF
+  count_elements--;
+
   gettimeofday(&t_end, NULL);
   time_elapsed = ((t_end.tv_sec - t_start.tv_sec) / 1000.0) +
                  ((t_end.tv_usec - t_start.tv_usec) / 1000.0);
 
-  printf("\nTotal time elapsed: %g ms\n", time_elapsed);
+  printf("Total time elapsed: %g ms\n", time_elapsed);
+  printf("Mean time per 511  elements: %g ms\n",
+         time_elapsed_9 / floor(count_elements / 511));
+  printf("Mean time per 1023 elements: %g ms\n",
+         time_elapsed_10 / floor(count_elements / 1023));
+  printf("Mean time per 2047 elements: %g ms\n",
+         time_elapsed_11 / floor(count_elements / 2047));
+  printf("Mean time per 4095 elements: %g ms\n",
+         time_elapsed_12 / floor(count_elements / 4095));
   printf("Total elements inserted: %d\n", count_elements);
 
   fclose(file);
