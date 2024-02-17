@@ -19,8 +19,8 @@ Goal			    	: Extention of RBT to manage airports
 #define RANDOM_FILEPATH "data/airports_random.txt"
 #define SORTED_FILEPATH "data/airports_sorted.txt"
 #define ROUTES_FILEPATH "data/routes.txt"
-#define output_random_file_FILEPATH "data/output/OUTPUTRandomBST.txt"
-#define output_sorted_file_FILEPATH "data/output/OUTPUTSortedBST.txt"
+#define output_random_file_FILEPATH "data/output/output_random_bst.txt"
+#define output_sorted_file_FILEPATH "data/output/output_sorted_bst.txt"
 
 /*
 Description: Insert elements to the Evr (both DataArray and RBT) from the file
@@ -355,7 +355,7 @@ int update_arrivals_departures(IndexNodep E,
   // Stop timer
   gettimeofday(&t_end, NULL);
 
-  // Store Information in OUTPUTRandomBST.txt
+  // Store Information in output_random_bst.txt
   fprintf(output_file, "\nUpdate Arrivals and Departures\n");
   fprintf(output_file, "------------------------------\n");
   fprintf(output_file, "Total time elapsed: %g ms\n", elapsed_time);
