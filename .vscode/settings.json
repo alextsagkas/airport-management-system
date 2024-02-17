@@ -7,7 +7,7 @@
     "diagarfh",
     "eisagcgh",
     "Eleftherios",
-    "evretirio",
+    "index",
     "Guajara",
     "inorder",
     "intp",
@@ -50,7 +50,7 @@
     "__locale": "c",
     "cstring": "c",
     "stdlib.h": "c",
-    "evretirio.h": "c",
+    "index.h": "c",
     "rbt.h": "c"
   },
   "todo-tree.filtering.excludeGlobs": ["**/*.txt"],

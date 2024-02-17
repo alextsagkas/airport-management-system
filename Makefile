@@ -1,14 +1,14 @@
-all: exec_airport_management exec_evretirio exec_tebst exec_teindex exec_rbt exec_int exec_string
+all: exec_airport_management exec_index exec_tebst exec_teindex exec_rbt exec_int exec_string
 
 # ------------------------------------------------------- #
 
-exec_airport_management: airportmanagement evretirio tebst teindex rbt
-	gcc AirportManagement.o index/Evretirio.o  index/tebst.o index/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
+exec_airport_management: airportmanagement index tebst teindex rbt
+	gcc AirportManagement.o index/index.o  index/tebst.o index/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
 	# ./executables/exec_airport_management
 
-exec_evretirio: rbt tebst teindex evretirio scaffold_evretirio
-	gcc rbt_module/rbt.o index/tebst.o index/teindex.o scaffolds/scaffold_evretirio.o index/Evretirio.o -o executables/exec_evretirio
-	# ./executables/exec_evretirio
+exec_index: rbt tebst teindex index scaffold_index
+	gcc rbt_module/rbt.o index/tebst.o index/teindex.o scaffolds/scaffold_index.o index/index.o -o executables/exec_index
+	# ./executables/exec_index
 
 exec_tebst: tebst scaffold_tebst
 	gcc scaffolds/scaffold_tebst.o index/tebst.o -o executables/exec_tebst
@@ -35,8 +35,8 @@ exec_string: string scaffold_string
 airportmanagement: AirportManagement.c 
 	gcc -c AirportManagement.c -o AirportManagement.o
 
-scaffold_evretirio: scaffolds/scaffold_evretirio.c
-	gcc -c scaffolds/scaffold_evretirio.c -o scaffolds/scaffold_evretirio.o
+scaffold_index: scaffolds/scaffold_index.c
+	gcc -c scaffolds/scaffold_index.c -o scaffolds/scaffold_index.o
 
 scaffold_tebst: scaffolds/scaffold_tebst.c
 	gcc -c scaffolds/scaffold_tebst.c -o scaffolds/scaffold_tebst.o
@@ -70,8 +70,8 @@ teindex: index/teindex.c index/teindex.h
 tebst: index/tebst.c index/tebst.h
 	gcc -c index/tebst.c -o index/tebst.o
 
-evretirio: index/Evretirio.c index/Evretirio.h
-	gcc -c index/Evretirio.c -o index/Evretirio.o
+index: index/index.c index/index.h
+	gcc -c index/index.c -o index/index.o
 
 # ------------------------------------------------------- #
 

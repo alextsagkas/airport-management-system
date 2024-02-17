@@ -11,7 +11,7 @@ Goal			    	: Extention of RBT to manage airports
 #include <string.h>
 #include <sys/time.h>
 
-#include "index/Evretirio.h"
+#include "index/index.h"
 #include "index/tebst.h"
 #include "index/teindex.h"
 
