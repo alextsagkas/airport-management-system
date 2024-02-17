@@ -11,9 +11,9 @@ Goal			    	: Extention of RBT to manage airports
 #include <string.h>
 #include <sys/time.h>
 
-#include "index/index.h"
-#include "index/tebst.h"
-#include "index/teindex.h"
+#include "index_module/index.h"
+#include "index_module/tebst.h"
+#include "index_module/teindex.h"
 
 // Filepaths
 #define RANDOM_FILEPATH "data/airportsLinuxRandom.txt"

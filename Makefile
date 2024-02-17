@@ -3,19 +3,19 @@ all: exec_airport_management exec_index exec_tebst exec_teindex exec_rbt exec_in
 # ------------------------------------------------------- #
 
 exec_airport_management: airportmanagement index tebst teindex rbt
-	gcc AirportManagement.o index/index.o  index/tebst.o index/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
+	gcc AirportManagement.o index_module/index.o  index_module/tebst.o index_module/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
 	# ./executables/exec_airport_management
 
 exec_index: rbt tebst teindex index scaffold_index
-	gcc rbt_module/rbt.o index/tebst.o index/teindex.o scaffolds/scaffold_index.o index/index.o -o executables/exec_index
+	gcc rbt_module/rbt.o index_module/tebst.o index_module/teindex.o scaffolds/scaffold_index.o index_module/index.o -o executables/exec_index
 	# ./executables/exec_index
 
 exec_tebst: tebst scaffold_tebst
-	gcc scaffolds/scaffold_tebst.o index/tebst.o -o executables/exec_tebst
+	gcc scaffolds/scaffold_tebst.o index_module/tebst.o -o executables/exec_tebst
 	# ./executables/exec_tebst
 
 exec_teindex: teindex scaffold_teindex
-	gcc scaffolds/scaffold_teindex.o index/teindex.o -o executables/exec_teindex
+	gcc scaffolds/scaffold_teindex.o index_module/teindex.o -o executables/exec_teindex
 	# ./executables/exec_teindex
 
 exec_rbt: int string rbt scaffold_rbt
@@ -64,14 +64,14 @@ string: string_module/string.c string_module/string.h string_module/string.o
 rbt: rbt_module/rbt.c rbt_module/rbt.h rbt_module/rbt.o
 	gcc -c rbt_module/rbt.c -o rbt_module/rbt.o 
 
-teindex: index/teindex.c index/teindex.h index/teindex.o
-	gcc -c index/teindex.c -o index/teindex.o
+teindex: index_module/teindex.c index_module/teindex.h index_module/teindex.o
+	gcc -c index_module/teindex.c -o index_module/teindex.o
 
-tebst: index/tebst.c index/tebst.h index/tebst.o
-	gcc -c index/tebst.c -o index/tebst.o
+tebst: index_module/tebst.c index_module/tebst.h index_module/tebst.o
+	gcc -c index_module/tebst.c -o index_module/tebst.o
 
-index: index/index.c index/index.h index/index.o
-	gcc -c index/index.c -o index/index.o
+index: index_module/index.c index_module/index.h index_module/index.o
+	gcc -c index_module/index.c -o index_module/index.o
 
 # ------------------------------------------------------- #
 

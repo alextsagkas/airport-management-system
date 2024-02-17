@@ -1,4 +1,4 @@
-#include "../index/index.h"
+#include "../index_module/index.h"
 #include "../rbt_module/rbt.h"
 #include <stdio.h>
 

@@ -1,4 +1,4 @@
-#include "../index/tebst.h"
+#include "../index_module/tebst.h"
 #include <stdio.h>
 
 int main() {
