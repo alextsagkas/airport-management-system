@@ -1,7 +1,7 @@
 #ifndef __Index__
 #define __Index__
 
-#include "TEBST.h"
+#include "TSDDA.h"
 #include "TSEvr.h"
 #include <stdio.h>
 #include <stdlib.h>

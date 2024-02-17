@@ -12,7 +12,7 @@ Goal			    	: Extention of RBT to manage airports
 #include <sys/time.h>
 
 #include "index/Evretirio.h"
-#include "index/TEBST.h"
+#include "index/TSDDA.h"
 #include "index/TSEvr.h"
 
 // Filepaths
@@ -39,7 +39,9 @@ Returns:
   - -1: if the insertion on the RBT fails.
   - 0: if the procedure is successful.
 */
-int insert_elements_to_evr(IndexNodep E, FILE* airports_file, FILE* output_file);
+int insert_elements_to_evr(IndexNodep E,
+                           FILE* airports_file,
+                           FILE* output_file);
 
 /*
 Description: Update the arrivals and departures of the airports in the RBT from
@@ -58,7 +60,9 @@ Parameters:
 Returns:
   - 0: if the procedure is successful.
 */
-int update_arrivals_departures(IndexNodep E, FILE* routes_file, FILE* output_file);
+int update_arrivals_departures(IndexNodep E,
+                               FILE* routes_file,
+                               FILE* output_file);
 
 /*
 Description: Print the elements of the Evr to the file, in ascending order, by
@@ -129,7 +133,9 @@ int main() {
   return 0;
 }
 
-int insert_elements_to_evr(IndexNodep E, FILE* airports_file, FILE* output_file) {
+int insert_elements_to_evr(IndexNodep E,
+                           FILE* airports_file,
+                           FILE* output_file) {
   TStoixeiouEvr elem;
 
   // total time elapsed
@@ -226,7 +232,9 @@ int insert_elements_to_evr(IndexNodep E, FILE* airports_file, FILE* output_file)
   return 0;
 }
 
-int update_arrivals_departures(IndexNodep E, FILE* routes_file, FILE* output_file) {
+int update_arrivals_departures(IndexNodep E,
+                               FILE* routes_file,
+                               FILE* output_file) {
   // Read data from routes file
   char line[100];
   char delimeter[] = ";";
