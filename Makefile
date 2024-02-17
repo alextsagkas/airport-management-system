@@ -32,45 +32,45 @@ exec_string: string scaffold_string
 
 # ------------------------------------------------------- #
 
-airportmanagement: AirportManagement.c 
+airportmanagement: AirportManagement.c AirportManagement.o
 	gcc -c AirportManagement.c -o AirportManagement.o
 
-scaffold_index: scaffolds/scaffold_index.c
+scaffold_index: scaffolds/scaffold_index.c scaffolds/scaffold_index.o
 	gcc -c scaffolds/scaffold_index.c -o scaffolds/scaffold_index.o
 
-scaffold_tebst: scaffolds/scaffold_tebst.c
+scaffold_tebst: scaffolds/scaffold_tebst.c scaffolds/scaffold_tebst.o
 	gcc -c scaffolds/scaffold_tebst.c -o scaffolds/scaffold_tebst.o
 
-scaffold_teindex: scaffolds/scaffold_teindex.c
+scaffold_teindex: scaffolds/scaffold_teindex.c scaffolds/scaffold_teindex.o
 	gcc -c scaffolds/scaffold_teindex.c -o scaffolds/scaffold_teindex.o
 
-scaffold_rbt: scaffolds/scaffold_rbt.c
+scaffold_rbt: scaffolds/scaffold_rbt.c scaffolds/scaffold_rbt.o
 	gcc -c scaffolds/scaffold_rbt.c -o scaffolds/scaffold_rbt.o
 
-scaffold_int: scaffolds/scaffold_int.c
+scaffold_int: scaffolds/scaffold_int.c scaffolds/scaffold_int.o
 	gcc -c scaffolds/scaffold_int.c -o scaffolds/scaffold_int.o
 
-scaffold_string: scaffolds/scaffold_string.c
+scaffold_string: scaffolds/scaffold_string.c scaffolds/scaffold_string.o
 	gcc -c scaffolds/scaffold_string.c -o scaffolds/scaffold_string.o
 
 # ------------------------------------------------------- #
 
-int: int_module/int.c int_module/int.h
+int: int_module/int.c int_module/int.h int_module/int.o
 	gcc -c int_module/int.c -o int_module/int.o
 
-string: string_module/string.c string_module/string.h
+string: string_module/string.c string_module/string.h string_module/string.o
 	gcc -c string_module/string.c -o string_module/string.o 
 
-rbt: rbt_module/rbt.c rbt_module/rbt.h
+rbt: rbt_module/rbt.c rbt_module/rbt.h rbt_module/rbt.o
 	gcc -c rbt_module/rbt.c -o rbt_module/rbt.o 
 
-teindex: index/teindex.c index/teindex.h
+teindex: index/teindex.c index/teindex.h index/teindex.o
 	gcc -c index/teindex.c -o index/teindex.o
 
-tebst: index/tebst.c index/tebst.h
+tebst: index/tebst.c index/tebst.h index/tebst.o
 	gcc -c index/tebst.c -o index/tebst.o
 
-index: index/index.c index/index.h
+index: index/index.c index/index.h index/index.o
 	gcc -c index/index.c -o index/index.o
 
 # ------------------------------------------------------- #
