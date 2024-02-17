@@ -1,34 +1,32 @@
-all: exec_airport_management exec_index exec_tebst exec_teindex exec_rbt exec_int exec_string
-
 # ------------------------------------------------------- #
 
 exec_airport_management: airport_management index tebst teindex rbt
 	gcc airport_management.o index_module/index.o  ebst_module/tebst.o eindex_module/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
-	# ./executables/exec_airport_management
+	./executables/exec_airport_management
 
 exec_index: rbt tebst teindex index scaffold_index
 	gcc rbt_module/rbt.o ebst_module/tebst.o eindex_module/teindex.o scaffolds/scaffold_index.o index_module/index.o -o executables/exec_index
-	# ./executables/exec_index
+	./executables/exec_index
 
 exec_tebst: tebst scaffold_tebst
 	gcc scaffolds/scaffold_tebst.o ebst_module/tebst.o -o executables/exec_tebst
-	# ./executables/exec_tebst
+	./executables/exec_tebst
 
 exec_teindex: teindex scaffold_teindex
 	gcc scaffolds/scaffold_teindex.o eindex_module/teindex.o -o executables/exec_teindex
-	# ./executables/exec_teindex
+	./executables/exec_teindex
 
 exec_rbt: int string rbt scaffold_rbt
 	gcc scaffolds/scaffold_rbt.o rbt_module/rbt.o int_module/int.o string_module/string.o -o executables/exec_rbt
-	# ./executables/exec_rbt
+	./executables/exec_rbt
 
 exec_int: int scaffold_int
 	gcc scaffolds/scaffold_int.o int_module/int.o -o executables/exec_int
-	# ./executables/exec_int
+	./executables/exec_int
 
 exec_string: string scaffold_string
 	gcc scaffolds/scaffold_string.o string_module/string.o -o executables/exec_string
-	# ./executables/exec_string
+	./executables/exec_string
 
 # ------------------------------------------------------- #
 
