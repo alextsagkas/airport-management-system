@@ -3,7 +3,7 @@ all: exec_airport_management exec_evretirio exec_tsdda exec_tsevr exec_rbt exec_
 # ------------------------------------------------------- #
 
 exec_airport_management: airportmanagement evretirio tsdda tsevr rbt
-	gcc index/AirportManagement.o index/Evretirio.o  index/TSDDA.o index/TSEvr.o rbt_module/rbt.o -o executables/exec_airport_management
+	gcc AirportManagement.o index/Evretirio.o  index/TSDDA.o index/TSEvr.o rbt_module/rbt.o -o executables/exec_airport_management
 	# ./executables/exec_airport_management
 
 exec_evretirio: rbt tsdda tsevr evretirio scaffold_evretirio
@@ -32,8 +32,8 @@ exec_string: string scaffold_string
 
 # ------------------------------------------------------- #
 
-airportmanagement: index/AirportManagement.c 
-	gcc -c index/AirportManagement.c -o index/AirportManagement.o
+airportmanagement: AirportManagement.c 
+	gcc -c AirportManagement.c -o AirportManagement.o
 
 scaffold_evretirio: scaffolds/scaffold_evretirio.c
 	gcc -c scaffolds/scaffold_evretirio.c -o scaffolds/scaffold_evretirio.o

@@ -11,9 +11,9 @@ Goal			    	: Extention of RBT to manage airports
 #include <string.h>
 #include <sys/time.h>
 
-#include "Evretirio.h"
-#include "TSDDA.h"
-#include "TSEvr.h"
+#include "index/Evretirio.h"
+#include "index/TSDDA.h"
+#include "index/TSEvr.h"
 
 // Filepaths
 #define RANDOM_FILEPATH "data/linux/airportsLinuxRandom.txt"
