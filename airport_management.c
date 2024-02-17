@@ -11,8 +11,8 @@ Goal			    	: Extention of RBT to manage airports
 #include <string.h>
 #include <sys/time.h>
 
+#include "ebst_module/tebst.h"
 #include "index_module/index.h"
-#include "index_module/tebst.h"
 #include "index_module/teindex.h"
 
 // Filepaths

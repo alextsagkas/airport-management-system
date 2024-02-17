@@ -1,7 +1,7 @@
 #ifndef __Index__
 #define __Index__
 
-#include "tebst.h"
+#include "../ebst_module/tebst.h"
 #include "teindex.h"
 #include <stdio.h>
 #include <stdlib.h>

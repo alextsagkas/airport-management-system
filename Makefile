@@ -3,15 +3,15 @@ all: exec_airport_management exec_index exec_tebst exec_teindex exec_rbt exec_in
 # ------------------------------------------------------- #
 
 exec_airport_management: airport_management index tebst teindex rbt
-	gcc airport_management.o index_module/index.o  index_module/tebst.o index_module/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
+	gcc airport_management.o index_module/index.o  ebst_module/tebst.o index_module/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
 	# ./executables/exec_airport_management
 
 exec_index: rbt tebst teindex index scaffold_index
-	gcc rbt_module/rbt.o index_module/tebst.o index_module/teindex.o scaffolds/scaffold_index.o index_module/index.o -o executables/exec_index
+	gcc rbt_module/rbt.o ebst_module/tebst.o index_module/teindex.o scaffolds/scaffold_index.o index_module/index.o -o executables/exec_index
 	# ./executables/exec_index
 
 exec_tebst: tebst scaffold_tebst
-	gcc scaffolds/scaffold_tebst.o index_module/tebst.o -o executables/exec_tebst
+	gcc scaffolds/scaffold_tebst.o ebst_module/tebst.o -o executables/exec_tebst
 	# ./executables/exec_tebst
 
 exec_teindex: teindex scaffold_teindex
@@ -67,8 +67,8 @@ rbt: rbt_module/rbt.c rbt_module/rbt.h rbt_module/rbt.o
 teindex: index_module/teindex.c index_module/teindex.h index_module/teindex.o
 	gcc -c index_module/teindex.c -o index_module/teindex.o
 
-tebst: index_module/tebst.c index_module/tebst.h index_module/tebst.o
-	gcc -c index_module/tebst.c -o index_module/tebst.o
+tebst: ebst_module/tebst.c ebst_module/tebst.h ebst_module/tebst.o
+	gcc -c ebst_module/tebst.c -o ebst_module/tebst.o
 
 index: index_module/index.c index_module/index.h index_module/index.o
 	gcc -c index_module/index.c -o index_module/index.o
