@@ -78,5 +78,6 @@ evretirio: index/Evretirio.c index/Evretirio.h
 clean: 
 	find . -name "*.o" -type f -delete
 	find . -name "exec_*" -type f -delete
+	rm -rf ./data/linux/test/*
 
 # ------------------------------------------------------- #
