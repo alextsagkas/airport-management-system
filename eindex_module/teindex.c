@@ -132,17 +132,3 @@ int TEIndex_writeValue(FILE* to, TElementIndex Elem) {
 
   return 0;
 }
-
-int TEIndex_printStruct(TElementIndex Elem) {
-  printf("airport_id: %d\n", Elem.airport_id);
-  printf("name: %s\n", Elem.name);
-  printf("city: %s\n", Elem.city);
-  printf("country: %s\n", Elem.country);
-  printf("IATA: %s\n", Elem.IATA);
-  printf("ICAO: %s\n", Elem.ICAO);
-  printf("arrivals: %d\n", Elem.arrivals);
-  printf("departures: %d\n", Elem.departures);
-  printf("\n");
-
-  return 0;
-}
