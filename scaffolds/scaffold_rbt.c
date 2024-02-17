@@ -14,9 +14,9 @@ References:
 
 #include <stdio.h>
 
-#include "int.h"
-#include "rbt.h"
-#include "string.h"
+#include "../int_module/int.h"
+#include "../rbt_module/rbt.h"
+#include "../string_module/string.h"
 
 /*
 Description: Prints a string separator.

@@ -1,16 +1,44 @@
 {
   "cSpell.words": [
+    "Alexandros",
+    "basikes",
+    "codeshare",
+    "diaforo",
+    "diagarfh",
+    "eisagcgh",
+    "Eleftherios",
+    "Guajara",
+    "index",
     "inorder",
     "intp",
     "Ioannis",
+    "katastrofi",
     "Kotronis",
     "KRED",
     "KRESET",
+    "LGAV",
+    "megalytero",
+    "mikrotero",
+    "Mirim",
     "nodep",
+    "Pirie",
     "predeseccor",
+    "RBT's",
+    "SBGM",
+    "sthn",
+    "Stoixeiou",
     "structp",
     "strutp",
-    "Treep"
+    "sygkriseis",
+    "symplhrvmatikes",
+    "TBST",
+    "TEBST",
+    "teindex",
+    "Treep",
+    "UMBB",
+    "Venizelos",
+    "xrhsh",
+    "YPIR"
   ],
   "files.associations": {
     "stdio.h": "c",
@@ -21,6 +49,11 @@
     "limits": "cpp",
     "tuple": "cpp",
     "__locale": "c",
-    "cstring": "c"
-  }
+    "cstring": "c",
+    "stdlib.h": "c",
+    "index.h": "c",
+    "rbt.h": "c"
+  },
+  "todo-tree.filtering.excludeGlobs": ["**/*.txt"],
+  "C_Cpp.default.compilerPath": "/usr/bin/gcc"
 }

@@ -8,4 +8,4 @@ exec_*
 **.DS_Store
 
 # ignore extention/ folder
-extention/
+extension/

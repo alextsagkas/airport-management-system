@@ -498,3 +498,53 @@ void* RBT_delete(Treep T, void* key, int (*compare)(const void*, const void*)) {
 
   return data;
 }
+
+void* RBT_search_key(Treep T,
+                     void* key,
+                     int (*compare)(const void*, const void*)) {
+  Nodep tmp = T->root;
+
+  while (tmp != T->nil && !(compare(tmp->key, key) == 0)) {
+    if (compare(tmp->key, key) == 1)
+      tmp = tmp->left;
+    else
+      tmp = tmp->right;
+  }
+
+  if (tmp == T->nil)
+    return NULL;
+
+  return tmp->key;
+}
+
+int RBT_inorder_tree_walk_file(Treep T,
+                               Nodep root,
+                               FILE* out,
+                               void (*fprint)(FILE*, const void*)) {
+  Nodep tmp = root;
+
+  if (tmp != NULL) {
+    RBT_inorder_tree_walk_file(T, tmp->left, out, fprint);
+    if (tmp != T->nil) {
+      fprint(out, tmp->key);
+    }
+    RBT_inorder_tree_walk_file(T, tmp->right, out, fprint);
+  }
+
+  return 0;
+}
+
+int RBT_print_to_file(Treep T, FILE* out, void (*fprint)(FILE*, const void*)) {
+  if (T->root == T->nil) {
+    return -1;
+  }
+
+  // This values might have changed in RB_delete.
+  // However, they do not need to remain this way.
+  T->nil->right = NULL;
+  T->nil->left = NULL;
+
+  RBT_inorder_tree_walk_file(T, T->root, out, fprint);
+
+  return 0;
+}

@@ -15,6 +15,8 @@ References:
 #ifndef RBT
 #define RBT
 
+#include <stdio.h>
+
 typedef struct RBT_tree* Treep;
 
 /*
@@ -108,5 +110,51 @@ Return values:
   - -1: T is empty.
 */
 int RBT_print_tree(Treep T, void (*print)(const char*, const void*));
+
+/*
+Description: Searches the RBT T for the node with key denoted by the parameter
+key. It uses the compare function to compare the keys of the nodes. The compare
+function is expected to return the following values:
+  - -1: The data of the first node is smaller than the data of the second node.
+  - 0: The data of the first node is equal to the data of the second node.
+  - 1: The data of the first node is greater than the data of the second node.
+
+Parameters:
+  - T (Treep): The RBT.
+  - key (void *): The key of the node to be searched.
+  - compare (int (*)(const void *, const void *)): The pointer to the
+    function that compares the data. It is expected to return the following
+    values:
+      - -1: The data of the first node is smaller than the data of the second
+        node.
+      - 0: The data of the first node is equal to the data of the second node.
+      - 1: The data of the first node is greater than the data of the second
+        node.
+
+Return value:
+  - void *: The key of the node with key denoted by the parameter key. If the
+    node is not found, then it returns NULL.
+*/
+void* RBT_search_key(Treep T,
+                     void* key,
+                     int (*compare)(const void*, const void*));
+
+/*
+Description: Prints the RBT T to the file out, by using the fprint function. The
+first parameter of the fprint function is the file to be printed and the second
+parameter is the key of the node.
+
+Parameters:
+  - T (Treep): The RBT to be printed.
+  - out (FILE *): The file to be printed.
+  - fprint (void (*)(FILE *, const void *)): The pointer to the function that
+    prints the key of the node. It is expected to print the data of the node
+    to the file out.
+
+Return values:
+  - -1: T is empty.
+  - 0: Success.
+*/
+int RBT_print_to_file(Treep T, FILE* out, void (*fprint)(FILE*, const void*));
 
 #endif
