@@ -2,7 +2,7 @@
 #define __Index__
 
 #include "tebst.h"
-#include "TSEvr.h"
+#include "teindex.h"
 #include <stdio.h>
 #include <stdlib.h>
 

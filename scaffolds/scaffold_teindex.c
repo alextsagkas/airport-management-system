@@ -1,4 +1,4 @@
-#include "../index/TSEvr.h"
+#include "../index/teindex.h"
 #include <stdio.h>
 
 // #define FILEPATH "data/linux/airportsLinuxRandom.txt"
@@ -35,7 +35,7 @@ int main() {
 
      In order to check the new_file, use the diff command in the terminal
      One caveat is that the new_file contains also the arrivals and departures,
-     so, you could temporarily remove them from TEIndex_writeValue in TSEvr.c to
+     so, you could temporarily remove them from TEIndex_writeValue in teindex.c to
      compare the files.
   */
 

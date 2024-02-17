@@ -13,7 +13,7 @@ Goal			    	: Extention of RBT to manage airports
 
 #include "index/Evretirio.h"
 #include "index/tebst.h"
-#include "index/TSEvr.h"
+#include "index/teindex.h"
 
 // Filepaths
 #define RANDOM_FILEPATH "data/linux/airportsLinuxRandom.txt"

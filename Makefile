@@ -1,22 +1,22 @@
-all: exec_airport_management exec_evretirio exec_tebst exec_tsevr exec_rbt exec_int exec_string
+all: exec_airport_management exec_evretirio exec_tebst exec_teindex exec_rbt exec_int exec_string
 
 # ------------------------------------------------------- #
 
-exec_airport_management: airportmanagement evretirio tebst tsevr rbt
-	gcc AirportManagement.o index/Evretirio.o  index/tebst.o index/TSEvr.o rbt_module/rbt.o -o executables/exec_airport_management
+exec_airport_management: airportmanagement evretirio tebst teindex rbt
+	gcc AirportManagement.o index/Evretirio.o  index/tebst.o index/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
 	# ./executables/exec_airport_management
 
-exec_evretirio: rbt tebst tsevr evretirio scaffold_evretirio
-	gcc rbt_module/rbt.o index/tebst.o index/TSEvr.o scaffolds/scaffold_evretirio.o index/Evretirio.o -o executables/exec_evretirio
+exec_evretirio: rbt tebst teindex evretirio scaffold_evretirio
+	gcc rbt_module/rbt.o index/tebst.o index/teindex.o scaffolds/scaffold_evretirio.o index/Evretirio.o -o executables/exec_evretirio
 	# ./executables/exec_evretirio
 
 exec_tebst: tebst scaffold_tebst
 	gcc scaffolds/scaffold_tebst.o index/tebst.o -o executables/exec_tebst
 	# ./executables/exec_tebst
 
-exec_tsevr: tsevr scaffold_tsevr
-	gcc scaffolds/scaffold_tsevr.o index/TSEvr.o -o executables/exec_tsevr
-	# ./executables/exec_tsevr
+exec_teindex: teindex scaffold_teindex
+	gcc scaffolds/scaffold_teindex.o index/teindex.o -o executables/exec_teindex
+	# ./executables/exec_teindex
 
 exec_rbt: int string rbt scaffold_rbt
 	gcc scaffolds/scaffold_rbt.o rbt_module/rbt.o int_module/int.o string_module/string.o -o executables/exec_rbt
@@ -41,8 +41,8 @@ scaffold_evretirio: scaffolds/scaffold_evretirio.c
 scaffold_tebst: scaffolds/scaffold_tebst.c
 	gcc -c scaffolds/scaffold_tebst.c -o scaffolds/scaffold_tebst.o
 
-scaffold_tsevr: scaffolds/scaffold_tsevr.c
-	gcc -c scaffolds/scaffold_tsevr.c -o scaffolds/scaffold_tsevr.o
+scaffold_teindex: scaffolds/scaffold_teindex.c
+	gcc -c scaffolds/scaffold_teindex.c -o scaffolds/scaffold_teindex.o
 
 scaffold_rbt: scaffolds/scaffold_rbt.c
 	gcc -c scaffolds/scaffold_rbt.c -o scaffolds/scaffold_rbt.o
@@ -64,8 +64,8 @@ string: string_module/string.c string_module/string.h
 rbt: rbt_module/rbt.c rbt_module/rbt.h
 	gcc -c rbt_module/rbt.c -o rbt_module/rbt.o 
 
-tsevr: index/TSEvr.c index/TSEvr.h
-	gcc -c index/TSEvr.c -o index/TSEvr.o
+teindex: index/teindex.c index/teindex.h
+	gcc -c index/teindex.c -o index/teindex.o
 
 tebst: index/tebst.c index/tebst.h
 	gcc -c index/tebst.c -o index/tebst.o
