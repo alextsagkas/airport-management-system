@@ -21,9 +21,9 @@ int main() {
   TStoixeiouEvr airport2;
 
   while (!feof(file)) {
-    TSEvr_readValue(file, &airport);
-    TSEvr_setValue(&airport2, airport);
-    TSEvr_writeValue(new_file, airport2);
+    TSIndex_readValue(file, &airport);
+    TSIndex_setValue(&airport2, airport);
+    TSIndex_writeValue(new_file, airport2);
   }
 
   fclose(file);
@@ -35,7 +35,7 @@ int main() {
 
      In order to check the new_file, use the diff command in the terminal
      One caveat is that the new_file contains also the arrivals and departures,
-     so, you could temporarily remove them from TSEvr_writeValue in TSEvr.c to
+     so, you could temporarily remove them from TSIndex_writeValue in TSEvr.c to
      compare the files.
   */
 

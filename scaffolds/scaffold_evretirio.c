@@ -7,9 +7,9 @@
 
 int main() {
   /* ------------------------------------------------------ */
-  EvrPtr E = Evr_construct(MAXSIZE);
+  IndexNodep E = Index_construct(MAXSIZE);
 
-  Evr_printArrayRBT(E);
+  Index_printArrayRBT(E);
   /* ------------------------------------------------------ */
   TStoixeiouEvr Elem;
 
@@ -22,7 +22,7 @@ int main() {
   Elem.arrivals = 0;
   Elem.departures = 0;
 
-  int insertResult = Evr_insert(E, Elem);
+  int insertResult = Index_insert(E, Elem);
 
   if (insertResult == -1) {
     printf("\nInsertion failed.\n");
@@ -30,7 +30,7 @@ int main() {
     printf("\nInsertion successful.\n");
   }
 
-  Evr_printArrayRBT(E);
+  Index_printArrayRBT(E);
   /* ------------------------------------------------------ */
   TStoixeiouEvr Elem1;
 
@@ -43,7 +43,7 @@ int main() {
   Elem1.arrivals = 0;
   Elem1.departures = 0;
 
-  insertResult = Evr_insert(E, Elem1);
+  insertResult = Index_insert(E, Elem1);
 
   if (insertResult == -1) {
     printf("\nInsertion failed.\n");
@@ -51,7 +51,7 @@ int main() {
     printf("\nInsertion successful.\n");
   }
 
-  Evr_printArrayRBT(E);
+  Index_printArrayRBT(E);
   /* ------------------------------------------------------ */
   TStoixeiouEvr Elem2;
 
@@ -64,7 +64,7 @@ int main() {
   Elem2.arrivals = 0;
   Elem2.departures = 0;
 
-  insertResult = Evr_insert(E, Elem2);
+  insertResult = Index_insert(E, Elem2);
 
   if (insertResult == -1) {
     printf("\nInsertion failed.\n");
@@ -72,11 +72,11 @@ int main() {
     printf("\nInsertion successful.\n");
   }
 
-  Evr_printArrayRBT(E);
+  Index_printArrayRBT(E);
   /* ------------------------------------------------------ */
 
   int found;
-  int result = Evr_search(E, 6908, 0, &found);
+  int result = Index_search(E, 6908, 0, &found);
 
   switch (result) {
   case -2:
@@ -93,10 +93,10 @@ int main() {
     break;
   }
 
-  Evr_printArrayRBT(E);
+  Index_printArrayRBT(E);
   /* ------------------------------------------------------ */
 
-  result = Evr_search(E, 6908, 1, &found);
+  result = Index_search(E, 6908, 1, &found);
 
   switch (result) {
   case -2:
@@ -113,12 +113,12 @@ int main() {
     break;
   }
 
-  Evr_printArrayRBT(E);
+  Index_printArrayRBT(E);
   /* ------------------------------------------------------ */
   FILE* out = fopen(OUTPUT_FILEPATH, "w");
 
   int counter;
-  int print_result = Evr_printAll(E, out, &counter);
+  int print_result = Index_printAll(E, out, &counter);
 
   switch (print_result) {
   case -2:
@@ -137,7 +137,7 @@ int main() {
 
   fclose(out);
   /* ------------------------------------------------------ */
-  Evr_destruct(&E);
+  Index_destruct(&E);
   /* ------------------------------------------------------ */
 
   return 0;

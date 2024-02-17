@@ -31,7 +31,7 @@ information:
   - Total elements inserted.
 
 Parameters:
-  - E (EvrPtr): Pointer to the Evr.
+  - E (IndexNodep): Pointer to the Evr.
   - airports_file (FILE*): The file from which the airports are read.
   - output_file (FILE*): The file to which the information is printed.
 
@@ -39,7 +39,7 @@ Returns:
   - -1: if the insertion on the RBT fails.
   - 0: if the procedure is successful.
 */
-int insert_elements_to_evr(EvrPtr E, FILE* airports_file, FILE* output_file);
+int insert_elements_to_evr(IndexNodep E, FILE* airports_file, FILE* output_file);
 
 /*
 Description: Update the arrivals and departures of the airports in the RBT from
@@ -51,14 +51,14 @@ the routes_file and print the following information to the output_file:
   - Not found counter.
 
 Parameters:
-  - E (EvrPtr): Pointer to the Evr.
+  - E (IndexNodep): Pointer to the Evr.
   - routes_file (FILE*): The file from which the routes are read.
   - output_file (FILE*): The file to which the information is printed.
 
 Returns:
   - 0: if the procedure is successful.
 */
-int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file);
+int update_arrivals_departures(IndexNodep E, FILE* routes_file, FILE* output_file);
 
 /*
 Description: Print the elements of the Evr to the file, in ascending order, by
@@ -67,14 +67,14 @@ In the end, it prints the total number of elements printed and the total time
 elapsed for the print completion.
 
 Parameters:
-  - E (EvrPtr): Pointer to the Evr.
+  - E (IndexNodep): Pointer to the Evr.
   - file (FILE*): The file to which the elements are printed.
 
 Return values:
   - -1: if the elements could not be printed to the file.
   - 0: if the procedure is successful.
 */
-int print_elements_to_file(EvrPtr E, FILE* file);
+int print_elements_to_file(IndexNodep E, FILE* file);
 
 /*
 Description: The client program that uses the Evr to handle airports and routes
@@ -129,7 +129,7 @@ int main() {
   return 0;
 }
 
-int insert_elements_to_evr(EvrPtr E, FILE* airports_file, FILE* output_file) {
+int insert_elements_to_evr(IndexNodep E, FILE* airports_file, FILE* output_file) {
   TStoixeiouEvr elem;
 
   // total time elapsed
@@ -190,8 +190,8 @@ int insert_elements_to_evr(EvrPtr E, FILE* airports_file, FILE* output_file) {
       gettimeofday(&t_start_12, NULL);
     }
 
-    TSEvr_readValue(airports_file, &elem);
-    int ret = Evr_insert(E, elem);
+    TSIndex_readValue(airports_file, &elem);
+    int ret = Index_insert(E, elem);
     if (ret != 0) {
       return -1;
     }
@@ -226,7 +226,7 @@ int insert_elements_to_evr(EvrPtr E, FILE* airports_file, FILE* output_file) {
   return 0;
 }
 
-int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
+int update_arrivals_departures(IndexNodep E, FILE* routes_file, FILE* output_file) {
   // Read data from routes file
   char line[100];
   char delimeter[] = ";";
@@ -295,7 +295,7 @@ int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
       gettimeofday(&t_start, NULL);
 
       // Search for source airport in the RBT
-      Evr_search(E, source_airport_id, 1, &found);
+      Index_search(E, source_airport_id, 1, &found);
 
       // Stop timer
       gettimeofday(&t_end, NULL);
@@ -315,7 +315,7 @@ int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
       gettimeofday(&t_start, NULL);
 
       // Search for the destination airport in the RBT
-      Evr_search(E, destination_airport_id, 0, &found);
+      Index_search(E, destination_airport_id, 0, &found);
 
       // Stop timer
       gettimeofday(&t_end, NULL);
@@ -364,7 +364,7 @@ int update_arrivals_departures(EvrPtr E, FILE* routes_file, FILE* output_file) {
   return 0;
 }
 
-int print_elements_to_file(EvrPtr E, FILE* file) {
+int print_elements_to_file(IndexNodep E, FILE* file) {
   // Time Capture
   struct timeval t_start, t_end;
 
@@ -374,7 +374,7 @@ int print_elements_to_file(EvrPtr E, FILE* file) {
   // Count the elements that will be printed
   int element_counter;
 
-  int print_result = Evr_printAll(E, file, &element_counter);
+  int print_result = Index_printAll(E, file, &element_counter);
 
   if (print_result != 0) {
     return -1;
@@ -394,7 +394,7 @@ int print_elements_to_file(EvrPtr E, FILE* file) {
 
 int client_program(FILE* airports_file, FILE* routes_file, FILE* output_file) {
   // Construct the Evr
-  EvrPtr E = Evr_construct(7200);
+  IndexNodep E = Index_construct(7200);
 
   // Insert elements to the Evr from file
   int result_insert = insert_elements_to_evr(E, airports_file, output_file);
@@ -440,7 +440,7 @@ int client_program(FILE* airports_file, FILE* routes_file, FILE* output_file) {
   }
 
   // Destruct the Evr
-  int result_destruct = Evr_destruct(&E);
+  int result_destruct = Index_destruct(&E);
 
   switch (result_destruct) {
   case 0:

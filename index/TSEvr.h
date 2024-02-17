@@ -1,5 +1,5 @@
-#ifndef __TSEvr__
-#define __TSEvr__
+#ifndef __TSIndex__
+#define __TSIndex__
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +27,7 @@ Parameters:
 Return value:
     - 0 if the operation was successful.
 */
-int TSEvr_setValue(TStoixeiouEvr* target, TStoixeiouEvr source);
+int TSIndex_setValue(TStoixeiouEvr* target, TStoixeiouEvr source);
 
 /*
 Description: Reads a line from the file from and stores the values in the
@@ -40,7 +40,7 @@ Parameters:
 Return value:
     - 0 if the operation was successful.
 */
-int TSEvr_readValue(FILE* from, TStoixeiouEvr* Elem);
+int TSIndex_readValue(FILE* from, TStoixeiouEvr* Elem);
 
 /*
 Description: Writes the values of the TStoixeiouEvr Elem struct to the file to.
@@ -54,6 +54,6 @@ Parameters:
 Return value:
     - 0 if the operation was successful.
 */
-int TSEvr_writeValue(FILE* to, TStoixeiouEvr Elem);
+int TSIndex_writeValue(FILE* to, TStoixeiouEvr Elem);
 
 #endif

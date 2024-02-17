@@ -12,9 +12,9 @@ Parameters:
 Return value:
   - 0: Success.
 */
-int TSEvr_printStruct(TStoixeiouEvr Elem);
+int TSIndex_printStruct(TStoixeiouEvr Elem);
 
-int TSEvr_setValue(TStoixeiouEvr* target, TStoixeiouEvr source) {
+int TSIndex_setValue(TStoixeiouEvr* target, TStoixeiouEvr source) {
   // These two fields cannot be NULL so we can use strdup directly
   target->airportID = source.airportID;
   target->name = strdup(source.name);
@@ -49,7 +49,7 @@ int TSEvr_setValue(TStoixeiouEvr* target, TStoixeiouEvr source) {
   return 0;
 }
 
-int TSEvr_readValue(FILE* from, TStoixeiouEvr* Elem) {
+int TSIndex_readValue(FILE* from, TStoixeiouEvr* Elem) {
   char line[MAX_LINE_LENGTH];
   char delimeter[] = ";";
   char* token;
@@ -101,7 +101,7 @@ int TSEvr_readValue(FILE* from, TStoixeiouEvr* Elem) {
   return 0;
 }
 
-int TSEvr_writeValue(FILE* to, TStoixeiouEvr Elem) {
+int TSIndex_writeValue(FILE* to, TStoixeiouEvr Elem) {
   fprintf(to, "%d;%s;", Elem.airportID, Elem.name);
 
   if (Elem.city == NULL) {
@@ -133,7 +133,7 @@ int TSEvr_writeValue(FILE* to, TStoixeiouEvr Elem) {
   return 0;
 }
 
-int TSEvr_printStruct(TStoixeiouEvr Elem) {
+int TSIndex_printStruct(TStoixeiouEvr Elem) {
   printf("airportID: %d\n", Elem.airportID);
   printf("name: %s\n", Elem.name);
   printf("city: %s\n", Elem.city);

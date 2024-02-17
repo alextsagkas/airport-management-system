@@ -5,14 +5,14 @@
 
 #define LOG_FILEPATH "data/linux/output/temp.txt"
 
-struct EvrNode {
+struct IndexNode {
   TStoixeiouEvr* DataArray; /* array of size MaxSize */
   int Index;                /* index of first available element in array */
   Treep TreeRoot;           /* Root of DDA */
-} EvrNode;
+} IndexNode;
 
-EvrPtr Evr_construct(int MaxSize) {
-  EvrPtr E = (EvrPtr)malloc(sizeof(struct EvrNode));
+IndexNodep Index_construct(int MaxSize) {
+  IndexNodep E = (IndexNodep)malloc(sizeof(struct IndexNode));
   assert(E != NULL);
 
   E->DataArray = (TStoixeiouEvr*)malloc(MaxSize * sizeof(TStoixeiouEvr));
@@ -26,7 +26,7 @@ EvrPtr Evr_construct(int MaxSize) {
   return E;
 }
 
-int Evr_insert(EvrPtr E, TStoixeiouEvr Data) {
+int Index_insert(IndexNodep E, TStoixeiouEvr Data) {
   E->DataArray[E->Index] = Data;
   E->Index++;
 
@@ -38,7 +38,7 @@ int Evr_insert(EvrPtr E, TStoixeiouEvr Data) {
   return 0;
 }
 
-int Evr_search(EvrPtr E, keyType key, int InOut, int* found) {
+int Index_search(IndexNodep E, keyType key, int InOut, int* found) {
   // The index is not used for searching, so it is set arbitrarily to 0
   TStoixeiouDDA DDAData = {.key = key, .arrayIndex = 0};
 
@@ -54,25 +54,25 @@ int Evr_search(EvrPtr E, keyType key, int InOut, int* found) {
   TStoixeiouEvr* Data = &E->DataArray[((TStoixeiouDDA*)result)->arrayIndex];
 
   if (InOut == 0) {
-    TSEvr_setValue(Data,
-                   (TStoixeiouEvr){.airportID = Data->airportID,
-                                   .name = Data->name,
-                                   .city = Data->city,
-                                   .country = Data->country,
-                                   .IATA = Data->IATA,
-                                   .ICAO = Data->ICAO,
-                                   .arrivals = Data->arrivals + 1,
-                                   .departures = Data->departures});
+    TSIndex_setValue(Data,
+                     (TStoixeiouEvr){.airportID = Data->airportID,
+                                     .name = Data->name,
+                                     .city = Data->city,
+                                     .country = Data->country,
+                                     .IATA = Data->IATA,
+                                     .ICAO = Data->ICAO,
+                                     .arrivals = Data->arrivals + 1,
+                                     .departures = Data->departures});
   } else if (InOut == 1) {
-    TSEvr_setValue(Data,
-                   (TStoixeiouEvr){.airportID = Data->airportID,
-                                   .name = Data->name,
-                                   .city = Data->city,
-                                   .country = Data->country,
-                                   .IATA = Data->IATA,
-                                   .ICAO = Data->ICAO,
-                                   .arrivals = Data->arrivals,
-                                   .departures = Data->departures + 1});
+    TSIndex_setValue(Data,
+                     (TStoixeiouEvr){.airportID = Data->airportID,
+                                     .name = Data->name,
+                                     .city = Data->city,
+                                     .country = Data->country,
+                                     .IATA = Data->IATA,
+                                     .ICAO = Data->ICAO,
+                                     .arrivals = Data->arrivals,
+                                     .departures = Data->departures + 1});
   } else {
     return -2;
   }
@@ -80,7 +80,7 @@ int Evr_search(EvrPtr E, keyType key, int InOut, int* found) {
   return 0;
 }
 
-int Evr_printAll(EvrPtr E, FILE* out, int* counter) {
+int Index_printAll(IndexNodep E, FILE* out, int* counter) {
   FILE* log = fopen(LOG_FILEPATH, "w+");
 
   // Write the AirportID and the arrayIndex to the file
@@ -133,7 +133,7 @@ int Evr_printAll(EvrPtr E, FILE* out, int* counter) {
   return 0;
 }
 
-int Evr_destruct(EvrPtr* E) {
+int Index_destruct(IndexNodep* E) {
   keyType key;
   void* TSDDAData;
 
@@ -159,14 +159,14 @@ int Evr_destruct(EvrPtr* E) {
   // Deallocate the RBT
   RBT_delete_tree((*E)->TreeRoot);
 
-  // Deallocate the EvrNode
+  // Deallocate the IndexNode
   free(*E);
   *E = NULL;
 
   return 0;
 }
 
-int Evr_printArrayRBT(EvrPtr E) {
+int Index_printArrayRBT(IndexNodep E) {
   printf("\n----------------------------------\n");
   for (int i = 0; i < E->Index; i++) {
     printf("Index: %d\n", i);
