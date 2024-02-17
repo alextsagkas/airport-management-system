@@ -78,6 +78,6 @@ index: index/index.c index/index.h index/index.o
 clean: 
 	find . -name "*.o" -type f -delete
 	find . -name "exec_*" -type f -delete
-	rm -rf ./data/linux/test/*
+	rm -rf ./data/test/*
 
 # ------------------------------------------------------- #

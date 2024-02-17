@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define MAXSIZE 10
-#define OUTPUT_FILEPATH "data/linux/test/output.txt"
+#define OUTPUT_FILEPATH "data/test/output.txt"
 
 int main() {
   /* ------------------------------------------------------ */

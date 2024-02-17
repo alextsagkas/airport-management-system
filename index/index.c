@@ -3,7 +3,7 @@
 
 #include "../rbt_module/rbt.h" /* h Ylopoihsh sas toy R/B */
 
-#define LOG_FILEPATH "data/linux/output/temp.txt"
+#define LOG_FILEPATH "data/output/temp.txt"
 
 struct IndexNode {
   TElementIndex* DataArray; /* array of size MaxSize */
