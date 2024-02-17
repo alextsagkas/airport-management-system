@@ -1,4 +1,4 @@
-#include "../index_module/teindex.h"
+#include "../eindex_module/teindex.h"
 #include <stdio.h>
 
 // #define FILEPATH "data/airports_random.txt"
