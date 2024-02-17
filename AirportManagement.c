@@ -136,7 +136,7 @@ int main() {
 int insert_elements_to_evr(IndexNodep E,
                            FILE* airports_file,
                            FILE* output_file) {
-  TStoixeiouEvr elem;
+  TElementIndex elem;
 
   // total time elapsed
   struct timeval t_start, t_end;
@@ -196,7 +196,7 @@ int insert_elements_to_evr(IndexNodep E,
       gettimeofday(&t_start_12, NULL);
     }
 
-    TSIndex_readValue(airports_file, &elem);
+    TEIndex_readValue(airports_file, &elem);
     int ret = Index_insert(E, elem);
     if (ret != 0) {
       return -1;

@@ -11,7 +11,7 @@ int main() {
 
   Index_printArrayRBT(E);
   /* ------------------------------------------------------ */
-  TStoixeiouEvr Elem;
+  TElementIndex Elem;
 
   Elem.airportID = 2561;
   Elem.name = strdup("Guajara-Mirim Airport");
@@ -32,7 +32,7 @@ int main() {
 
   Index_printArrayRBT(E);
   /* ------------------------------------------------------ */
-  TStoixeiouEvr Elem1;
+  TElementIndex Elem1;
 
   Elem1.airportID = 3941;
   Elem1.name = strdup("Eleftherios Venizelos International Airport");
@@ -53,7 +53,7 @@ int main() {
 
   Index_printArrayRBT(E);
   /* ------------------------------------------------------ */
-  TStoixeiouEvr Elem2;
+  TElementIndex Elem2;
 
   Elem2.airportID = 6908;
   Elem2.name = strdup("Brest Airport");

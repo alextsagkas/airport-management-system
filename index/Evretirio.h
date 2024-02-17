@@ -11,7 +11,7 @@ typedef struct IndexNode* IndexNodep;
 /*
 Description: Construct a new IndexNodep. Its fields hold the following
 information:
-    - The DataArray is an array of TStoixeiouEvr of size MaxSize.
+    - The DataArray is an array of TElementIndex of size MaxSize.
     - The Index is initialized to 0, which is the first available position in
       the DataArray.
     - The TreeRoot is the root of the DDA.
@@ -44,24 +44,24 @@ Return values:
 int Index_destruct(IndexNodep* E);
 
 /*
-Description: Insert a new TStoixeiouEvr in the IndexNodep's DataArray and RBT.
+Description: Insert a new TElementIndex in the IndexNodep's DataArray and RBT.
 
 Parameters:
     - E (IndexNodep): A pointer to the IndexNodep.
-    - Data (TStoixeiouEvr): The TStoixeiouEvr to be inserted.
+    - Data (TElementIndex): The TElementIndex to be inserted.
 
 Return values:
     - 0 : if the function was successful.
     - -1: if the insertion in the RBT was not successful.
 */
-int Index_insert(IndexNodep E, TStoixeiouEvr Data);
+int Index_insert(IndexNodep E, TElementIndex Data);
 
 /*
 Description: Search for a TBSTElement in the IndexNodep's RBT with
 corresponding key to the parameter passed in the function. The function sets the
 value of the parameter found to 1 if the key was found in the RBT, otherwise it
 sets it to 0. Also, if the key is found in the RBT, the function increments the
-arrivals or departures of the corresponding TStoixeiouEvr in the DataArray, when
+arrivals or departures of the corresponding TElementIndex in the DataArray, when
 the InOut is 0 or 1, respectively.
 
 Parameters:

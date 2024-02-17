@@ -7,14 +7,14 @@ Description: Prints the fields of the given Elem struct. It is used for
 debugging purposes.
 
 Parameters:
-  - Elem (TStoixeiouEvr): The struct to print.
+  - Elem (TElementIndex): The struct to print.
 
 Return value:
   - 0: Success.
 */
-int TSIndex_printStruct(TStoixeiouEvr Elem);
+int TEIndex_printStruct(TElementIndex Elem);
 
-int TSIndex_setValue(TStoixeiouEvr* target, TStoixeiouEvr source) {
+int TEIndex_setValue(TElementIndex* target, TElementIndex source) {
   // These two fields cannot be NULL so we can use strdup directly
   target->airportID = source.airportID;
   target->name = strdup(source.name);
@@ -49,7 +49,7 @@ int TSIndex_setValue(TStoixeiouEvr* target, TStoixeiouEvr source) {
   return 0;
 }
 
-int TSIndex_readValue(FILE* from, TStoixeiouEvr* Elem) {
+int TEIndex_readValue(FILE* from, TElementIndex* Elem) {
   char line[MAX_LINE_LENGTH];
   char delimeter[] = ";";
   char* token;
@@ -101,7 +101,7 @@ int TSIndex_readValue(FILE* from, TStoixeiouEvr* Elem) {
   return 0;
 }
 
-int TSIndex_writeValue(FILE* to, TStoixeiouEvr Elem) {
+int TEIndex_writeValue(FILE* to, TElementIndex Elem) {
   fprintf(to, "%d;%s;", Elem.airportID, Elem.name);
 
   if (Elem.city == NULL) {
@@ -133,7 +133,7 @@ int TSIndex_writeValue(FILE* to, TStoixeiouEvr Elem) {
   return 0;
 }
 
-int TSIndex_printStruct(TStoixeiouEvr Elem) {
+int TEIndex_printStruct(TElementIndex Elem) {
   printf("airportID: %d\n", Elem.airportID);
   printf("name: %s\n", Elem.name);
   printf("city: %s\n", Elem.city);

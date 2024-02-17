@@ -6,7 +6,7 @@
 #define LOG_FILEPATH "data/linux/output/temp.txt"
 
 struct IndexNode {
-  TStoixeiouEvr* DataArray; /* array of size MaxSize */
+  TElementIndex* DataArray; /* array of size MaxSize */
   int Index;                /* index of first available element in array */
   Treep TreeRoot;           /* Root of DDA */
 } IndexNode;
@@ -15,10 +15,10 @@ IndexNodep Index_construct(int MaxSize) {
   IndexNodep E = (IndexNodep)malloc(sizeof(struct IndexNode));
   assert(E != NULL);
 
-  E->DataArray = (TStoixeiouEvr*)malloc(MaxSize * sizeof(TStoixeiouEvr));
+  E->DataArray = (TElementIndex*)malloc(MaxSize * sizeof(TElementIndex));
   assert(E->DataArray != NULL);
 
-  // Start at 0-th position to add TStoixeiouEvr in the DataArray
+  // Start at 0-th position to add TElementIndex in the DataArray
   E->Index = 0;
 
   E->TreeRoot = RBT_create_tree();
@@ -26,7 +26,7 @@ IndexNodep Index_construct(int MaxSize) {
   return E;
 }
 
-int Index_insert(IndexNodep E, TStoixeiouEvr Data) {
+int Index_insert(IndexNodep E, TElementIndex Data) {
   E->DataArray[E->Index] = Data;
   E->Index++;
 
@@ -51,11 +51,11 @@ int Index_search(IndexNodep E, keyType key, int InOut, int* found) {
     *found = 1;
   }
 
-  TStoixeiouEvr* Data = &E->DataArray[((TBSTElement*)result)->arrayIndex];
+  TElementIndex* Data = &E->DataArray[((TBSTElement*)result)->arrayIndex];
 
   if (InOut == 0) {
-    TSIndex_setValue(Data,
-                     (TStoixeiouEvr){.airportID = Data->airportID,
+    TEIndex_setValue(Data,
+                     (TElementIndex){.airportID = Data->airportID,
                                      .name = Data->name,
                                      .city = Data->city,
                                      .country = Data->country,
@@ -64,8 +64,8 @@ int Index_search(IndexNodep E, keyType key, int InOut, int* found) {
                                      .arrivals = Data->arrivals + 1,
                                      .departures = Data->departures});
   } else if (InOut == 1) {
-    TSIndex_setValue(Data,
-                     (TStoixeiouEvr){.airportID = Data->airportID,
+    TEIndex_setValue(Data,
+                     (TElementIndex){.airportID = Data->airportID,
                                      .name = Data->name,
                                      .city = Data->city,
                                      .country = Data->country,
@@ -96,7 +96,7 @@ int Index_printAll(IndexNodep E, FILE* out, int* counter) {
   char line[100];
   char* token;
 
-  TStoixeiouEvr* Data;
+  TElementIndex* Data;
 
   fseek(log, 0, SEEK_SET);
 
