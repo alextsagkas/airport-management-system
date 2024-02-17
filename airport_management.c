@@ -1,5 +1,5 @@
 /*
-Client Program 	: AirportManagement.c
+Client Program 	: airport_management.c
 Author			    : Alexandros Tsagkaropoulos
 Goal			    	: Extention of RBT to manage airports
 */

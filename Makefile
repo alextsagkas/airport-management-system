@@ -2,8 +2,8 @@ all: exec_airport_management exec_index exec_tebst exec_teindex exec_rbt exec_in
 
 # ------------------------------------------------------- #
 
-exec_airport_management: airportmanagement index tebst teindex rbt
-	gcc AirportManagement.o index_module/index.o  index_module/tebst.o index_module/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
+exec_airport_management: airport_management index tebst teindex rbt
+	gcc airport_management.o index_module/index.o  index_module/tebst.o index_module/teindex.o rbt_module/rbt.o -o executables/exec_airport_management
 	# ./executables/exec_airport_management
 
 exec_index: rbt tebst teindex index scaffold_index
@@ -32,8 +32,8 @@ exec_string: string scaffold_string
 
 # ------------------------------------------------------- #
 
-airportmanagement: AirportManagement.c AirportManagement.o
-	gcc -c AirportManagement.c -o AirportManagement.o
+airport_management: airport_management.c airport_management.o
+	gcc -c airport_management.c -o airport_management.o
 
 scaffold_index: scaffolds/scaffold_index.c scaffolds/scaffold_index.o
 	gcc -c scaffolds/scaffold_index.c -o scaffolds/scaffold_index.o
