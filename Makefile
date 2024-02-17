@@ -1,32 +1,34 @@
+all: exec_airport_management exec_evretirio exec_tsdda exec_tsevr exec_rbt exec_int exec_string
+
 # ------------------------------------------------------- #
 
 exec_airport_management: airportmanagement evretirio tsdda tsevr rbt
 	gcc index/AirportManagement.o index/Evretirio.o  index/TSDDA.o index/TSEvr.o rbt_module/rbt.o -o executables/exec_airport_management
-	./executables/exec_airport_management
+	# ./executables/exec_airport_management
 
 exec_evretirio: rbt tsdda tsevr evretirio scaffold_evretirio
 	gcc rbt_module/rbt.o index/TSDDA.o index/TSEvr.o scaffolds/scaffold_evretirio.o index/Evretirio.o -o executables/exec_evretirio
-	./executables/exec_evretirio
+	# ./executables/exec_evretirio
 
 exec_tsdda: tsdda scaffold_tsdda
 	gcc scaffolds/scaffold_tsdda.o index/TSDDA.o -o executables/exec_tsdda
-	./executables/exec_tsdda
+	# ./executables/exec_tsdda
 
 exec_tsevr: tsevr scaffold_tsevr
 	gcc scaffolds/scaffold_tsevr.o index/TSEvr.o -o executables/exec_tsevr
-	./executables/exec_tsevr
+	# ./executables/exec_tsevr
 
 exec_rbt: int string rbt scaffold_rbt
 	gcc scaffolds/scaffold_rbt.o rbt_module/rbt.o int_module/int.o string_module/string.o -o executables/exec_rbt
-	./executables/exec_rbt
+	# ./executables/exec_rbt
 
 exec_int: int scaffold_int
 	gcc scaffolds/scaffold_int.o int_module/int.o -o executables/exec_int
-	./executables/exec_int
+	# ./executables/exec_int
 
 exec_string: string scaffold_string
 	gcc scaffolds/scaffold_string.o string_module/string.o -o executables/exec_string
-	./executables/exec_string
+	# ./executables/exec_string
 
 # ------------------------------------------------------- #
 

@@ -1,17 +1,17 @@
 Insert Elements to Evr
 ----------------------
-Total time elapsed: 4.703 ms
-Mean time per 511  elements: 0.334286 ms
-Mean time per 1023 elements: 0.669286 ms
-Mean time per 2047 elements: 1.34933 ms
-Mean time per 4095 elements: 2.688 ms
+Total time elapsed: 4.438 ms
+Mean time per 511  elements: 0.315571 ms
+Mean time per 1023 elements: 0.631857 ms
+Mean time per 2047 elements: 1.30033 ms
+Mean time per 4095 elements: 2.763 ms
 Total elements inserted: 7184
 
 Update Arrivals and Departures
 ------------------------------
-Total time elapsed: 37.214 ms
-Mean time per route: 0.00027652 ms
-Mean time per found route: 0.000274565 ms
+Total time elapsed: 36.431 ms
+Mean time per route: 0.000270701 ms
+Mean time per found route: 0.000268621 ms
 Search counter: 134580
 Found counter: 132920
 Not found counter: 1660
@@ -7203,5 +7203,5 @@ AirportID;Arrivals;Departures;
 12056;0;0;
 12057;0;0;
 
-Total time elapsed: 3.277 ms
+Total time elapsed: 3.541 ms
 Total elements printed: 7184
