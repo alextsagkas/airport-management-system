@@ -12,7 +12,7 @@ Goal			    	: Extention of RBT to manage airports
 #include <sys/time.h>
 
 #include "index/Evretirio.h"
-#include "index/TSDDA.h"
+#include "index/tebst.h"
 #include "index/TSEvr.h"
 
 // Filepaths

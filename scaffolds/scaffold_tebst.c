@@ -1,4 +1,4 @@
-#include "../index/TSDDA.h"
+#include "../index/tebst.h"
 #include <stdio.h>
 
 int main() {

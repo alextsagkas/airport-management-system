@@ -1,18 +1,18 @@
-all: exec_airport_management exec_evretirio exec_tsdda exec_tsevr exec_rbt exec_int exec_string
+all: exec_airport_management exec_evretirio exec_tebst exec_tsevr exec_rbt exec_int exec_string
 
 # ------------------------------------------------------- #
 
-exec_airport_management: airportmanagement evretirio tsdda tsevr rbt
-	gcc AirportManagement.o index/Evretirio.o  index/TSDDA.o index/TSEvr.o rbt_module/rbt.o -o executables/exec_airport_management
+exec_airport_management: airportmanagement evretirio tebst tsevr rbt
+	gcc AirportManagement.o index/Evretirio.o  index/tebst.o index/TSEvr.o rbt_module/rbt.o -o executables/exec_airport_management
 	# ./executables/exec_airport_management
 
-exec_evretirio: rbt tsdda tsevr evretirio scaffold_evretirio
-	gcc rbt_module/rbt.o index/tsdda.o index/TSEvr.o scaffolds/scaffold_evretirio.o index/Evretirio.o -o executables/exec_evretirio
+exec_evretirio: rbt tebst tsevr evretirio scaffold_evretirio
+	gcc rbt_module/rbt.o index/tebst.o index/TSEvr.o scaffolds/scaffold_evretirio.o index/Evretirio.o -o executables/exec_evretirio
 	# ./executables/exec_evretirio
 
-exec_tsdda: tsdda scaffold_tsdda
-	gcc scaffolds/scaffold_tsdda.o index/tsdda.o -o executables/exec_tsdda
-	# ./executables/exec_tsdda
+exec_tebst: tebst scaffold_tebst
+	gcc scaffolds/scaffold_tebst.o index/tebst.o -o executables/exec_tebst
+	# ./executables/exec_tebst
 
 exec_tsevr: tsevr scaffold_tsevr
 	gcc scaffolds/scaffold_tsevr.o index/TSEvr.o -o executables/exec_tsevr
@@ -38,8 +38,8 @@ airportmanagement: AirportManagement.c
 scaffold_evretirio: scaffolds/scaffold_evretirio.c
 	gcc -c scaffolds/scaffold_evretirio.c -o scaffolds/scaffold_evretirio.o
 
-scaffold_tsdda: scaffolds/scaffold_tsdda.c
-	gcc -c scaffolds/scaffold_tsdda.c -o scaffolds/scaffold_tsdda.o
+scaffold_tebst: scaffolds/scaffold_tebst.c
+	gcc -c scaffolds/scaffold_tebst.c -o scaffolds/scaffold_tebst.o
 
 scaffold_tsevr: scaffolds/scaffold_tsevr.c
 	gcc -c scaffolds/scaffold_tsevr.c -o scaffolds/scaffold_tsevr.o
@@ -67,8 +67,8 @@ rbt: rbt_module/rbt.c rbt_module/rbt.h
 tsevr: index/TSEvr.c index/TSEvr.h
 	gcc -c index/TSEvr.c -o index/TSEvr.o
 
-tsdda: index/tsdda.c index/tsdda.h
-	gcc -c index/tsdda.c -o index/tsdda.o
+tebst: index/tebst.c index/tebst.h
+	gcc -c index/tebst.c -o index/tebst.o
 
 evretirio: index/Evretirio.c index/Evretirio.h
 	gcc -c index/Evretirio.c -o index/Evretirio.o
