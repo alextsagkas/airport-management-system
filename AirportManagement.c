@@ -16,9 +16,9 @@ Goal			    	: Extention of RBT to manage airports
 #include "index_module/teindex.h"
 
 // Filepaths
-#define RANDOM_FILEPATH "data/airportsLinuxRandom.txt"
-#define SORTED_FILEPATH "data/airportsLinuxSorted.txt"
-#define ROUTES_FILEPATH "data/routesLinux.txt"
+#define RANDOM_FILEPATH "data/airports_random.txt"
+#define SORTED_FILEPATH "data/airports_sorted.txt"
+#define ROUTES_FILEPATH "data/routes.txt"
 #define output_random_file_FILEPATH "data/output/OUTPUTRandomBST.txt"
 #define output_sorted_file_FILEPATH "data/output/OUTPUTSortedBST.txt"
 
