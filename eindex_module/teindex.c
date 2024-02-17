@@ -16,7 +16,7 @@ int TEIndex_printStruct(TElementIndex Elem);
 
 int TEIndex_setValue(TElementIndex* target, TElementIndex source) {
   // These two fields cannot be NULL so we can use strdup directly
-  target->airportID = source.airportID;
+  target->airport_id = source.airport_id;
   target->name = strdup(source.name);
 
   if (source.city == NULL) {
@@ -56,7 +56,7 @@ int TEIndex_readValue(FILE* from, TElementIndex* Elem) {
 
   if (fgets(line, sizeof(line), from)) {
     token = strtok(line, delimeter);
-    Elem->airportID = atoi(token);
+    Elem->airport_id = atoi(token);
 
     token = strtok(NULL, delimeter);
     Elem->name = strdup(token);
@@ -102,7 +102,7 @@ int TEIndex_readValue(FILE* from, TElementIndex* Elem) {
 }
 
 int TEIndex_writeValue(FILE* to, TElementIndex Elem) {
-  fprintf(to, "%d;%s;", Elem.airportID, Elem.name);
+  fprintf(to, "%d;%s;", Elem.airport_id, Elem.name);
 
   if (Elem.city == NULL) {
     fprintf(to, "\\N;");
@@ -134,7 +134,7 @@ int TEIndex_writeValue(FILE* to, TElementIndex Elem) {
 }
 
 int TEIndex_printStruct(TElementIndex Elem) {
-  printf("airportID: %d\n", Elem.airportID);
+  printf("airport_id: %d\n", Elem.airport_id);
   printf("name: %s\n", Elem.name);
   printf("city: %s\n", Elem.city);
   printf("country: %s\n", Elem.country);

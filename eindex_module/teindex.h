@@ -6,7 +6,7 @@
 #include <string.h>
 
 typedef struct data {
-  int airportID;
+  int airport_id;
   char* name;
   char* city;
   char* country;

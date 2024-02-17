@@ -51,7 +51,7 @@ void TEBST_print(const char* term_color, const void* struct1);
 
 /*
 Description: Prints the data of the struct to the file denoted by the
-function's parameter. The form of the printed output is: airportID;arrayIndex;
+function's parameter. The form of the printed output is: airport_id;arrayIndex;
 
 Parameters:
   - out (FILE*): The file to be printed.

@@ -16,7 +16,7 @@ Search counter: 134580
 Found counter: 132920
 Not found counter: 1660
 
-AirportID;Arrivals;Departures;
+airport_id;Arrivals;Departures;
 ------------------------------
 1;5;5;
 2;8;8;

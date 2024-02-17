@@ -83,7 +83,7 @@ int Index_search(IndexNodep E, keyType key, int InOut, int* found);
 Description: Print all the elements in the DataArray of the IndexNodep in sorted
 ascending order. For this to happen the RBT is traversed in order and the
 elements are printed. Each line of the out file has the following format:
-airportID;arrivals;departures;
+airport_id;arrivals;departures;
 
 Parameters:
     - E (IndexNodep): A pointer to the IndexNodep.

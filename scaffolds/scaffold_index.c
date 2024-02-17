@@ -13,7 +13,7 @@ int main() {
   /* ------------------------------------------------------ */
   TElementIndex Elem;
 
-  Elem.airportID = 2561;
+  Elem.airport_id = 2561;
   Elem.name = strdup("Guajara-Mirim Airport");
   Elem.city = strdup("Guajara-Mirim");
   Elem.country = strdup("Brazil");
@@ -34,7 +34,7 @@ int main() {
   /* ------------------------------------------------------ */
   TElementIndex Elem1;
 
-  Elem1.airportID = 3941;
+  Elem1.airport_id = 3941;
   Elem1.name = strdup("Eleftherios Venizelos International Airport");
   Elem1.city = strdup("Athens");
   Elem1.country = strdup("Greece");
@@ -55,7 +55,7 @@ int main() {
   /* ------------------------------------------------------ */
   TElementIndex Elem2;
 
-  Elem2.airportID = 6908;
+  Elem2.airport_id = 6908;
   Elem2.name = strdup("Brest Airport");
   Elem2.city = strdup("Brest");
   Elem2.country = strdup("Belarus");

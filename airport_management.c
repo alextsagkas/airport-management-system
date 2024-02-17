@@ -66,7 +66,7 @@ int update_arrivals_departures(IndexNodep E,
 
 /*
 Description: Print the elements of the Evr to the file, in ascending order, by
-traversing the RBT. The format of each line is: airportID;arrivals;departures;.
+traversing the RBT. The format of each line is: airport_id;arrivals;departures;.
 In the end, it prints the total number of elements printed and the total time
 elapsed for the print completion.
 
