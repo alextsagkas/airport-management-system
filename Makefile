@@ -72,6 +72,11 @@ index: index_module/index.c index_module/index.h index_module/index.o
 	gcc -c index_module/index.c -o index_module/index.o
 
 # ------------------------------------------------------- #
+diff:
+	@echo "The status of the repository and the volume of per-file changes:"
+	@echo ""
+	@git status
+	@git --no-pager diff --stat
 
 clean: 
 	find . -name "*.o" -type f -delete
